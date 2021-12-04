@@ -6,7 +6,8 @@ COPY . /app
 ENV NPM_CONFIG_LOGLEVEL warn
 RUN npm i --registry=https://registry.npmmirror.com
 # RUN npm audit fix
-RUN npm run build
+RUN export NODE_OPTIONS=--openssl-legacy-provider \ 
+    && npm run build
 
 FROM node:slim AS final
 WORKDIR /app

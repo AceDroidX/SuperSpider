@@ -13,9 +13,7 @@
               width="150px"
               style="text-align: center"
             />
-            <p style="margin: 0">
-v1.0.8
-</p>
+            <p style="margin: 0">v1.0.8</p>
           </div>
         </el-row>
         <el-row class="sider-scrollbar-item">
@@ -111,17 +109,23 @@ v1.0.8
           <p>{{ $t('sc.t3') }}</p>
           <p>
             {{ $t('sc.t4')
-            }}<a href="https://faithtown.tech/"
-target="_blank"
->Il Harper</a>{{ $t('sc.t5') }}
+            }}<a href="https://github.com/AceDroidX" target="_blank"
+              >AceDroidX</a
+            >
           </p>
-          <p>{{ $t('sc.t6') }}</p>
-
-          <a target="_blank"
-href="https://github.com/dd-center/SuperSpider"
-          ><img
-            alt="Star BiliSC! "
-              src="https://img.shields.io/github/stars/dd-center/superspider?color=brightgreen&label=github%20stars&style=flat-square"
+          <p>
+            {{ $t('sc.t5')
+            }}<a href="https://github.com/dd-center/SuperSpider" target="_blank"
+              >原项目</a
+            >{{ $t('sc.t6') }}
+            <a href="https://github.com/Afanyiyu" target="_blank">Il Harper</a>
+            {{ $t('sc.t7') }}
+          </p>
+          <p>{{ $t('sc.t8') }}</p>
+          <a target="_blank" href="https://github.com/AceDroidX/SuperSpider"
+            ><img
+              alt="Star BiliSC! "
+              src="https://img.shields.io/github/stars/AceDroidX/SuperSpider?color=brightgreen&label=github%20stars&style=flat-square"
           /></a>
         </el-row>
       </sider-scrollbar>
@@ -157,8 +161,8 @@ href="https://github.com/dd-center/SuperSpider"
               <Superchat
                 v-if="
                   Number(item.hide) == 0 &&
-                    (Number(item.sc) == 1 ||
-                      (Number(item.sc) == 0 && showGiftNative))
+                  (Number(item.sc) == 1 ||
+                    (Number(item.sc) == 0 && showGiftNative))
                 "
                 :title="
                   $i18n.locale !== 'ja' || !showKanaNative
@@ -380,6 +384,11 @@ export default {
 </script>
 
 <style>
+/* 设置超链接不变色 */
+a {
+  color: rgb(0, 150, 255);
+}
+
 .el-menu-item,
 .el-submenu__title {
   height: auto;

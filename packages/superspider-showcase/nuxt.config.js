@@ -71,6 +71,6 @@ export default {
     extend(config, ctx) {},
   },
   env: {
-    baseApiUrl: process.env.BASE_API_URL || 'http://superspider-mcore:2162',
+    baseApiUrl: process.env.BASE_API_URL || 'http://127.0.0.1:2162',
   }
 }

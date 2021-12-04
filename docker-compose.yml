@@ -36,12 +36,12 @@ services:
       MONGODB_PASS: superspider
       MONGODB_IP: mongo
     ports:
-      - "8011:2162"
+      - "2162:2162"
   superspider-showcase:
     build: ./packages/superspider-showcase
     container_name: superspider-showcase
     environment:
-      BASE_API_URL: http://127.0.0.1:8011
+      BASE_API_URL: http://127.0.0.1:2162
     ports:
       - "8010:2164"
 

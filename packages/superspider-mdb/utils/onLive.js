@@ -1,7 +1,7 @@
 const rp = require('request-promise-native')
 
 module.exports = async function () {
-  const list = [21452505, 22622535]
+  const list = [21452505, 80397, 22622535]
   // let i = 1
   // while (true) {
   //   const data = JSON.parse(
