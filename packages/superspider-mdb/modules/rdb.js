@@ -45,6 +45,9 @@ const rdbCore = async (rid) => {
     if (data.code !== 0) {
       console.log('ERR when rp room ' + rid + ' by code')
       return
+    } else if (data.data.list == undefined) {
+      console.log(`LOG no data for room ${rid}`)
+      return
     }
     for (const item of data.data.list) {
       const uname = item.user_info.uname

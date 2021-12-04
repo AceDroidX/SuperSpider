@@ -171,7 +171,7 @@ export default {
         return
       let err = false
       const scData = await this.$axios({
-        url: 'https://api.bilisc.com/sc/getData',
+        url: process.env.baseApiUrl + '/sc/getData',
         method: 'POST',
         data: 'roomid=' + this.form.room + '&filter=on',
         headers: {
@@ -193,7 +193,7 @@ export default {
         return
       let err = false
       const res = await this.$axios({
-        url: 'https://api.bilisc.com/sc/submit',
+        url: process.env.baseApiUrl + '/sc/submit',
         method: 'POST',
         data: qs.stringify({
           username: this.submitForm.username,
@@ -225,7 +225,7 @@ export default {
         return
       let err = false
       const res = await this.$axios({
-        url: 'https://api.bilisc.com/sc/hide',
+        url: process.env.baseApiUrl + '/sc/hide',
         method: 'POST',
         data: qs.stringify({
           username: this.submitForm.username,

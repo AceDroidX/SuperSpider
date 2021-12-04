@@ -340,7 +340,7 @@ export default {
       if (!this.room || isNaN(Number(this.room)) || this.room === '') return
       let err = false
       const scData = await this.$axios({
-        url: 'https://api.bilisc.com/sc/getData',
+        url: process.env.baseApiUrl + '/sc/getData',
         method: 'POST',
         data:
           'roomid=' + this.room + (this.giftFilterNative ? '&filter=on' : ''),
