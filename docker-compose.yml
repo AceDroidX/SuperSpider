@@ -1,0 +1,49 @@
+version: "3.7"
+services:
+  mongo:
+    image: mongo
+    restart: unless-stopped
+    container_name: mongo
+    volumes:
+      - mongodata:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: superspider
+  superspider-predb:
+    build: ./packages/superspider-predb
+    container_name: superspider-predb
+    depends_on:
+      - mongo
+    environment:
+      MONGODB_PASS: superspider
+      MONGODB_IP: mongo
+  superspider-mdb:
+    build: ./packages/superspider-mdb
+    container_name: superspider-mdb
+    depends_on:
+      - mongo
+    environment:
+      MONGODB_PASS: superspider
+      MONGODB_IP: mongo
+  superspider-mcore:
+    build: ./packages/superspider-mcore
+    container_name: superspider-mcore
+    depends_on:
+      - mongo
+      - superspider-mdb
+      - superspider-predb
+    environment:
+      MONGODB_PASS: superspider
+      MONGODB_IP: mongo
+    ports:
+      - "8011:2162"
+  superspider-showcase:
+    build: ./packages/superspider-showcase
+    container_name: superspider-showcase
+    environment:
+      BASE_API_URL: http://127.0.0.1:8011
+    ports:
+      - "8010:2164"
+
+volumes:
+  mongodata: null
