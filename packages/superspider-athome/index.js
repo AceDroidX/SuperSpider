@@ -10,7 +10,7 @@ const parse = (string) => {
     if (json) {
       const {
         key,
-        data: { type, url }
+        data: { type, url },
       } = json
       if (type === 'http') {
         return { key, url }
@@ -61,7 +61,7 @@ if (process.env.development) {
 }
 
 console.log({
-  INTERVAL
+  INTERVAL,
 })
 
 console.log(`using: ${url}`)
@@ -82,7 +82,7 @@ const connect = () =>
         ws.send(
           JSON.stringify({
             key,
-            data: body
+            data: body,
           })
         )
         setTimeout(

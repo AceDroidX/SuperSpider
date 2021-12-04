@@ -9,9 +9,7 @@ const conv = require('./utils/nameConv')
 
 ;(async () => {
   const client = new MongoClient(
-    `mongodb://admin:${process.argv[3]}@${
-      process.argv[4]
-    }:27017/admin?authMechanism=DEFAULT`,
+    `mongodb://admin:${process.argv[3]}@${process.argv[4]}:27017/admin?authMechanism=DEFAULT`,
     { useNewUrlParser: true }
   )
 
@@ -48,8 +46,8 @@ const conv = require('./utils/nameConv')
             {
               $set: {
                 msgjpn: trData.message_trans,
-                status: trData !== '' ? 3 : 2
-              }
+                status: trData !== '' ? 3 : 2,
+              },
             }
           )
         } catch (e) {
@@ -61,10 +59,7 @@ const conv = require('./utils/nameConv')
       if (!(item.unamejpn && item.unamejpn !== '')) {
         // console.log('Un launched.')
         let unData = ''
-        const uf = await utrdb
-          .find({ uname: item.uname })
-          .limit(1)
-          .toArray()
+        const uf = await utrdb.find({ uname: item.uname }).limit(1).toArray()
         if (uf.length > 0 && uf[0].unamejpn && uf[0].unamejpn !== '') {
           unData = uf[0].unamejpn
           console.log('UN: ADD by UTRDB')

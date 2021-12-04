@@ -1,18 +1,17 @@
 const rp = require('request-promise-native')
 const cheerio = require('cheerio')
 
-module.exports = async function(name) {
+module.exports = async function (name) {
   const body = await rp({
-    uri:
-      'https://www.ltool.net/chinese-simplified-and-traditional-characters-pinyin-to-katakana-converter-in-simplified-chinese.php',
+    uri: 'https://www.ltool.net/chinese-simplified-and-traditional-characters-pinyin-to-katakana-converter-in-simplified-chinese.php',
     method: 'POST',
     form: {
       contents: name,
-      option: 4
+      option: 4,
     },
-    transform: function(body) {
+    transform: function (body) {
       return cheerio.load(body)
-    }
+    },
   })
   return cheerio.load(body('.finalresult').html()).text()
 }

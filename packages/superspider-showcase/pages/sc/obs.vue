@@ -1,22 +1,22 @@
 <template>
   <el-container :style="`height: 100vh; ${fontStyle}`">
-    <sider-scrollbar tag="section" style="width: 100%;">
-      <el-container align="center" style="width: 100%; overflow-y: overlay;">
-        <el-container align="center" style="display: block;">
+    <sider-scrollbar tag="section" style="width: 100%">
+      <el-container align="center" style="width: 100%; overflow-y: overlay">
+        <el-container align="center" style="display: block">
           <div v-for="liveItem in scData" :key="liveItem.ts" align="center">
             <h2 v-if="showTimeNative">
               {{ new Date(liveItem.ts).toLocaleString() + $t('sc.livets') }}
             </h2>
             <p
               v-if="!showTimeNative && liveItem.history"
-              style="color: #606266; font-size: 14px;"
+              style="color: #606266; font-size: 14px"
             >
               {{ $t('sc.history') }}
             </p>
             <div
               v-for="item in liveItem.data"
               :key="item._id"
-              style="margin: 20px;"
+              style="margin: 20px"
             >
               <Superchat
                 v-if="
@@ -45,9 +45,9 @@
                 :headercolor="item.pcolor"
                 :exrate="item.exRate"
                 :hiderate="$i18n.locale == 'zh'"
-                style="max-width: 700px;"
+                style="max-width: 700px"
                 align="left"
-              ></Superchat>
+              />
             </div>
           </div>
         </el-container>
@@ -60,15 +60,12 @@
 import SiderScrollbar from '~/components/scrollbar'
 import Superchat from '~/components/superchat.vue'
 export default {
-  head: {
-    title: 'BiliSC'
-  },
-  loading: false,
-  layout: 'empty',
   components: {
     Superchat,
-    'sider-scrollbar': SiderScrollbar
+    'sider-scrollbar': SiderScrollbar,
   },
+  layout: 'empty',
+  loading: false,
   data() {
     return {
       scData: [],
@@ -82,8 +79,11 @@ export default {
       addText: '',
       fontStyle: '',
       bgColor: '',
-      bgColorList: ['#304156', '#473252', '#00463f']
+      bgColorList: ['#304156', '#473252', '#00463f'],
     }
+  },
+  head: {
+    title: 'BiliSC',
   },
   computed: {
     showTime() {
@@ -107,8 +107,8 @@ export default {
         : true
     },
     lang() {
-      return this.$i18n.locale || (this.$route.query.lang || 'ja')
-    }
+      return this.$i18n.locale || this.$route.query.lang || 'ja'
+    },
   },
   watch: {
     showTimeNative() {
@@ -128,7 +128,7 @@ export default {
     },
     '$i18n.locale'() {
       this.fetchAdd()
-    }
+    },
   },
   async mounted() {
     this.bgColor = this.bgColorList[Math.floor(Math.random() * 3)]
@@ -210,9 +210,9 @@ export default {
         data:
           'roomid=' + this.room + (this.giftFilterNative ? '&filter=on' : ''),
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
-        progress: false
+        progress: false,
       }).catch((e) => {
         err = true
       })
@@ -231,7 +231,7 @@ export default {
         else this.scData.push(item)
       }
       // this.$nuxt.$loading.finish()
-    }
-  }
+    },
+  },
 }
 </script>

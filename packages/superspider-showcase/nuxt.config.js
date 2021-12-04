@@ -1,9 +1,8 @@
 export default {
   server: {
     host: '0.0.0.0',
-    port: '2164'
+    port: '2164',
   },
-  mode: 'universal',
   /*
    ** Headers of the page
    */
@@ -16,11 +15,11 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: process.env.npm_package_description || ''
+        content: process.env.npm_package_description || '',
       },
-      { name: 'referrer', content: 'never' }
+      { name: 'referrer', content: 'never' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
   /*
    ** Customize the progress-bar color
@@ -31,7 +30,7 @@ export default {
    */
   css: ['element-ui/lib/theme-chalk/index.css', '~/assets/main.css'],
   router: {
-    middleware: 'i18n'
+    middleware: 'i18n',
   },
   /*
    ** Plugins to load before mounting the App
@@ -39,14 +38,14 @@ export default {
   plugins: [
     '@/plugins/element-ui',
     '~/plugins/i18n.js',
-    '~/plugins/plugins.js'
+    '~/plugins/plugins.js',
   ],
   /*
    ** Nuxt.js dev-modules
    */
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module'
+    '@nuxtjs/eslint-module',
   ],
   /*
    ** Nuxt.js modules
@@ -54,7 +53,7 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
   ],
   /*
    ** Axios module configuration
@@ -69,6 +68,6 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
-  }
+    extend(config, ctx) {},
+  },
 }

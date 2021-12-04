@@ -19,26 +19,14 @@
     }
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.9.5",
-    "@nuxtjs/pwa": "^3.0.0-0",
-    "@sentry/browser": "^5.12.5",
-    "@sentry/integrations": "^5.12.5",
-    "element-ui": "^2.4.11",
-    "nuxt": "^2.0.0",
-    "qs": "^6.9.0",
-    "vue-clipboard2": "^0.3.1",
-    "vue-i18n": "^8.14.1"
+    "@nuxtjs/axios": "^5.13.6",
+    "@nuxtjs/pwa": "^3.3.5",
+    "element-ui": "^2.15.6",
+    "nuxt": "^2.15.8",
+    "vue-clipboard2": "^0.3.3",
+    "vue-i18n": "^8.26.7"
   },
   "devDependencies": {
-    "@nuxtjs/eslint-config": "^1.0.1",
-    "@nuxtjs/eslint-module": "^1.0.0",
-    "babel-eslint": "^10.0.1",
-    "eslint": "^6.1.0",
-    "eslint-plugin-nuxt": ">=0.4.2",
-    "eslint-config-prettier": "^4.1.0",
-    "eslint-plugin-prettier": "^3.0.1",
-    "prettier": "^1.16.4",
-    "husky": "^2.6.0",
-    "lint-staged": "^8.2.1"
+    "@nuxtjs/eslint-module": "^3.0.2"
   }
 }

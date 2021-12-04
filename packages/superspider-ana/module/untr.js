@@ -4,7 +4,7 @@ const conv = require('../utils/nameConv')
 
 const log = process.env.NODE_ENV == 'development' ? console.log : () => {}
 
-module.exports = async function() {
+module.exports = async function () {
   if (!global.amdb) return
   const amdb = global.amdb
   if (!global.utrdb) return
@@ -15,10 +15,7 @@ module.exports = async function() {
     const item = await cursor.next()
     if (item.unamejpn && item.unamejpn !== '') continue
     let data = ''
-    const uf = await utrdb
-      .find({ uname: item.uname })
-      .limit(1)
-      .toArray()
+    const uf = await utrdb.find({ uname: item.uname }).limit(1).toArray()
     if (uf.length > 0 && uf[0].unamejpn && uf[0].unamejpn !== '') {
       data = uf[0].unamejpn
       log('UN: ADD by UTRDB')

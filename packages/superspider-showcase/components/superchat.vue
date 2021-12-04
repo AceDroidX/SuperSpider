@@ -1,5 +1,6 @@
 <template>
-  <div id="card" class="style-scope yt-live-chat-paid-message-renderer">
+  <div id="card"
+class="style-scope yt-live-chat-paid-message-renderer">
     <div
       id="header"
       class="style-scope yt-live-chat-paid-message-renderer"
@@ -13,7 +14,7 @@
         height="40"
         width="40"
         :src="avatar"
-      />
+      >
       <div
         id="header-content"
         class="style-scope yt-live-chat-paid-message-renderer"
@@ -31,7 +32,7 @@
           <div
             id="purchase-amount"
             class="style-scope yt-live-chat-paid-message-renderer"
-            style="transform:scale(0.9);transform-origin: left;"
+            style="transform: scale(0.9); transform-origin: left"
           >
             {{
               hiderate
@@ -70,41 +71,41 @@ export default {
   props: {
     title: {
       type: String,
-      default: '（获取失败）'
+      default: '（获取失败）',
     },
     price: {
       type: Number,
-      default: 0
+      default: 0,
     },
     message: {
       type: String,
-      default: '（获取失败）'
+      default: '（获取失败）',
     },
     messagejpn: {
       type: String,
-      default: '（获取失败）'
+      default: '（获取失败）',
     },
     avatar: {
       type: String,
-      default: 'https://static.hdslb.com/images/member/noface.gif'
+      default: 'https://static.hdslb.com/images/member/noface.gif',
     },
     contentcolor: {
       type: String,
-      default: '#1565c0'
+      default: '#1565c0',
     },
     headercolor: {
       type: String,
-      default: '#125aac'
+      default: '#125aac',
     },
     exrate: {
       type: Number,
-      default: 14.7
+      default: 14.7,
     },
     hiderate: {
       type: Boolean,
-      default: false
-    }
-  }
+      default: false,
+    },
+  },
   // data() {
   //   return {
   //     imgsrc: ''

@@ -1,6 +1,6 @@
 const rp = require('request-promise-native')
 
-module.exports = async function() {
+module.exports = async function () {
   const list = []
   let i = 1
   while (true) {

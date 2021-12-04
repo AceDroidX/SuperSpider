@@ -10,10 +10,10 @@
   "author": "Il Harper",
   "license": "MIT",
   "dependencies": {
-    "cross-env": "^6.0.0",
-    "nodemon": "^1.19.3",
-    "request": "^2.88.0",
-    "request-promise-native": "^1.0.7",
-    "ws": "^7.1.2"
+    "cross-env": "^7.0.3",
+    "nodemon": "^2.0.15",
+    "request": "^2.88.2",
+    "request-promise-native": "^1.0.9",
+    "ws": "^8.3.0"
   }
 }

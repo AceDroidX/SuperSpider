@@ -4,16 +4,18 @@
       class="sider-label"
       :style="`background-color: ${bgColor}; height: 100vh; width: 450px;`"
     >
-      <sider-scrollbar tag="div" style="height: 100vh;" :block-style="true">
+      <sider-scrollbar tag="div" style="height: 100vh" :block-style="true">
         <el-row class="sider-scrollbar-item">
-          <div align-center style="text-align: center;">
+          <div align-center style="text-align: center">
             <img
               src="~/assets/Logo_Trans.png"
               height="150px"
               width="150px"
-              style="text-align: center;"
+              style="text-align: center"
             />
-            <p style="margin: 0;">v1.0.8</p>
+            <p style="margin: 0">
+v1.0.8
+</p>
           </div>
         </el-row>
         <el-row class="sider-scrollbar-item">
@@ -24,16 +26,18 @@
               plain
               :style="fontStyle"
               @click="openLink('https://docs.bilisc.com')"
-              >{{ $t('common.tutorial') }}</el-button
             >
+              {{ $t('common.tutorial') }}
+            </el-button>
             <el-button
               size="small"
               type="primary"
               plain
               :style="fontStyle"
               @click="openLink('http://chat.bilisc.com')"
-              >{{ $t('common.chat') }}</el-button
             >
+              {{ $t('common.chat') }}
+            </el-button>
           </el-button-group>
         </el-row>
         <el-row class="sider-scrollbar-item">
@@ -46,35 +50,25 @@
           >
             <el-form-item :label="$t('common.lang')">
               <el-select v-model="$i18n.locale">
-                <el-option label="日本語" value="ja"></el-option>
-                <el-option label="中文" value="zh"></el-option>
+                <el-option label="日本語" value="ja" />
+                <el-option label="中文" value="zh" />
               </el-select>
             </el-form-item>
             <el-form-item :label="$t('common.showTime')">
-              <el-switch v-model="showTimeNative"></el-switch>
+              <el-switch v-model="showTimeNative" />
             </el-form-item>
             <el-form-item :label="$t('common.showGift')">
-              <el-switch v-model="showGiftNative"></el-switch>
+              <el-switch v-model="showGiftNative" />
             </el-form-item>
             <el-form-item :label="$t('common.giftFilter')">
-              <el-switch v-model="giftFilterNative"></el-switch>
+              <el-switch v-model="giftFilterNative" />
             </el-form-item>
             <el-form-item :label="$t('common.showKana')">
-              <el-switch
-                v-if="$i18n.locale == 'ja'"
-                v-model="showKanaNative"
-              ></el-switch>
-              <el-switch
-                v-if="$i18n.locale !== 'ja'"
-                :value="false"
-                disabled
-              ></el-switch>
+              <el-switch v-if="$i18n.locale == 'ja'" v-model="showKanaNative" />
+              <el-switch v-if="$i18n.locale !== 'ja'" :value="false" disabled />
             </el-form-item>
             <el-form-item :label="$t('common.channelid')">
-              <el-input
-                v-model="room"
-                @keyup.enter.native="startFetchData"
-              ></el-input>
+              <el-input v-model="room" @keyup.enter.native="startFetchData" />
             </el-form-item>
             <el-form-item>
               <el-button
@@ -83,8 +77,9 @@
                 icon="el-icon-s-promotion"
                 @click="startFetchData"
                 @keyup.enter.native="startFetchData"
-                >Go</el-button
               >
+                Go
+              </el-button>
             </el-form-item>
           </el-form>
         </el-row>
@@ -96,16 +91,18 @@
               plain
               :style="fontStyle"
               @click="openLink(addText, true)"
-              >{{ $t('common.standalone') }}</el-button
             >
+              {{ $t('common.standalone') }}
+            </el-button>
             <el-button
               size="small"
               type="primary"
               plain
               :style="fontStyle"
               @click="copyText"
-              >{{ $t('common.copy') }}</el-button
             >
+              {{ $t('common.copy') }}
+            </el-button>
           </el-button-group>
         </el-row>
         <el-row class="sider-scrollbar-item">
@@ -114,36 +111,38 @@
           <p>{{ $t('sc.t3') }}</p>
           <p>
             {{ $t('sc.t4')
-            }}<a href="https://faithtown.tech/" target="_blank">Il Harper</a
-            >{{ $t('sc.t5') }}
+            }}<a href="https://faithtown.tech/"
+target="_blank"
+>Il Harper</a>{{ $t('sc.t5') }}
           </p>
           <p>{{ $t('sc.t6') }}</p>
 
-          <a target="_blank" href="https://github.com/dd-center/SuperSpider"
-            ><img
-              alt="Star BiliSC! "
+          <a target="_blank"
+href="https://github.com/dd-center/SuperSpider"
+          ><img
+            alt="Star BiliSC! "
               src="https://img.shields.io/github/stars/dd-center/superspider?color=brightgreen&label=github%20stars&style=flat-square"
           /></a>
         </el-row>
       </sider-scrollbar>
     </section>
-    <sider-scrollbar tag="section" style="width: 100%;">
-      <el-container align="center" style="width: 100%; overflow-y: overlay;">
-        <el-container align="center" style="display: block;">
+    <sider-scrollbar tag="section" style="width: 100%">
+      <el-container align="center" style="width: 100%; overflow-y: overlay">
+        <el-container align="center" style="display: block">
           <div v-for="liveItem in scData" :key="liveItem.ts" align="center">
             <h2 v-if="showTimeNative">
               {{ new Date(liveItem.ts).toLocaleString() + $t('sc.livets') }}
             </h2>
             <p
               v-if="!showTimeNative && liveItem.history"
-              style="color: #606266; font-size: 14px;"
+              style="color: #606266; font-size: 14px"
             >
               {{ $t('sc.history') }}
             </p>
             <div
               v-for="item in liveItem.data"
               :key="item._id"
-              style="margin: 20px;"
+              style="margin: 20px"
             >
               <!--
                               :title="
@@ -182,9 +181,9 @@
                 :headercolor="item.pcolor"
                 :exrate="item.exRate"
                 :hiderate="$i18n.locale == 'zh'"
-                style="max-width: 700px;"
+                style="max-width: 700px"
                 align="left"
-              ></Superchat>
+              />
             </div>
           </div>
         </el-container>
@@ -197,14 +196,11 @@
 import SiderScrollbar from '~/components/scrollbar'
 import Superchat from '~/components/superchat.vue'
 export default {
-  head: {
-    title: 'BiliSC'
-  },
-  layout: 'empty',
   components: {
     Superchat,
-    'sider-scrollbar': SiderScrollbar
+    'sider-scrollbar': SiderScrollbar,
   },
+  layout: 'empty',
   data() {
     return {
       scData: [],
@@ -218,8 +214,11 @@ export default {
       addText: '',
       fontStyle: '',
       bgColor: '',
-      bgColorList: ['#304156', '#473252', '#00463f']
+      bgColorList: ['#304156', '#473252', '#00463f'],
     }
+  },
+  head: {
+    title: 'BiliSC',
   },
   computed: {
     showTime() {
@@ -243,8 +242,8 @@ export default {
         : true
     },
     lang() {
-      return this.$i18n.locale || (this.$route.query.lang || 'ja')
-    }
+      return this.$i18n.locale || this.$route.query.lang || 'ja'
+    },
   },
   watch: {
     showTimeNative() {
@@ -264,7 +263,7 @@ export default {
     },
     '$i18n.locale'() {
       this.fetchAdd()
-    }
+    },
   },
   async mounted() {
     this.bgColor = this.bgColorList[Math.floor(Math.random() * 3)]
@@ -346,8 +345,8 @@ export default {
         data:
           'roomid=' + this.room + (this.giftFilterNative ? '&filter=on' : ''),
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
       }).catch(() => {
         err = true
       })
@@ -375,8 +374,8 @@ export default {
           'menubar=0,location=0,scrollbars=0,toolbar=0,width=600,height=600'
         )
       else window.open(link)
-    }
-  }
+    },
+  },
 }
 </script>
 

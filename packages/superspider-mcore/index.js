@@ -23,7 +23,7 @@ process.on('uncaughtException', (err) => {
       maxAge: 5,
       credentials: true,
       allowMethods: ['GET', 'POST', 'DELETE'],
-      allowHeaders: ['Content-Type', 'Authorization', 'Accept']
+      allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
     })
   )
 
@@ -69,7 +69,7 @@ process.on('uncaughtException', (err) => {
     global.udb.createIndex(
       {
         username: -1,
-        password: -1
+        password: -1,
       },
       (e, s) => {}
     )

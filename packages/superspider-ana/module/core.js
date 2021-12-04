@@ -3,7 +3,7 @@ const fs = require('fs')
 
 const log = process.env.NODE_ENV == 'development' ? console.log : () => {}
 
-module.exports = async function() {
+module.exports = async function () {
   if (!global.amdb) return
   const amdb = global.amdb
 

@@ -25,28 +25,22 @@
     "url": "https://github.com/dd-center/SuperSpider/issues"
   },
   "homepage": "https://github.com/dd-center/SuperSpider#readme",
-  "dependencies": {
-    "@nuxtjs/eslint-config": "^1.1.2",
-    "babel-eslint": "^10.0.3",
-    "cross-env": "^6.0.0",
-    "eslint": "^6.4.0",
-    "eslint-config-prettier": "^6.3.0",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-nuxt": "^0.4.3",
-    "eslint-plugin-prettier": "^3.1.1",
-    "eslint-plugin-vue": "^5.2.3",
-    "git-cz": "^3.2.1",
-    "lint-staged": "^9.3.0",
-    "nodemon": "^1.19.2",
-    "prettier": "^1.18.2",
-    "webpack": "^4.40.2",
-    "webpack-cli": "^3.3.9"
-  },
   "config": {
     "commitizen": {
       "path": "./node_modules/git-cz"
     }
   },
   "private": true,
-  "workspaces": ["packages/*"]
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.16.3",
+    "eslint": "^8.4.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^8.1.1",
+    "git-cz": "^4.8.0",
+    "prettier": "^2.5.0"
+  }
 }

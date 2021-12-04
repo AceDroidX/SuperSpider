@@ -49,10 +49,7 @@ const rdbCore = async (rid) => {
     for (const item of data.data.list) {
       const uname = item.user_info.uname
       let unamejpn = ''
-      const unameFinded = await utrdb
-        .find({ uname })
-        .limit(1)
-        .toArray()
+      const unameFinded = await utrdb.find({ uname }).limit(1).toArray()
       if (
         unameFinded.length > 0 &&
         unameFinded[0].unamejpn &&
@@ -95,8 +92,8 @@ const rdbCore = async (rid) => {
                   status: 3,
                   msgjpn: item.message_trans
                     .replace(/\s*/g, '')
-                    .replace(/[\r\n]/g, '')
-                }
+                    .replace(/[\r\n]/g, ''),
+                },
               }
             )
           } else {
@@ -122,7 +119,7 @@ const rdbCore = async (rid) => {
               bcolor: item.background_bottom_color,
               pcolor: item.background_price_color,
               exrate: Number(exRate),
-              hide: 0
+              hide: 0,
             })
           }
         } else {
@@ -156,8 +153,8 @@ const rdbCore = async (rid) => {
                   bcolor: item.background_bottom_color,
                   pcolor: item.background_price_color,
                   exrate: Number(exRate),
-                  hide: 0
-                }
+                  hide: 0,
+                },
               }
             )
           } else {
@@ -183,7 +180,7 @@ const rdbCore = async (rid) => {
               bcolor: item.background_bottom_color,
               pcolor: item.background_price_color,
               exrate: Number(exRate),
-              hide: 0
+              hide: 0,
             })
           }
         }
@@ -206,7 +203,7 @@ const rdbClose = async (rid) => {
   tsList[rid] = false
 }
 
-module.exports = async function() {
+module.exports = async function () {
   rws(emitter)
   try {
     for (const item of await onLive()) {

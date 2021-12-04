@@ -12,7 +12,7 @@ let wssUrls = ['wss://broadcastlv.chat.bilibili.com/sub']
 
 const refreshWssUrls = async () => {
   const {
-    data: { host_server_list: hosts }
+    data: { host_server_list: hosts },
   } = JSON.parse(
     (await require('request-promise-native')
       .get('https://api.live.bilibili.com/room/v1/Danmu/getConf')
@@ -71,7 +71,7 @@ const openRoom = ({ roomid, mid }) => {
       uname,
       price,
       giftName,
-      face
+      face,
     })
     dispatch.emit('aa', payload)
   })
@@ -91,7 +91,7 @@ const openRoom = ({ roomid, mid }) => {
       price,
       giftId,
       level,
-      giftName
+      giftName,
     })
   })
   live.on('close', () => {
@@ -110,7 +110,7 @@ const watch = ({ roomid, mid }) => {
   }
 }
 
-module.exports = function(emitter) {
+module.exports = function (emitter) {
   dispatch = emitter
   socket.on('info', (info) => {
     info

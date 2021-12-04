@@ -43,8 +43,8 @@ const clusterWs = (httpHome) => {
           key,
           data: {
             type: 'http',
-            url
-          }
+            url,
+          },
         })
       )
       return new Promise((resolve) => {
@@ -102,7 +102,7 @@ const httpHome = new AtHome({
       return false
     }
     return !result.code
-  }
+  },
 })
 // const cache = new LRU({ max: 10000, maxAge: 1000 * 60 * 4 })
 

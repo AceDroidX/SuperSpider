@@ -11,8 +11,8 @@ export default ({ app, store }) => {
     fallbackLocale: 'ja',
     messages: {
       ja: require('~/locales/ja.json'),
-      zh: require('~/locales/zh.json')
-    }
+      zh: require('~/locales/zh.json'),
+    },
   })
 
   app.i18n.path = (link) => {

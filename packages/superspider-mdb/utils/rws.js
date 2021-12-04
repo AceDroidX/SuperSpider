@@ -102,7 +102,7 @@ const watch = async (roomid) => {
   }
 }
 
-module.exports = function(emitter) {
+module.exports = function (emitter) {
   dispatch = emitter
   socket.on('info', async (info) => {
     info

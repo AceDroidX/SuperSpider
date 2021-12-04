@@ -19,7 +19,7 @@ const preList = {}
 
 let exRate = 14.7
 
-module.exports = async function() {
+module.exports = async function () {
   if (!global.predb) return
   const predb = global.predb
   if (!global.utrdb) return
@@ -32,10 +32,7 @@ module.exports = async function() {
     const rid = Number(data.roomid)
     const uname = data.uname
     let unamejpn = ''
-    const unameFinded = await utrdb
-      .find({ uname })
-      .limit(1)
-      .toArray()
+    const unameFinded = await utrdb.find({ uname }).limit(1).toArray()
     if (
       unameFinded.length > 0 &&
       unameFinded[0].unamejpn &&
@@ -50,7 +47,7 @@ module.exports = async function() {
         } else {
           await utrdb.insertOne({
             uname,
-            unamejpn
+            unamejpn,
           })
         }
       } catch (e) {
@@ -78,15 +75,15 @@ module.exports = async function() {
         if (preList[rid].id) {
           await predb.updateOne(
             {
-              _id: ObjectId(preList[rid].id)
+              _id: ObjectId(preList[rid].id),
             },
             {
               $set: {
                 num: Number(Number(preList[rid].num) + (Number(data.num) || 1)),
                 price: Number(
                   Number(preList[rid].price) + Number(Number(data.price) / 1000)
-                )
-              }
+                ),
+              },
             }
           )
         }
@@ -105,11 +102,11 @@ module.exports = async function() {
             type: Number(data.level),
             uid: Number(data.mid),
             num: Number(data.num) || 1,
-            gift: data.giftName
+            gift: data.giftName,
           }).insertedId,
           num: Number(data.num) || 1,
           key: data.mid + '/' + data.giftName,
-          price: Number(Number(data.price) / 1000)
+          price: Number(Number(data.price) / 1000),
         }
       }
     } catch (e) {
@@ -123,10 +120,7 @@ module.exports = async function() {
     if (data.coinType === 'gold') {
       const uname = data.uname
       let unamejpn = ''
-      const unameFinded = await utrdb
-        .find({ uname })
-        .limit(1)
-        .toArray()
+      const unameFinded = await utrdb.find({ uname }).limit(1).toArray()
       if (
         unameFinded.length > 0 &&
         unameFinded[0].unamejpn &&
@@ -141,7 +135,7 @@ module.exports = async function() {
           } else {
             await utrdb.insertOne({
               uname,
-              unamejpn
+              unamejpn,
             })
           }
         } catch (e) {
@@ -158,7 +152,7 @@ module.exports = async function() {
           if (preList[rid].id) {
             await predb.updateOne(
               {
-                _id: ObjectId(preList[rid].id)
+                _id: ObjectId(preList[rid].id),
               },
               {
                 $set: {
@@ -168,31 +162,33 @@ module.exports = async function() {
                   price: Number(
                     Number(preList[rid].price) +
                       Number(Number(data.price) / 1000)
-                  )
-                }
+                  ),
+                },
               }
             )
           }
         } else {
           preList[rid] = {
-            id: (await predb.insertOne({
-              roomid: Number(rid),
-              livets: Number(tsList[rid]) || Number(new Date().getTime()),
-              ts: Number(new Date().getTime()),
-              uname,
-              unamejpn,
-              avatar: data.face,
-              price: Number(Number(data.price) / 1000),
-              exrate: Number(exRate),
-              hide: 0,
-              type: 4,
-              gift: data.giftName,
-              uid: Number(data.mid),
-              num: Number(data.num) || 1
-            })).insertedId,
+            id: (
+              await predb.insertOne({
+                roomid: Number(rid),
+                livets: Number(tsList[rid]) || Number(new Date().getTime()),
+                ts: Number(new Date().getTime()),
+                uname,
+                unamejpn,
+                avatar: data.face,
+                price: Number(Number(data.price) / 1000),
+                exrate: Number(exRate),
+                hide: 0,
+                type: 4,
+                gift: data.giftName,
+                uid: Number(data.mid),
+                num: Number(data.num) || 1,
+              })
+            ).insertedId,
             num: Number(data.num) || 1,
             key: data.mid + '/' + data.giftName,
-            price: Number(Number(data.price) / 1000)
+            price: Number(Number(data.price) / 1000),
           }
         }
       } catch (e) {

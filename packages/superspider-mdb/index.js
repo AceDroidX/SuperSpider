@@ -77,32 +77,32 @@ process.on('uncaughtException', (err) => {
     {
       // _id: -1,
       roomid: -1,
-      livets: -1
+      livets: -1,
       // ts: -1
     },
     (e, s) => {}
   )
   global.amdb.createIndex(
     {
-      _id: -1
+      _id: -1,
     },
     (e, s) => {}
   )
   global.amdb.createIndex(
     {
-      roomid: -1
+      roomid: -1,
     },
     (e, s) => {}
   )
   global.amdb.createIndex(
     {
-      ts: -1
+      ts: -1,
     },
     (e, s) => {}
   )
   global.utrdb.createIndex(
     {
-      uname: -1
+      uname: -1,
     },
     (e, s) => {}
   )

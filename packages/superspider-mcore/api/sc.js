@@ -99,7 +99,7 @@ sc.post('/getData', async (ctx, next) => {
         rList[ts].sort((a, b) => Number(b.ts) - Number(a.ts))
         output.push({
           ts,
-          data: rList[ts]
+          data: rList[ts],
         })
       }
       // output.sort((a, b) => Number(b.ts) - Number(a.ts))
@@ -148,7 +148,7 @@ sc.post('/submit', async (ctx, next) => {
     const u = await udb
       .find({
         username: ctx.request.body.username,
-        password: ctx.request.body.password
+        password: ctx.request.body.password,
       })
       .limit(1)
       .toArray()
@@ -214,7 +214,7 @@ sc.post('/hide', async (ctx, next) => {
     const u = await udb
       .find({
         username: ctx.request.body.username,
-        password: ctx.request.body.password
+        password: ctx.request.body.password,
       })
       .limit(1)
       .toArray()
