@@ -71,6 +71,7 @@ export default {
     extend(config, ctx) {},
   },
   env: {
-    baseApiUrl: process.env.BASE_API_URL || 'http://127.0.0.1:2162',
-  }
+    baseApiUrl:
+      process.env.BASE_API_URL || 'https://bilisc.api.acedroidx.top:4430',
+  },
 }

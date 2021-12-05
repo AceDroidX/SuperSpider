@@ -6,6 +6,8 @@ services:
     container_name: mongo
     volumes:
       - mongodata:/data/db
+    networks:
+      - default
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: superspider
@@ -14,6 +16,8 @@ services:
     container_name: superspider-predb
     depends_on:
       - mongo
+    networks:
+      - default
     environment:
       MONGODB_PASS: superspider
       MONGODB_IP: mongo
@@ -22,6 +26,8 @@ services:
     container_name: superspider-mdb
     depends_on:
       - mongo
+    networks:
+      - default
     environment:
       MONGODB_PASS: superspider
       MONGODB_IP: mongo
@@ -37,13 +43,25 @@ services:
       MONGODB_IP: mongo
     ports:
       - "2162:2162"
+    networks:
+      - default
+      - sharenet
   superspider-showcase:
     build: ./packages/superspider-showcase
     container_name: superspider-showcase
     environment:
-      BASE_API_URL: http://127.0.0.1:2162
+      BASE_API_URL: https://bilisc.api.acedroidx.top:4430
     ports:
-      - "8010:2164"
+      - "2164:2164"
+    networks:
+      - default
+      - sharenet
 
 volumes:
-  mongodata: null
+  mongodata:
+
+networks:
+  default:
+    driver: bridge
+  sharenet:
+    external: true
