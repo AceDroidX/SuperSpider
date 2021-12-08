@@ -13,7 +13,7 @@
               width="150px"
               style="text-align: center"
             />
-            <p style="margin: 0">v1.0.8</p>
+            <p style="margin: 0">v1.1.0</p>
           </div>
         </el-row>
         <el-row class="sider-scrollbar-item">
@@ -23,7 +23,7 @@
               type="primary"
               plain
               :style="fontStyle"
-              @click="openLink('https://docs.bilisc.com')"
+              @click="openLink('https://github.com/AceDroidX/SuperSpider/tree/master/packages/superspider-docs/docs')"
             >
               {{ $t('common.tutorial') }}
             </el-button>
@@ -185,6 +185,7 @@
                 :headercolor="item.pcolor"
                 :exrate="item.exRate"
                 :hiderate="$i18n.locale == 'zh'"
+                :ts="item.ts"
                 style="max-width: 700px"
                 align="left"
               />

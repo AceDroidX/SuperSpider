@@ -45,6 +45,7 @@
                 :headercolor="item.pcolor"
                 :exrate="item.exRate"
                 :hiderate="$i18n.locale == 'zh'"
+                :ts="item.ts"
                 style="max-width: 700px"
                 align="left"
               />

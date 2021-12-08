@@ -1,6 +1,5 @@
 <template>
-  <div id="card"
-class="style-scope yt-live-chat-paid-message-renderer">
+  <div id="card" class="style-scope yt-live-chat-paid-message-renderer">
     <div
       id="header"
       class="style-scope yt-live-chat-paid-message-renderer"
@@ -10,11 +9,17 @@ class="style-scope yt-live-chat-paid-message-renderer">
         id="author-photo"
         referrerpolicy="no-referer"
         rel="no-referer"
-        class="style-scope yt-img-shadow no-transition style-scope yt-live-chat-paid-message-renderer"
+        class="
+          style-scope
+          yt-img-shadow
+          no-transition
+          style-scope
+          yt-live-chat-paid-message-renderer
+        "
         height="40"
         width="40"
         :src="avatar"
-      >
+      />
       <div
         id="header-content"
         class="style-scope yt-live-chat-paid-message-renderer"
@@ -39,6 +44,30 @@ class="style-scope yt-live-chat-paid-message-renderer">
                 ? '￥' + price
                 : '￥' + price + ' = ' + price * exrate + '円'
             }}
+          </div>
+        </div>
+      </div>
+      <!-- SC详细信息 -->
+      <div
+        id="header-detail"
+        class="style-scope yt-live-chat-paid-message-renderer"
+      >
+        <div
+          id="header-content-primary-column"
+          class="no-transition style-scope yt-live-chat-paid-message-renderer"
+        >
+          <div
+            id="author-name"
+            class="style-scope yt-live-chat-paid-message-renderer"
+          >
+            发送时间
+          </div>
+          <div
+            id="purchase-amount"
+            class="style-scope yt-live-chat-paid-message-renderer"
+            style="transform: scale(0.9); transform-origin: left"
+          >
+            {{ ts == 0 ? '获取失败' : getTime(ts) }}
           </div>
         </div>
       </div>
@@ -105,6 +134,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    ts: {
+      type: Number,
+      default: 0,
+    },
   },
   // data() {
   //   return {
@@ -114,6 +147,37 @@ export default {
   // mounted() {
   //   new Buffer(await this.$axios.$get(this.avatar)).toString('base64')
   // },
+  methods: {
+    getTime(timestamp = undefined) {
+      if (timestamp === undefined) {
+        var now = new Date()
+      } else {
+        var now = new Date(timestamp)
+      }
+      var year = now.getFullYear()
+      var month = (now.getMonth() + 1).toString().padStart(2, '0')
+      var day = now.getDate().toString().padStart(2, '0')
+      var hour = now.getHours().toString().padStart(2, '0')
+      var minute = now.getMinutes().toString().padStart(2, '0')
+      var second = now.getSeconds().toString().padStart(2, '0')
+      var milli = now.getMilliseconds().toString().padStart(3, '0')
+      var time =
+        year +
+        '-' +
+        month +
+        '-' +
+        day +
+        ' ' +
+        hour +
+        ':' +
+        minute +
+        ':' +
+        second +
+        '.' +
+        milli
+      return time
+    },
+  },
 }
 </script>
 
