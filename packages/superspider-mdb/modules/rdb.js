@@ -228,7 +228,7 @@ module.exports = async function () {
   )
   emitter.on('LIVE', (data) => {
     schList[Number(data.roomid)] = schedule.scheduleJob(
-      '*/40 * * * * *',
+      '*/5 * * * * *',
       async () => {
         await rdbCore(Number(data.roomid))
       }

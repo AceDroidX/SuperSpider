@@ -42,13 +42,13 @@ sc.post('/getData', async (ctx, next) => {
       const finded = await amdb
         .find({ roomid })
         .sort('ts', -1)
-        .limit(50)
+        .limit(200)
         .toArray()
       log(`LOG amdb complete ${roomid}`)
       const preFinded = await predb
         .find({ roomid })
         .sort('ts', -1)
-        .limit(50)
+        .limit(200)
         .toArray()
       log(`LOG predb complete ${roomid}`)
       const tsList = []
