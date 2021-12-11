@@ -45,8 +45,8 @@ sc.post('/getData', async (ctx, next) => {
       const roomid = Number(ctx.request.body.roomid)
       if (!ctx.request.body.limit || isNaN(Number(ctx.request.body.limit))) {
         var pageLimit = 100
-      } else if (Number(ctx.request.body.limit) > 500) {
-        var pageLimit = 500
+      } else if (Number(ctx.request.body.limit) > 1000) {
+        var pageLimit = 1000
       } else {
         var pageLimit = Number(ctx.request.body.limit)
       }
