@@ -73,7 +73,10 @@
               <el-switch v-if="$i18n.locale !== 'ja'" :value="false" disabled />
             </el-form-item>
             <el-form-item :label="$t('common.channelid')">
-              <el-input v-model="room" @keyup.enter.native="startFetchData" />
+              <el-select v-model="room">
+                <el-option label="21452505" value="21452505" />
+                <el-option label="80397(510)" value="80397" />
+              </el-select>
             </el-form-item>
             <el-form-item>
               <el-button
@@ -219,7 +222,7 @@ export default {
   data() {
     return {
       scData: [],
-      room: '',
+      room: '21452505',
       started: false,
       timer: false,
       showTimeNative: true,
