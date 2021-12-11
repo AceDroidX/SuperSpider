@@ -9,8 +9,8 @@ module.exports = {
     parser: '@babel/eslint-parser',
     sourceType: 'module',
   },
-  extends: ['plugin:prettier/recommended' /*, 'plugin:vue/recommended'*/],
-  plugins: ['prettier'],
+  // extends: ['plugin:prettier/recommended' /*, 'plugin:vue/recommended'*/],
+  // plugins: ['prettier'],
   // add your custom rules here
   rules: {},
 }

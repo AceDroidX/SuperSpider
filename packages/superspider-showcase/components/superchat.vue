@@ -3,7 +3,7 @@
     <div
       id="header"
       class="style-scope yt-live-chat-paid-message-renderer"
-      :style="{ 'background-color': headercolor }"
+      :style="{ 'background-color': markstate == 1 ? '#777777' : headercolor }"
     >
       <img
         id="author-photo"
@@ -75,7 +75,7 @@
     <div
       id="content"
       class="style-scope yt-live-chat-paid-message-renderer"
-      :style="{ 'background-color': contentcolor }"
+      :style="{ 'background-color': markstate == 1 ? '#666666' : contentcolor }"
     >
       <div
         id="message"
@@ -135,6 +135,10 @@ export default {
       default: false,
     },
     ts: {
+      type: Number,
+      default: 0,
+    },
+    markstate: {
       type: Number,
       default: 0,
     },
@@ -268,7 +272,7 @@ export default {
 #author-name.yt-live-chat-paid-message-renderer {
   color: var(
     --yt-live-chat-paid-message-author-name-color,
-    rgba(255, 255, 255, 0.7)
+    rgba(255, 255, 255, 1) /* rgba(255, 255, 255, 0.7) */
   );
   font-size: 14px;
   margin-bottom: 2px;

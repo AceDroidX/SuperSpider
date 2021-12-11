@@ -23,7 +23,11 @@
               type="primary"
               plain
               :style="fontStyle"
-              @click="openLink('https://github.com/AceDroidX/SuperSpider/tree/master/packages/superspider-docs/docs')"
+              @click="
+                openLink(
+                  'https://github.com/AceDroidX/SuperSpider/tree/master/packages/superspider-docs/docs'
+                )
+              "
             >
               {{ $t('common.tutorial') }}
             </el-button>
@@ -54,6 +58,9 @@
             </el-form-item>
             <el-form-item :label="$t('common.showTime')">
               <el-switch v-model="showTimeNative" />
+            </el-form-item>
+            <el-form-item :label="$t('common.showMark')">
+              <el-switch v-model="showMarkNative" />
             </el-form-item>
             <el-form-item :label="$t('common.showGift')">
               <el-switch v-model="showGiftNative" />
@@ -164,6 +171,7 @@
                   (Number(item.sc) == 1 ||
                     (Number(item.sc) == 0 && showGiftNative))
                 "
+                v-on:click.native="changeMarkState(item._id)"
                 :title="
                   $i18n.locale !== 'ja' || !showKanaNative
                     ? item.uname
@@ -186,6 +194,7 @@
                 :exrate="item.exRate"
                 :hiderate="$i18n.locale == 'zh'"
                 :ts="item.ts"
+                :markstate="item.markstate"
                 style="max-width: 700px"
                 align="left"
               />
@@ -200,6 +209,7 @@
 <script>
 import SiderScrollbar from '~/components/scrollbar'
 import Superchat from '~/components/superchat.vue'
+import { openDB } from 'idb'
 export default {
   components: {
     Superchat,
@@ -216,10 +226,13 @@ export default {
       showKanaNative: true,
       showGiftNative: true,
       giftFilterNative: true,
+      showMarkNative: true,
       addText: '',
       fontStyle: '',
       bgColor: '',
       bgColorList: ['#304156', '#473252', '#00463f'],
+      db: undefined,
+      dbReq: undefined,
     }
   },
   head: {
@@ -263,6 +276,10 @@ export default {
     giftFilterNative() {
       this.fetchAdd()
     },
+    showMarkNative() {
+      // this.fetchAdd()
+      this.updateData(this.scData)
+    },
     room() {
       this.fetchAdd()
     },
@@ -291,6 +308,16 @@ export default {
       if (this.room && this.room !== '') await this.startFetchData()
     }
     this.fetchAdd()
+
+    this.db = await openDB('BiliSC', undefined, {
+      upgrade(db) {
+        console.log('upgrade')
+        var objectStore = db.createObjectStore('MarkState', {
+          keyPath: 'id',
+        })
+        objectStore.createIndex('id', 'id', { unique: true })
+      },
+    })
   },
   methods: {
     fetchAdd() {
@@ -356,20 +383,35 @@ export default {
         err = true
       })
       if (err) return
-      this.$nuxt.$loading.start()
-      // this.scData = scData.data
-      for (const item of scData.data) {
-        item.data.sort((a, b) => Number(b.ts) - Number(a.ts))
+      await this.updateData(scData.data)
+    },
+    async updateData(scData) {
+      try {
+        // this.$nuxt.$loading.start()
+        // this.scData = scData.data
+        for (const item of scData) {
+          item.data.sort((a, b) => Number(b.ts) - Number(a.ts))
+        }
+        scData.sort((a, b) => Number(b.ts) - Number(a.ts))
+        let new_scData = []
+        let his = 0
+        for (let item of scData) {
+          for (let data of item.data) {
+            if (this.showMarkNative)
+              data.markstate = await this.getMarkState(data._id)
+            else data.markstate = 0
+            // data.markstate = 0
+          }
+          his++
+          if (his === 2) new_scData.push({ ...item, history: true })
+          else new_scData.push(item)
+        }
+        this.scData = new_scData
+      } catch (e) {
+        console.error(e)
+      } finally {
+        // this.$nuxt.$loading.finish()
       }
-      scData.data.sort((a, b) => Number(b.ts) - Number(a.ts))
-      this.scData = []
-      let his = 0
-      for (const item of scData.data) {
-        his++
-        if (his === 2) this.scData.push({ ...item, history: true })
-        else this.scData.push(item)
-      }
-      this.$nuxt.$loading.finish()
     },
     openLink(link, extra) {
       if (extra)
@@ -379,6 +421,30 @@ export default {
           'menubar=0,location=0,scrollbars=0,toolbar=0,width=600,height=600'
         )
       else window.open(link)
+    },
+    async changeMarkState(id) {
+      console.log('change state:' + id)
+      if (this.db == undefined) return
+      if ((await this.getMarkState(id)) == 1) {
+        await this.deleteMarkState(id)
+      } else {
+        await this.setMarkState(id, 1)
+      }
+      await this.updateData(this.scData)
+    },
+    async getMarkState(id) {
+      if (this.db == undefined) return
+      const res = await this.db.get('MarkState', id)
+      if (res) return res.state
+      return 0
+    },
+    async deleteMarkState(id) {
+      if (this.db == undefined) return
+      await this.db.delete('MarkState', id)
+    },
+    async setMarkState(id, state) {
+      if (this.db == undefined) return
+      await this.db.put('MarkState', { id, state })
     },
   },
 }
