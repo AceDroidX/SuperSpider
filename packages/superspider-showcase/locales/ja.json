@@ -16,6 +16,7 @@
     "lang": "言語",
     "showTime": "タイムスタンプ表示",
     "showMark": "标记显示",
+    "pageLimit": "每页显示数量",
     "showKana": "中国語カタカナ変換",
     "showGift": "ギフト表示",
     "giftFilter": "小額ギフトを非表示",

@@ -13,7 +13,7 @@
               width="150px"
               style="text-align: center"
             />
-            <p style="margin: 0">v1.1.0</p>
+            <p style="margin: 0">v1.1.1</p>
           </div>
         </el-row>
         <el-row class="sider-scrollbar-item">
@@ -62,15 +62,8 @@
             <el-form-item :label="$t('common.showMark')">
               <el-switch v-model="showMarkNative" />
             </el-form-item>
-            <el-form-item :label="$t('common.showGift')">
-              <el-switch v-model="showGiftNative" />
-            </el-form-item>
-            <el-form-item :label="$t('common.giftFilter')">
-              <el-switch v-model="giftFilterNative" />
-            </el-form-item>
-            <el-form-item :label="$t('common.showKana')">
-              <el-switch v-if="$i18n.locale == 'ja'" v-model="showKanaNative" />
-              <el-switch v-if="$i18n.locale !== 'ja'" :value="false" disabled />
+            <el-form-item :label="$t('common.pageLimit')">
+              <el-input v-model="pageLimit" />
             </el-form-item>
             <el-form-item :label="$t('common.channelid')">
               <el-select v-model="room">
@@ -230,6 +223,7 @@ export default {
       showGiftNative: true,
       giftFilterNative: true,
       showMarkNative: true,
+      pageLimit: '100',
       addText: '',
       fontStyle: '',
       bgColor: '',
@@ -377,8 +371,9 @@ export default {
       const scData = await this.$axios({
         url: process.env.baseApiUrl + '/sc/getData',
         method: 'POST',
-        data:
-          'roomid=' + this.room + (this.giftFilterNative ? '&filter=on' : ''),
+        data: `roomid=${this.room}&limit=${this.pageLimit}${
+          this.giftFilterNative ? '&filter=on' : ''
+        }`,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },

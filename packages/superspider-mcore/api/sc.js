@@ -3,7 +3,7 @@ const sc = new Router()
 
 const giftConv = require('../utils/giftConv')
 
-const log = process.env.NODE_ENV == 'development' ? console.log : () => {}
+const log = process.env.NODE_ENV == 'development' ? console.log : () => { }
 
 const mergeTime = 30000005
 
@@ -15,6 +15,11 @@ sc.get('/', async (ctx, next) => {
 })
 
 // /sc/getData
+// 获取SC列表
+// 参数：
+//   roomid: 房间号
+//   filter: 清除30以下价格的SC
+//   limit: 返回的SC数量
 sc.post('/getData', async (ctx, next) => {
   if (!global.amdb) {
     ctx.response.status = 500
@@ -38,17 +43,24 @@ sc.post('/getData', async (ctx, next) => {
     try {
       ctx.response.status = 200
       const roomid = Number(ctx.request.body.roomid)
+      if (!ctx.request.body.limit || isNaN(Number(ctx.request.body.limit))) {
+        var pageLimit = 100
+      } else if (Number(ctx.request.body.limit) > 500) {
+        var pageLimit = 500
+      } else {
+        var pageLimit = Number(ctx.request.body.limit)
+      }
       log(`LOG req in rid ${roomid}`)
       const finded = await amdb
         .find({ roomid })
         .sort('ts', -1)
-        .limit(500)
+        .limit(pageLimit)
         .toArray()
       log(`LOG amdb complete ${roomid}`)
       const preFinded = await predb
         .find({ roomid })
         .sort('ts', -1)
-        .limit(500)
+        .limit(pageLimit)
         .toArray()
       log(`LOG predb complete ${roomid}`)
       const tsList = []

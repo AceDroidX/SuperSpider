@@ -16,6 +16,7 @@
     "lang": "语言",
     "showTime": "时间显示",
     "showMark": "标记显示",
+    "pageLimit": "每页显示数量",
     "showKana": "片假名显示",
     "showGift": "礼物显示",
     "giftFilter": "礼物过滤",
