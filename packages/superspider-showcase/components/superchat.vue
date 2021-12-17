@@ -153,32 +153,20 @@ export default {
   // },
   methods: {
     getTime(timestamp = undefined) {
+      let now 
       if (timestamp === undefined) {
-        var now = new Date()
+        now = new Date()
       } else {
-        var now = new Date(timestamp)
+        now = new Date(timestamp)
       }
-      var year = now.getFullYear()
-      var month = (now.getMonth() + 1).toString().padStart(2, '0')
-      var day = now.getDate().toString().padStart(2, '0')
-      var hour = now.getHours().toString().padStart(2, '0')
-      var minute = now.getMinutes().toString().padStart(2, '0')
-      var second = now.getSeconds().toString().padStart(2, '0')
-      var milli = now.getMilliseconds().toString().padStart(3, '0')
-      var time =
-        year +
-        '-' +
-        month +
-        '-' +
-        day +
-        ' ' +
-        hour +
-        ':' +
-        minute +
-        ':' +
-        second +
-        '.' +
-        milli
+      const year = now.getFullYear()
+      const month = (now.getMonth() + 1).toString().padStart(2, '0')
+      const day = now.getDate().toString().padStart(2, '0')
+      const hour = now.getHours().toString().padStart(2, '0')
+      const minute = now.getMinutes().toString().padStart(2, '0')
+      const second = now.getSeconds().toString().padStart(2, '0')
+      const milli = now.getMilliseconds().toString().padStart(3, '0')
+      const time = `${year}-${month}-${day} ${hour}:${minute}:${second}.${milli}`
       return time
     },
   },

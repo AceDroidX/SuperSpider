@@ -1,6 +1,3 @@
-const io = require('socket.io-client')
-const socket = io('https://api.vtbs.moe')
-
 // const events = require('events')
 let dispatch = undefined
 // const Server = require('socket.io')
