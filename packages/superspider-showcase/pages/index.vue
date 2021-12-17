@@ -1,87 +1,260 @@
 <template>
-  <v-row justify="center" align="center">
-    <v-col cols="12" sm="8" md="6">
-      <v-card class="logo py-4 d-flex justify-center">
-        <NuxtLogo />
-        <VuetifyLogo />
-      </v-card>
-      <v-card>
-        <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template
-        </v-card-title>
-        <v-card-text>
-          <p>
-            Vuetify is a progressive Material Design component framework for
-            Vue.js. It was designed to empower developers to create amazing
-            applications.
-          </p>
-          <p>
-            For more information on Vuetify, check out the
-            <a
-              href="https://vuetifyjs.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              documentation </a
-            >.
-          </p>
-          <p>
-            If you have questions, please join the official
-            <a
-              href="https://chat.vuetifyjs.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="chat"
-            >
-              discord </a
-            >.
-          </p>
-          <p>
-            Find a bug? Report it on the github
-            <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="contribute"
-            >
-              issue board </a
-            >.
-          </p>
-          <p>
-            Thank you for developing with Vuetify and I look forward to bringing
-            more exciting features in the future.
-          </p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3" />
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt Documentation
-          </a>
-          <br />
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt GitHub
-          </a>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn color="primary" nuxt to="/inspire"> Continue </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-col>
-  </v-row>
+  <v-container>
+    <div v-for="liveItem in scData" :key="liveItem.ts" align="center">
+      <div v-for="item in liveItem.data" :key="item._id" style="margin: 20px">
+        <!--
+                              :title="
+                  item.uname +
+                    ($i18n.locale !== 'ja'
+                      ? ''
+                      : item.unamejpn
+                      ? ' (' + item.unamejpn + ')'
+                      : '')
+                "
+            -->
+        <Superchat
+          v-if="
+            Number(item.hide) == 0 &&
+            (Number(item.sc) == 1 || (Number(item.sc) == 0 && showGiftNative))
+          "
+          :title="item.uname"
+          :price="Number(item.price)"
+          :message="item.msg"
+          :messagejpn="''"
+          :avatar="item.avatar"
+          :contentcolor="item.bcolor"
+          :headercolor="item.pcolor"
+          :exrate="item.exRate"
+          :hiderate="true"
+          :ts="item.ts"
+          :markstate="item.markstate"
+          style="max-width: 700px"
+          align="left"
+          @click.native="changeMarkState(item._id)"
+        />
+      </div>
+    </div>
+  </v-container>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import { openDB } from 'idb'
+import Superchat from '~/components/SuperChat.vue'
 export default {
-  name: 'IndexPage',
+  name: 'FullSCViewer',
+  components: {
+    Superchat,
+  },
+  layout: 'viewer',
+  data() {
+    return {
+      scData: [],
+      started: false,
+      timer: false,
+      addText: '',
+      fontStyle: '',
+      bgColor: '',
+      bgColorList: ['#304156', '#473252', '#00463f'],
+      db: undefined,
+      dbReq: undefined,
+    }
+  },
+  head: {
+    title: 'BiliSC',
+  },
+  computed: {
+    showTime() {
+      return this.$route.query.showTime
+        ? this.$route.query.showTime === 'true'
+        : false // This controls the default value
+    },
+    showKana() {
+      return this.$route.query.showKana
+        ? this.$route.query.showKana === 'true'
+        : true
+    },
+    showGift() {
+      return this.$route.query.showGift
+        ? this.$route.query.showGift === 'true'
+        : true
+    },
+    giftFilter() {
+      return this.$route.query.giftFilter
+        ? this.$route.query.giftFilter === 'true'
+        : true
+    },
+    ...mapState({
+      room: (state) => state.ViewerConfig.room,
+      pageLimit: (state) => state.ViewerConfig.pageLimit,
+      showMarkNative: (state) => state.ViewerConfig.showMarkNative,
+      startFetch: (state) => state.ViewerConfig.startFetch,
+    }),
+  },
+  watch: {
+    showTimeNative() {
+      this.fetchAdd()
+    },
+    showKanaNative() {
+      this.fetchAdd()
+    },
+    showGiftNative() {
+      this.fetchAdd()
+    },
+    giftFilterNative() {
+      this.fetchAdd()
+    },
+    showMarkNative() {
+      // this.fetchAdd()
+      this.updateData(this.scData)
+    },
+    room() {
+      this.fetchAdd()
+    },
+    startFetch() {
+      if (this.startFetch) {
+        this.startFetchData()
+      }
+    },
+  },
+  async mounted() {
+    this.bgColor = this.bgColorList[Math.floor(Math.random() * 3)]
+    if (this.$route.query.roomid) {
+      if (this.room && this.room !== '') await this.startFetchData()
+    }
+    this.fetchAdd()
+
+    this.db = await openDB('BiliSC', undefined, {
+      upgrade(db) {
+        console.log('upgrade')
+        const objectStore = db.createObjectStore('MarkState', {
+          keyPath: 'id',
+        })
+        objectStore.createIndex('id', 'id', { unique: true })
+      },
+    })
+  },
+  methods: {
+    fetchAdd() {
+      this.addText =
+        'https://bilisc.com/sc/obs?roomid=' +
+        this.room +
+        '&showTime=' +
+        this.showTimeNative +
+        '&showKana=' +
+        this.showKanaNative +
+        '&showGift=' +
+        this.showGiftNative +
+        '&giftFilter=' +
+        this.giftFilterNative
+    },
+    // copyText() {
+    //   this.$copyText(this.addText).then(
+    //     () => {
+    //       this.$message(this.$t('common.copySucceed'))
+    //     },
+    //     () => {
+    //       this.$message(this.$t('common.copyFailed'))
+    //     }
+    //   )
+    // },
+    beforeDestroy() {
+      if (this.timer) clearTimeout(this.timer)
+    },
+    async startFetchData() {
+      if (!this.room) return
+      await this.fetchData().catch(() => {})
+      if (this.started === this.room) return
+      if (this.timer) clearTimeout(this.timer)
+      this.setTimeoutLoop()
+      this.started = this.room
+    },
+    setTimeoutLoop() {
+      const fn = async () => {
+        await this.fetchData().catch(() => {})
+        this.timer = setTimeout(fn, 8000)
+      }
+      this.timer = setTimeout(fn, 8000)
+    },
+    async fetchData() {
+      if (!this.room || isNaN(Number(this.room)) || this.room === '') return
+      let err = false
+      const scData = await this.$axios({
+        url: process.env.baseApiUrl + '/sc/getData',
+        method: 'POST',
+        data: `roomid=${this.room}&limit=${this.pageLimit}${
+          this.giftFilterNative ? '&filter=on' : ''
+        }`,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      }).catch(() => {
+        err = true
+      })
+      if (err) return
+      await this.updateData(scData.data)
+    },
+    async updateData(scData) {
+      try {
+        // this.$nuxt.$loading.start()
+        // this.scData = scData.data
+        for (const item of scData) {
+          item.data.sort((a, b) => Number(b.ts) - Number(a.ts))
+        }
+        scData.sort((a, b) => Number(b.ts) - Number(a.ts))
+        const newSCData = []
+        let his = 0
+        for (const item of scData) {
+          for (const data of item.data) {
+            if (this.showMarkNative)
+              data.markstate = await this.getMarkState(data._id)
+            else data.markstate = 0
+            // data.markstate = 0
+          }
+          his++
+          if (his === 2) newSCData.push({ ...item, history: true })
+          else newSCData.push(item)
+        }
+        this.scData = newSCData
+      } catch (e) {
+        console.error(e)
+      } finally {
+        // this.$nuxt.$loading.finish()
+      }
+    },
+    openLink(link, extra) {
+      if (extra)
+        window.open(
+          link,
+          'BiliSC for OBS',
+          'menubar=0,location=0,scrollbars=0,toolbar=0,width=600,height=600'
+        )
+      else window.open(link)
+    },
+    async changeMarkState(id) {
+      console.log('change state:' + id)
+      if (this.db === undefined) return
+      if ((await this.getMarkState(id)) === 1) {
+        await this.deleteMarkState(id)
+      } else {
+        await this.setMarkState(id, 1)
+      }
+      await this.updateData(this.scData)
+    },
+    async getMarkState(id) {
+      if (this.db === undefined) return
+      const res = await this.db.get('MarkState', id)
+      if (res) return res.state
+      return 0
+    },
+    async deleteMarkState(id) {
+      if (this.db === undefined) return
+      await this.db.delete('MarkState', id)
+    },
+    async setMarkState(id, state) {
+      if (this.db === undefined) return
+      await this.db.put('MarkState', { id, state })
+    },
+  },
 }
 </script>

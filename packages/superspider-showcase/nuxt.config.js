@@ -88,4 +88,7 @@ export default {
     baseApiUrl:
       process.env.BASE_API_URL || 'https://bilisc.api.acedroidx.top:4430',
   },
+  router: {
+    base: '/'
+  }
 }
