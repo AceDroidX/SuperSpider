@@ -12,7 +12,7 @@
                       : '')
                 "
             -->
-        <Superchat
+        <SuperChat
           v-if="
             Number(item.hide) == 0 &&
             (Number(item.sc) == 1 || (Number(item.sc) == 0 && showGiftNative))
@@ -40,12 +40,8 @@
 <script>
 import { mapState } from 'vuex'
 import { openDB } from 'idb'
-import Superchat from '~/components/SuperChat.vue'
 export default {
   name: 'FullSCViewer',
-  components: {
-    Superchat,
-  },
   layout: 'viewer',
   data() {
     return {
