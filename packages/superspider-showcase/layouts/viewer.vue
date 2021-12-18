@@ -1,6 +1,12 @@
 <template>
   <v-app dark>
-    <v-navigation-drawer v-model="drawer" width="400px" :clipped="clipped" fixed app>
+    <v-navigation-drawer
+      v-model="drawer"
+      width="400px"
+      :clipped="clipped"
+      fixed
+      app
+    >
       <div align-center style="text-align: center">
         <img
           :src="
@@ -16,7 +22,7 @@
       <v-list-item align-center style="text-align: center">
         <v-list-item-content>
           <v-list-item-title class="text-h6"> BiliSC </v-list-item-title>
-          <v-list-item-subtitle> v2.0.0 </v-list-item-subtitle>
+          <v-list-item-subtitle> v{{ version }} </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
       <v-divider></v-divider>
@@ -53,7 +59,11 @@
           </v-list-item-content>
         </v-list-item>
         <v-list-item>
-          <v-list-item-content> </v-list-item-content>
+          <v-list-item-content>
+            <v-btn @click="newVersionDialog = true"
+              >更新日志</v-btn
+            ></v-list-item-content
+          >
           <v-list-item-content>
             <v-btn @click="setStartFetch(startFetch + 1)">GO</v-btn>
           </v-list-item-content>
@@ -81,6 +91,31 @@
           /></a>
         </p>
       </v-list>
+      <v-dialog
+        v-model="newVersionDialog"
+        width="500"
+        @click:outside="setVersion"
+      >
+        <v-card>
+          <v-card-title class="text-h5"> 更新日志 </v-card-title>
+          <v-card-text>
+            BiliSC v2.0.0 <br />
+            1.使用Vuetify重构，删除无用功能<br />
+            2.增加暗色模式 <br />
+            3.动态自适应各种屏幕大小 <br />
+            4.静态构建并托管在Github Pages<br />
+            <font color="red"
+              >注意：网站地址已变更，旧地址将会重定向至新页面</font
+            ><br />
+            https://bsc.acedroidx.top/
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="primary" text @click="setVersion"> OK </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </v-navigation-drawer>
     <v-app-bar
       :collapse="!drawer"
@@ -120,6 +155,8 @@ export default {
       rightDrawer: false,
       title: 'BiliSC',
       collapseOnScroll: true,
+      newVersionDialog: false,
+      version: 'null',
     }
   },
   computed: {
@@ -152,8 +189,8 @@ export default {
     }),
   },
   watch: {
-    startFetch () {
-      switch(this.$vuetify.breakpoint.name){
+    startFetch() {
+      switch (this.$vuetify.breakpoint.name) {
         case 'xs':
         case 'sm':
           this.drawer = false
@@ -161,12 +198,24 @@ export default {
       }
     },
   },
+  mounted() {
+    this.version = process.env.version
+    const version = localStorage.getItem('version')
+    if (process.env.version !== version) {
+      console.log('version changed')
+      this.newVersionDialog = true
+    }
+  },
   methods: {
     ...mapMutations({
       setStartFetch: 'ViewerConfig/setStartFetch',
     }),
     log(value) {
       console.log(value)
+    },
+    setVersion() {
+      localStorage.setItem('version', process.env.version)
+      this.newVersionDialog = false
     },
   },
 }
