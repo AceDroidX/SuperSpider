@@ -3,7 +3,7 @@
     <div
       id="header"
       class="style-scope yt-live-chat-paid-message-renderer"
-      :style="{ 'background-color': markstate == 1 ? '#777777' : headercolor }"
+      :style="headerColorNative"
     >
       <img
         id="author-photo"
@@ -75,7 +75,7 @@
     <div
       id="content"
       class="style-scope yt-live-chat-paid-message-renderer"
-      :style="{ 'background-color': markstate == 1 ? '#666666' : contentcolor }"
+      :style="contentColorNative"
     >
       <div
         id="message"
@@ -143,6 +143,41 @@ export default {
       default: 0,
     },
   },
+  computed: {
+    headerColorNative() {
+      if (this.markstate === 1) {
+        console.log('markstate === 1')
+        return {
+          'background-color': '#777777',
+        }
+      } else if (this.$vuetify.theme.dark) {
+        console.log('dark')
+        return {
+          'background-color': this.shadeColor(this.headercolor, -20),
+        }
+      } else {
+        console.log('light')
+        return {
+          'background-color': this.headercolor,
+        }
+      }
+    },
+    contentColorNative() {
+      if (this.markstate === 1) {
+        return {
+          'background-color': '#666666',
+        }
+      } else if (this.$vuetify.theme.dark) {
+        return {
+          'background-color': this.shadeColor(this.contentcolor, -20),
+        }
+      } else {
+        return {
+          'background-color': this.contentcolor,
+        }
+      }
+    },
+  },
   // data() {
   //   return {
   //     imgsrc: ''
@@ -153,7 +188,7 @@ export default {
   // },
   methods: {
     getTime(timestamp = undefined) {
-      let now 
+      let now
       if (timestamp === undefined) {
         now = new Date()
       } else {
@@ -168,6 +203,29 @@ export default {
       const milli = now.getMilliseconds().toString().padStart(3, '0')
       const time = `${year}-${month}-${day} ${hour}:${minute}:${second}.${milli}`
       return time
+    },
+    // https://stackoverflow.com/questions/5560248/programmatically-lighten-or-darken-a-hex-color-or-rgb-and-blend-colors
+    shadeColor(color, percent) {
+      let R = parseInt(color.substring(1, 3), 16)
+      let G = parseInt(color.substring(3, 5), 16)
+      let B = parseInt(color.substring(5, 7), 16)
+
+      R = parseInt((R * (100 + percent)) / 100)
+      G = parseInt((G * (100 + percent)) / 100)
+      B = parseInt((B * (100 + percent)) / 100)
+
+      R = R < 255 ? R : 255
+      G = G < 255 ? G : 255
+      B = B < 255 ? B : 255
+
+      const RR =
+        R.toString(16).length === 1 ? '0' + R.toString(16) : R.toString(16)
+      const GG =
+        G.toString(16).length === 1 ? '0' + G.toString(16) : G.toString(16)
+      const BB =
+        B.toString(16).length === 1 ? '0' + B.toString(16) : B.toString(16)
+
+      return '#' + RR + GG + BB
     },
   },
 }
@@ -225,6 +283,24 @@ export default {
 }
 
 #header-content.yt-live-chat-paid-message-renderer {
+  display: flex;
+  -ms-flex-direction: row;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  -ms-flex: 1 1 0.000000001px;
+  -webkit-flex: 1;
+  flex: 2;
+  -webkit-flex-basis: 0.000000001px;
+  flex-basis: 0.000000001px;
+  -ms-flex-align: baseline;
+  -webkit-align-items: baseline;
+  align-items: baseline;
+}
+
+#header-detail.yt-live-chat-paid-message-renderer {
   display: flex;
   -ms-flex-direction: row;
   -webkit-flex-direction: row;

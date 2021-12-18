@@ -93,9 +93,6 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title v-text="title" />
       <v-spacer />
-      <!-- <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-        <v-icon>mdi-menu</v-icon>
-      </v-btn> -->
       <v-btn icon @click.stop="$vuetify.theme.dark = !$vuetify.theme.dark">
         <v-icon v-text="`mdi-brightness-${$vuetify.theme.dark ? '4' : '6'}`" />
       </v-btn>
@@ -108,16 +105,6 @@
         <Nuxt />
       </v-container>
     </v-main>
-    <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
-      <v-list>
-        <v-list-item @click.native="right = !right">
-          <v-list-item-action>
-            <v-icon light> mdi-repeat </v-icon>
-          </v-list-item-action>
-          <v-list-item-title>Switch drawer (click me)</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
   </v-app>
 </template>
 
@@ -163,6 +150,16 @@ export default {
     ...mapState({
       startFetch: (state) => state.ViewerConfig.startFetch,
     }),
+  },
+  watch: {
+    startFetch () {
+      switch(this.$vuetify.breakpoint.name){
+        case 'xs':
+        case 'sm':
+          this.drawer = false
+          break
+      }
+    },
   },
   methods: {
     ...mapMutations({
