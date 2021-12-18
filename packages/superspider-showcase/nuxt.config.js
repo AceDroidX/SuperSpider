@@ -83,7 +83,16 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    devtools: true
+  },
+  vue: {
+    config: {
+      productionTip: true,
+      devtools: true,
+      silent: false
+    }
+  },
   env: {
     baseApiUrl:
       process.env.BASE_API_URL || 'https://bilisc.api.acedroidx.top:4430',
