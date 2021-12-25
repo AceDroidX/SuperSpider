@@ -3,7 +3,7 @@ const rp = require('request-promise-native')
 const schedule = require('node-schedule')
 
 const rws = require('../utils/rws')
-const athome = require('./athome')
+// const athome = require('./athome')
 const nameConv = require('../utils/nameConv')
 const onLive = require('../utils/onLive')
 
@@ -29,12 +29,12 @@ const rdbCore = async (rid) => {
   try {
     let data = false
     if (global.usingAtHome)
-      data = JSON.parse(
-        await athome.execute(
-          'https://api.live.bilibili.com/av/v1/SuperChat/getMessageList?room_id=' +
-            rid
-        )
-      )
+      // data = JSON.parse(
+      //   await athome.execute(
+      //     'https://api.live.bilibili.com/av/v1/SuperChat/getMessageList?room_id=' +
+      //       rid
+      //   )
+      // )
     else
       data = JSON.parse(
         await rp(

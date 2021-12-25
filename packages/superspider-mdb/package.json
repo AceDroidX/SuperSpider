@@ -10,7 +10,6 @@
   "author": "Il Harper",
   "license": "MIT",
   "dependencies": {
-    "athome": "^0.4.1",
     "bilibili-live-ws": "^6.0.2",
     "cheerio": "^1.0.0-rc.10",
     "cross-env": "^7.0.3",
