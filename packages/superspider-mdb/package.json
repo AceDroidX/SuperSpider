@@ -23,8 +23,6 @@
     "node-schedule": "^2.1.0",
     "request": "^2.88.2",
     "request-promise-native": "^1.0.9",
-    "socket.io": "^4.4.0",
-    "socket.io-client": "^4.4.0",
     "uuid": "^8.3.2",
     "isomorphic-ws": "^4.0.1",
     "ws": "^8.3.0"

@@ -211,7 +211,7 @@ module.exports = async function () {
   try {
     for (const item of await onLive()) {
       schList[Number(item)] = schedule.scheduleJob(
-        '*/40 * * * * *',
+        '*/5 * * * * *',
         async () => {
           await rdbCore(Number(item))
         }

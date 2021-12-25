@@ -101,17 +101,17 @@ const watch = async (roomid) => {
 
 module.exports = function (emitter) {
   dispatch = emitter
-  socket.on('info', async (info) => {
-    info
-      .filter(({ roomid }) => roomid)
-      // .filter(({ roomid }) => !no.includes(roomid))
-      .forEach(async ({ roomid, mid }) => {
-        roomMid[roomid] = mid
-        if (!rooms[roomid]) {
-          rooms[roomid] = true
-          watch(roomid)
-        }
-      })
-    // console.log('REFRESH')
-  })
+  // socket.on('info', async (info) => {
+  //   info
+  //     .filter(({ roomid }) => roomid)
+  //     // .filter(({ roomid }) => !no.includes(roomid))
+  //     .forEach(async ({ roomid, mid }) => {
+  //       roomMid[roomid] = mid
+  //       if (!rooms[roomid]) {
+  //         rooms[roomid] = true
+  //         watch(roomid)
+  //       }
+  //     })
+  //   // console.log('REFRESH')
+  // })
 }
