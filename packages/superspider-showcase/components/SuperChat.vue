@@ -192,6 +192,9 @@ export default {
       if (timestamp === undefined) {
         now = new Date()
       } else {
+        if(timestamp.toString().length === 10) {
+          timestamp = timestamp * 1000
+        }
         now = new Date(timestamp)
       }
       const year = now.getFullYear()
