@@ -192,8 +192,13 @@ export default {
         else this.snackbarText = e.message
       }
     },
-    updateData(scData) {
+    async updateData(scData) {
       try {
+        for (const data of scData) {
+          if (this.showMarkNative)
+            data.markstate = await this.getMarkState(data._id)
+          else data.markstate = 0
+        }
         this.scData = scData
       } catch (e) {
         console.error(e)
