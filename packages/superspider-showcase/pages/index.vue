@@ -1,7 +1,7 @@
 <template>
   <v-container>
-    <div v-for="liveItem in scData" :key="liveItem.ts" align="center">
-      <div v-for="item in liveItem.data" :key="item._id" style="margin: 20px">
+    <div align="center">
+      <div v-for="item in scData" :key="item._id" style="margin: 20px">
         <!--
                               :title="
                   item.uname +
@@ -13,10 +13,6 @@
                 "
             -->
         <SuperChat
-          v-if="
-            Number(item.hide) == 0 &&
-            (Number(item.sc) == 1 || (Number(item.sc) == 0 && showGiftNative))
-          "
           :title="item.uname"
           :price="Number(item.price)"
           :message="item.msg"
@@ -34,6 +30,7 @@
         />
       </div>
     </div>
+    <v-snackbar v-model="snackbar"> {{ snackbarText }} </v-snackbar>
   </v-container>
 </template>
 
@@ -54,6 +51,8 @@ export default {
       bgColorList: ['#304156', '#473252', '#00463f'],
       db: undefined,
       dbReq: undefined,
+      snackbar: false,
+      snackbarText: '',
     }
   },
   head: {
@@ -174,48 +173,30 @@ export default {
     },
     async fetchData() {
       if (!this.room || isNaN(Number(this.room)) || this.room === '') return
-      let err = false
-      const scData = await this.$axios({
-        url: process.env.baseApiUrl + '/sc/getData',
-        method: 'POST',
-        data: `roomid=${this.room}&limit=${this.pageLimit}${
-          this.giftFilterNative ? '&filter=on' : ''
-        }`,
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      }).catch(() => {
-        err = true
-      })
-      if (err) return
-      await this.updateData(scData.data)
-    },
-    async updateData(scData) {
       try {
-        // this.$nuxt.$loading.start()
-        // this.scData = scData.data
-        for (const item of scData) {
-          item.data.sort((a, b) => Number(b.ts) - Number(a.ts))
-        }
-        scData.sort((a, b) => Number(b.ts) - Number(a.ts))
-        const newSCData = []
-        let his = 0
-        for (const item of scData) {
-          for (const data of item.data) {
-            if (this.showMarkNative)
-              data.markstate = await this.getMarkState(data._id)
-            else data.markstate = 0
-            // data.markstate = 0
-          }
-          his++
-          if (his === 2) newSCData.push({ ...item, history: true })
-          else newSCData.push(item)
-        }
-        this.scData = newSCData
+        const scData = await this.$axios({
+          url: process.env.baseApiUrl + '/sc/getData',
+          method: 'POST',
+          data: `roomid=${this.room}&limit=${this.pageLimit}${
+            this.giftFilterNative ? '&filter=on' : ''
+          }`,
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+        })
+        await this.updateData(scData.data)
+      } catch (e) {
+        this.snackbar = true
+        if (error.response.data)
+          this.snackbarText = e.message + '\n' + error.response.data
+        else this.snackbarText = e.message
+      }
+    },
+    updateData(scData) {
+      try {
+        this.scData = scData
       } catch (e) {
         console.error(e)
-      } finally {
-        // this.$nuxt.$loading.finish()
       }
     },
     openLink(link, extra) {
@@ -228,6 +209,7 @@ export default {
       else window.open(link)
     },
     async changeMarkState(id) {
+      if (!this.showMarkNative) return
       console.log('change state:' + id)
       if (this.db === undefined) return
       if ((await this.getMarkState(id)) === 1) {
