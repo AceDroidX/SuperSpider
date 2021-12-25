@@ -57,66 +57,62 @@ sc.post('/getData', async (ctx, next) => {
         .limit(pageLimit)
         .toArray()
       log(`LOG amdb complete ${roomid}`)
-      const preFinded = await predb
-        .find({ roomid })
-        .sort('ts', -1)
-        .limit(pageLimit)
-        .toArray()
-      log(`LOG predb complete ${roomid}`)
-      const tsList = []
-      const rList = {}
-      for (const item of finded) {
-        if (!item.livets) continue
-        if (Number(item.hide) > 0) continue
-        let lts = Number(item.livets)
-        let ltstmp = lts
-        let deltaLeft = lts - mergeTime
-        let deltaRight = lts + mergeTime
-        for (let num of tsList) {
-          ltstmp = deltaRight > num && num >= lts ? num : ltstmp
-          ltstmp = deltaLeft < num && num <= lts ? num : ltstmp
-        }
-        lts = ltstmp
-        if (!tsList.includes(lts)) tsList.push(lts)
-        if (!rList[lts]) rList[lts] = []
-        rList[lts].push({ ...item, ts: Number(item.ts * 1000), sc: 1 })
-      }
-      for (const item of preFinded) {
-        if (
-          ctx.request.body.filter &&
-          (isNaN(Number(item.price)) || Number(item.price) < 30)
-        )
-          continue
-        if (!item.livets) continue
-        if (Number(item.hide) > 0) continue
-        let lts = Number(item.livets)
-        let ltstmp = lts
-        let deltaLeft = lts - mergeTime
-        let deltaRight = lts + mergeTime
-        for (let num of tsList) {
-          ltstmp = deltaRight > num && num >= lts ? num : ltstmp
-          ltstmp = deltaLeft < num && num <= lts ? num : ltstmp
-        }
-        lts = ltstmp
-        if (!tsList.includes(lts)) tsList.push(lts)
-        if (!rList[lts]) rList[lts] = new Array()
-        rList[lts].push({ ...item, ...giftConv(item), sc: 0 })
-      }
-      // for (const tl of rList) {
-      //   tl.sort((a, b) => Number(b.ts) - Number(a.ts))
+      // const preFinded = await predb
+      //   .find({ roomid })
+      //   .sort('ts', -1)
+      //   .limit(pageLimit)
+      //   .toArray()
+      // log(`LOG predb complete ${roomid}`)
+      // const tsList = []
+      // const rList = {}
+      // for (const item of finded) {
+      //   if (!item.livets) continue
+      //   if (Number(item.hide) > 0) continue
+      //   let lts = Number(item.livets)
+      //   let ltstmp = lts
+      //   let deltaLeft = lts - mergeTime
+      //   let deltaRight = lts + mergeTime
+      //   for (let num of tsList) {
+      //     ltstmp = deltaRight > num && num >= lts ? num : ltstmp
+      //     ltstmp = deltaLeft < num && num <= lts ? num : ltstmp
+      //   }
+      //   lts = ltstmp
+      //   if (!tsList.includes(lts)) tsList.push(lts)
+      //   if (!rList[lts]) rList[lts] = []
+      //   rList[lts].push({ ...item, ts: Number(item.ts * 1000), sc: 1 })
       // }
-      log(`LOG local sort ${roomid}`)
-      const output = []
-      for (const ts of tsList) {
-        rList[ts].sort((a, b) => Number(b.ts) - Number(a.ts))
-        output.push({
-          ts,
-          data: rList[ts],
-        })
-      }
-      // output.sort((a, b) => Number(b.ts) - Number(a.ts))
+      // for (const item of preFinded) {
+      //   if (
+      //     ctx.request.body.filter &&
+      //     (isNaN(Number(item.price)) || Number(item.price) < 30)
+      //   )
+      //     continue
+      //   if (!item.livets) continue
+      //   if (Number(item.hide) > 0) continue
+      //   let lts = Number(item.livets)
+      //   let ltstmp = lts
+      //   let deltaLeft = lts - mergeTime
+      //   let deltaRight = lts + mergeTime
+      //   for (let num of tsList) {
+      //     ltstmp = deltaRight > num && num >= lts ? num : ltstmp
+      //     ltstmp = deltaLeft < num && num <= lts ? num : ltstmp
+      //   }
+      //   lts = ltstmp
+      //   if (!tsList.includes(lts)) tsList.push(lts)
+      //   if (!rList[lts]) rList[lts] = new Array()
+      //   rList[lts].push({ ...item, ...giftConv(item), sc: 0 })
+      // }
+      // log(`LOG local sort ${roomid}`)
+      // const output = []
+      // for (const ts of tsList) {
+      //   rList[ts].sort((a, b) => Number(b.ts) - Number(a.ts))
+      //   output.push({
+      //     ts,
+      //     data: rList[ts],
+      //   })
+      // }
       log(`LOG output ${roomid}`)
-      ctx.response.body = output
+      ctx.response.body = finded
       log(`LOG next start ${roomid}`)
       await next()
       log(`LOG next end ${roomid}`)
