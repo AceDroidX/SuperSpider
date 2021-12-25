@@ -15,7 +15,7 @@ const tsList = {}
 
 let exRate = 14.7
 
-const log = process.env.NODE_ENV == 'development' ? console.log : () => {}
+const log = process.env.NODE_ENV == 'development' ? console.log : () => { }
 
 const rdbCore = async (rid) => {
   if (!global.amdb) return
@@ -28,20 +28,20 @@ const rdbCore = async (rid) => {
   log(`LOG start rdb room ${rid}`)
   try {
     let data = false
-    if (global.usingAtHome)
-      // data = JSON.parse(
-      //   await athome.execute(
-      //     'https://api.live.bilibili.com/av/v1/SuperChat/getMessageList?room_id=' +
-      //       rid
-      //   )
-      // )
-    else
-      data = JSON.parse(
-        await rp(
-          'https://api.live.bilibili.com/av/v1/SuperChat/getMessageList?room_id=' +
-            rid
-        )
+    // if (global.usingAtHome)
+    //   // data = JSON.parse(
+    //   //   await athome.execute(
+    //   //     'https://api.live.bilibili.com/av/v1/SuperChat/getMessageList?room_id=' +
+    //   //       rid
+    //   //   )
+    //   // )
+    // else
+    data = JSON.parse(
+      await rp(
+        'https://api.live.bilibili.com/av/v1/SuperChat/getMessageList?room_id=' +
+        rid
       )
+    )
     if (data.code !== 0) {
       console.log('ERR when rp room ' + rid + ' by code')
       return
