@@ -38,8 +38,8 @@
 import { mapState } from 'vuex'
 import { openDB } from 'idb'
 export default {
-  name: 'FullSCViewer',
-  layout: 'viewer',
+  name: 'HistorySCViewer',
+  layout: 'historyViewer',
   data() {
     return {
       scData: [],
@@ -59,53 +59,15 @@ export default {
     title: 'BiliSC',
   },
   computed: {
-    showTime() {
-      return this.$route.query.showTime
-        ? this.$route.query.showTime === 'true'
-        : false // This controls the default value
-    },
-    showKana() {
-      return this.$route.query.showKana
-        ? this.$route.query.showKana === 'true'
-        : true
-    },
-    showGift() {
-      return this.$route.query.showGift
-        ? this.$route.query.showGift === 'true'
-        : true
-    },
-    giftFilter() {
-      return this.$route.query.giftFilter
-        ? this.$route.query.giftFilter === 'true'
-        : true
-    },
     ...mapState({
-      room: (state) => state.ViewerConfig.room,
-      pageLimit: (state) => state.ViewerConfig.pageLimit,
-      showMarkNative: (state) => state.ViewerConfig.showMarkNative,
-      startFetch: (state) => state.ViewerConfig.startFetch,
+      room: (state) => state.HistoryViewerConfig.room,
+      showMarkNative: (state) => state.HistoryViewerConfig.showMarkNative,
+      startFetch: (state) => state.HistoryViewerConfig.startFetch,
+      startTS: (state) => state.HistoryViewerConfig.startTS,
+      endTS: (state) => state.HistoryViewerConfig.endTS,
     }),
   },
   watch: {
-    showTimeNative() {
-      this.fetchAdd()
-    },
-    showKanaNative() {
-      this.fetchAdd()
-    },
-    showGiftNative() {
-      this.fetchAdd()
-    },
-    giftFilterNative() {
-      this.fetchAdd()
-    },
-    showMarkNative() {
-      // this.fetchAdd()
-      this.updateData(this.scData)
-    },
-    room() {
-      this.fetchAdd()
-    },
     startFetch() {
       if (this.startFetch) {
         this.startFetchData()
@@ -146,16 +108,6 @@ export default {
         '&giftFilter=' +
         this.giftFilterNative
     },
-    // copyText() {
-    //   this.$copyText(this.addText).then(
-    //     () => {
-    //       this.$message(this.$t('common.copySucceed'))
-    //     },
-    //     () => {
-    //       this.$message(this.$t('common.copyFailed'))
-    //     }
-    //   )
-    // },
     async startFetchData() {
       if (!this.room) return
       console.log('startFetchData')
@@ -176,11 +128,9 @@ export default {
       if (!this.room || isNaN(Number(this.room)) || this.room === '') return
       try {
         const scData = await this.$axios({
-          url: process.env.baseApiUrl + '/sc/getData',
+          url: process.env.baseApiUrl + '/sc/getDataByTS',
           method: 'POST',
-          data: `roomid=${this.room}&limit=${this.pageLimit}${
-            this.giftFilterNative ? '&filter=on' : ''
-          }`,
+          data: `roomid=${this.room}&start=${this.startTS}&end=${this.endTS}`,
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
           },

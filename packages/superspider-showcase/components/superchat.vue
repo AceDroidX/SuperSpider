@@ -146,17 +146,14 @@ export default {
   computed: {
     headerColorNative() {
       if (this.markstate === 1) {
-        console.log('markstate === 1')
         return {
           'background-color': '#777777',
         }
       } else if (this.$vuetify.theme.dark) {
-        console.log('dark')
         return {
           'background-color': this.shadeColor(this.headercolor, -20),
         }
       } else {
-        console.log('light')
         return {
           'background-color': this.headercolor,
         }
@@ -192,6 +189,9 @@ export default {
       if (timestamp === undefined) {
         now = new Date()
       } else {
+        if(timestamp.toString().length === 10) {
+          timestamp = timestamp * 1000
+        }
         now = new Date(timestamp)
       }
       const year = now.getFullYear()
