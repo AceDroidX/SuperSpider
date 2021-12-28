@@ -6,8 +6,11 @@ services:
     container_name: mongo
     volumes:
       - mongodata:/data/db
+      - ./backup:/backup
     networks:
       - default
+    ports:
+      - "127.0.0.1:27017:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: superspider
@@ -37,7 +40,6 @@ services:
     depends_on:
       - mongo
       - superspider-mdb
-      - superspider-predb
     environment:
       MONGODB_PASS: superspider
       MONGODB_IP: mongo

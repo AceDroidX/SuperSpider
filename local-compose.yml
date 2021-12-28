@@ -1,0 +1,32 @@
+version: "3.7"
+services:
+  mongo:
+    image: mongo
+    restart: unless-stopped
+    container_name: mongo
+    volumes:
+      - mongodata:/data/db
+    ports:
+      - "27017:27017"
+  superspider-predb:
+    build: ./packages/superspider-predb
+    container_name: superspider-predb
+    depends_on:
+      - mongo
+  superspider-mdb:
+    build: ./packages/superspider-mdb
+    container_name: superspider-mdb
+    depends_on:
+      - mongo
+  superspider-mcore:
+    build: ./packages/superspider-mcore
+    container_name: superspider-mcore
+    depends_on:
+      - mongo
+      - superspider-mdb
+      - superspider-predb
+    ports:
+      - "2162:2162"
+
+volumes:
+  mongodata:
