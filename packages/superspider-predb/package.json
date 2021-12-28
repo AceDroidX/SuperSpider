@@ -4,30 +4,26 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon index.js --watch .",
-    "start": "cross-env NODE_ENV=production node index.js"
+    "start": "node build/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "tsc --build --clean",
+    "dev": "tsc -w",
+    "build": "tsc",
+    "serve": "tsc && cross-env NODE_ENV=development node build/index.js"
   },
-  "author": "Il Harper",
+  "author": "AceDroidX",
   "license": "MIT",
   "dependencies": {
-    "bilibili-live-ws": "^6.0.2",
-    "cheerio": "^1.0.0-rc.10",
-    "cross-env": "^7.0.3",
-    "koa": "^2.13.4",
-    "koa-bodyparser": "^4.3.0",
-    "koa-router": "^10.1.1",
-    "koa-send": "^5.0.1",
-    "mongodb": "^4.2.1",
-    "node-schedule": "^2.1.0",
-    "request": "^2.88.2",
-    "request-promise-native": "^1.0.9",
-    "socket.io": "^4.4.0",
-    "socket.io-client": "^4.4.0",
-    "uuid": "^8.3.2",
-    "isomorphic-ws": "^4.0.1",
-    "ws": "^8.3.0"
+    "axios": "^0.24.0",
+    "bilibili-live-ws": "^6.0.3",
+    "mongodb": "^4.2.2",
+    "typescript": "^4.5.4",
+    "winston": "^3.3.3",
+    "winston-transport": "^4.4.1",
+    "ws": "^8.4.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "@types/ws": "^8.2.1",
+    "cross-env": "^7.0.3"
   }
 }

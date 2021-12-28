@@ -1,10 +1,10 @@
-FROM node:slim
-LABEL maintainer="afanyiyu@hotmail.com"
-LABEL version="0.1.0"
+FROM node:16-alpine
 WORKDIR /app
-COPY . /app
-ENV NPM_CONFIG_LOGLEVEL warn
-RUN npm i --registry=https://registry.npmmirror.com
-RUN npm audit fix
-EXPOSE 2165 2166
-ENTRYPOINT npm run start
+ENV TZ=Asia/Shanghai
+COPY package.json tsconfig.json /app/
+RUN ls -al\
+  && npm --registry https://registry.npmmirror.com install
+COPY src/ /app/src/
+# COPY config/ /app/config/
+RUN npm run build
+CMD ["npm","run","start"]
