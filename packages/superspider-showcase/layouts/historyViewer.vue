@@ -7,24 +7,7 @@
       fixed
       app
     >
-      <div align-center style="text-align: center">
-        <img
-          :src="
-            require(`~/assets/${
-              $vuetify.theme.dark ? 'Logo_Trans' : 'Logo'
-            }.png`)
-          "
-          height="150px"
-          width="150px"
-          style="text-align: center"
-        />
-      </div>
-      <v-list-item align-center style="text-align: center">
-        <v-list-item-content>
-          <v-list-item-title class="text-h6"> BiliSC </v-list-item-title>
-          <v-list-item-subtitle> v{{ version }} </v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
+      <BiliSCLogo :version="version"/>
       <v-divider></v-divider>
       <v-list dense nav>
         <v-list-item>
@@ -257,9 +240,9 @@ export default {
       collapseOnScroll: true,
       newVersionDialog: false,
       version: 'null',
-      startDate: this.getTime().substring(0, 10),
+      startDate: this.$getTime().substring(0, 10),
       startTime: '00:00',
-      endDate: this.getTime().substring(0, 10),
+      endDate: this.$getTime().substring(0, 10),
       endTime: '00:00',
       startDateMenu: false,
       startTimeMenu: false,
@@ -345,26 +328,6 @@ export default {
     setVersion() {
       localStorage.setItem('version', process.env.version)
       this.newVersionDialog = false
-    },
-    getTime(timestamp = undefined) {
-      let now
-      if (timestamp === undefined) {
-        now = new Date()
-      } else {
-        if (timestamp.toString().length === 10) {
-          timestamp = timestamp * 1000
-        }
-        now = new Date(timestamp)
-      }
-      const year = now.getFullYear()
-      const month = (now.getMonth() + 1).toString().padStart(2, '0')
-      const day = now.getDate().toString().padStart(2, '0')
-      const hour = now.getHours().toString().padStart(2, '0')
-      const minute = now.getMinutes().toString().padStart(2, '0')
-      const second = now.getSeconds().toString().padStart(2, '0')
-      const milli = now.getMilliseconds().toString().padStart(3, '0')
-      const time = `${year}-${month}-${day} ${hour}:${minute}:${second}.${milli}`
-      return time
     },
   },
 }

@@ -7,24 +7,7 @@
       fixed
       app
     >
-      <div align-center style="text-align: center">
-        <img
-          :src="
-            require(`~/assets/${
-              $vuetify.theme.dark ? 'Logo_Trans' : 'Logo'
-            }.png`)
-          "
-          height="150px"
-          width="150px"
-          style="text-align: center"
-        />
-      </div>
-      <v-list-item align-center style="text-align: center">
-        <v-list-item-content>
-          <v-list-item-title class="text-h6"> BiliSC </v-list-item-title>
-          <v-list-item-subtitle> v{{ version }} </v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
+      <BiliSCLogo :version="version"/>
       <v-divider></v-divider>
       <v-list dense nav>
         <v-list-item>
@@ -66,8 +49,14 @@
         </v-list-item>
         <v-divider></v-divider>
         <v-list-item>
-          <v-list-item-content><v-btn @click="newVersionDialog = true">更新日志</v-btn></v-list-item-content>
-          <v-list-item-content><v-btn nuxt to="/history">历史SC</v-btn></v-list-item-content>
+          <v-list-item-content
+            ><v-btn @click="newVersionDialog = true"
+              >更新日志</v-btn
+            ></v-list-item-content
+          >
+          <v-list-item-content
+            ><v-btn nuxt to="/history">历史SC</v-btn></v-list-item-content
+          >
         </v-list-item>
         <v-list-item>
           <IntroText />
@@ -80,7 +69,7 @@
       >
         <v-card>
           <v-card-title class="text-h5"> 更新日志 </v-card-title>
-          <ChangelogText/>
+          <ChangelogText />
           <v-divider></v-divider>
           <v-card-actions>
             <v-spacer></v-spacer>

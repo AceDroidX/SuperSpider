@@ -1,58 +1,26 @@
 <template>
-  <v-container>
-    <div align="center">
-      <div v-for="item in scData" :key="item._id" style="margin: 20px">
-        <!--
-                              :title="
-                  item.uname +
-                    ($i18n.locale !== 'ja'
-                      ? ''
-                      : item.unamejpn
-                      ? ' (' + item.unamejpn + ')'
-                      : '')
-                "
-            -->
-        <SuperChat
-          :title="item.uname"
-          :price="Number(item.price)"
-          :message="item.msg"
-          :messagejpn="''"
-          :avatar="item.avatar"
-          :contentcolor="item.bcolor"
-          :headercolor="item.pcolor"
-          :exrate="item.exRate"
-          :hiderate="true"
-          :ts="item.ts"
-          :markstate="item.markstate"
-          style="max-width: 700px"
-          align="left"
-          @click.native="changeMarkState(item._id)"
-        />
-      </div>
-    </div>
+  <div>
+    <SCList :rawscdata="rawSCData" :showmarknative="showMarkNative" />
     <v-snackbar v-model="snackbar"> {{ snackbarText }} </v-snackbar>
-  </v-container>
+  </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import { openDB } from 'idb'
 export default {
   name: 'FullSCViewer',
   layout: 'viewer',
   data() {
     return {
-      scData: [],
+      rawSCData: [],
       started: false,
       timer: false,
       addText: '',
       fontStyle: '',
       bgColor: '',
       bgColorList: ['#304156', '#473252', '#00463f'],
-      db: undefined,
-      dbReq: undefined,
       snackbar: false,
-      snackbarText: '',
+      snackbarText: 'Error',
     }
   },
   head: {
@@ -99,10 +67,6 @@ export default {
     giftFilterNative() {
       this.fetchAdd()
     },
-    showMarkNative() {
-      // this.fetchAdd()
-      this.updateData(this.scData)
-    },
     room() {
       this.fetchAdd()
     },
@@ -111,6 +75,12 @@ export default {
         this.startFetchData()
       }
     },
+    snackbarText(newval, oldval) {
+      console.log(newval, oldval)
+    },
+    snackbar(newval, oldval) {
+      console.log(newval, oldval)
+    },
   },
   async mounted() {
     this.bgColor = this.bgColorList[Math.floor(Math.random() * 3)]
@@ -118,16 +88,6 @@ export default {
       if (this.room && this.room !== '') await this.startFetchData()
     }
     this.fetchAdd()
-
-    this.db = await openDB('BiliSC', undefined, {
-      upgrade(db) {
-        console.log('upgrade')
-        const objectStore = db.createObjectStore('MarkState', {
-          keyPath: 'id',
-        })
-        objectStore.createIndex('id', 'id', { unique: true })
-      },
-    })
   },
   beforeDestroy() {
     if (this.timer) clearTimeout(this.timer)
@@ -185,26 +145,17 @@ export default {
             'Content-Type': 'application/x-www-form-urlencoded',
           },
         })
-        await this.updateData(scData.data)
+        this.rawSCData = scData.data
       } catch (e) {
         this.snackbar = true
-        console.error(e)
-        console.error(e.response)
-        if (e.response.data)
-          this.snackbarText = e.message + '\n' + e.response.data
-        else this.snackbarText = e.message
-      }
-    },
-    async updateData(scData) {
-      try {
-        for (const data of scData) {
-          if (this.showMarkNative)
-            data.markstate = await this.getMarkState(data._id)
-          else data.markstate = 0
+        if (e.response !== undefined) {
+          if (e.response.data !== undefined)
+            this.snackbarText = e.message + '\n' + e.response.data
+          else this.snackbarText = e.name + ': ' + e.message
+        } else {
+          this.snackbarText = e.name + ': ' + e.message
         }
-        this.scData = scData
-      } catch (e) {
-        console.error(e)
+        console.warn(e)
       }
     },
     openLink(link, extra) {
@@ -215,31 +166,6 @@ export default {
           'menubar=0,location=0,scrollbars=0,toolbar=0,width=600,height=600'
         )
       else window.open(link)
-    },
-    async changeMarkState(id) {
-      if (!this.showMarkNative) return
-      console.log('change state:' + id)
-      if (this.db === undefined) return
-      if ((await this.getMarkState(id)) === 1) {
-        await this.deleteMarkState(id)
-      } else {
-        await this.setMarkState(id, 1)
-      }
-      await this.updateData(this.scData)
-    },
-    async getMarkState(id) {
-      if (this.db === undefined) return
-      const res = await this.db.get('MarkState', id)
-      if (res) return res.state
-      return 0
-    },
-    async deleteMarkState(id) {
-      if (this.db === undefined) return
-      await this.db.delete('MarkState', id)
-    },
-    async setMarkState(id, state) {
-      if (this.db === undefined) return
-      await this.db.put('MarkState', { id, state })
     },
   },
 }

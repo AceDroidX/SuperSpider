@@ -67,7 +67,7 @@
             class="style-scope yt-live-chat-paid-message-renderer"
             style="transform: scale(0.9); transform-origin: left"
           >
-            {{ ts == 0 ? '获取失败' : getTime(ts) }}
+            {{ ts == 0 ? '获取失败' : $getTime(ts) }}
           </div>
         </div>
       </div>
@@ -184,26 +184,6 @@ export default {
   //   new Buffer(await this.$axios.$get(this.avatar)).toString('base64')
   // },
   methods: {
-    getTime(timestamp = undefined) {
-      let now
-      if (timestamp === undefined) {
-        now = new Date()
-      } else {
-        if(timestamp.toString().length === 10) {
-          timestamp = timestamp * 1000
-        }
-        now = new Date(timestamp)
-      }
-      const year = now.getFullYear()
-      const month = (now.getMonth() + 1).toString().padStart(2, '0')
-      const day = now.getDate().toString().padStart(2, '0')
-      const hour = now.getHours().toString().padStart(2, '0')
-      const minute = now.getMinutes().toString().padStart(2, '0')
-      const second = now.getSeconds().toString().padStart(2, '0')
-      const milli = now.getMilliseconds().toString().padStart(3, '0')
-      const time = `${year}-${month}-${day} ${hour}:${minute}:${second}.${milli}`
-      return time
-    },
     // https://stackoverflow.com/questions/5560248/programmatically-lighten-or-darken-a-hex-color-or-rgb-and-blend-colors
     shadeColor(color, percent) {
       let R = parseInt(color.substring(1, 3), 16)
