@@ -23,8 +23,11 @@ export default {
       snackbarText: 'Error',
     }
   },
-  head: {
-    title: 'BiliSC',
+  head() {
+    return {
+      title: 'BiliSC',
+      titleTemplate: `${this.room} - %s`,
+    }
   },
   computed: {
     showTime() {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SCList :rawscdata="rawSCData" :showmarknative='showMarkNative' />
+    <SCList :rawscdata="rawSCData" :showmarknative="showMarkNative" />
     <v-snackbar v-model="snackbar"> {{ snackbarText }} </v-snackbar>
   </div>
 </template>
@@ -23,8 +23,11 @@ export default {
       snackbarText: '',
     }
   },
-  head: {
-    title: 'BiliSC',
+  head() {
+    return {
+      title: 'BiliSC',
+      titleTemplate: `${this.room} - %s`,
+    }
   },
   computed: {
     ...mapState({
