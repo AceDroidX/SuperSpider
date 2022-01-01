@@ -70,8 +70,9 @@ export default {
     })
   },
   methods: {
-    async updateData(scData) {
+    async updateData(data) {
       try {
+        const scData = data.slice()
         for (const data of scData) {
           if (this.showmarknative)
             data.markstate = await this.getMarkState(data.id)
@@ -91,7 +92,7 @@ export default {
       } else {
         await this.setMarkState(id, 1)
       }
-      await this.updateData(this.scData)
+      await this.updateData(this.rawscdata)
     },
     async getMarkState(id) {
       if (this.db === undefined) return
