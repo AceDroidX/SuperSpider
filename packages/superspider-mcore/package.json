@@ -4,27 +4,31 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon index.js --watch .",
-    "start": "cross-env NODE_ENV=production node index.js"
+    "start": "node build/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "tsc --build --clean",
+    "dev": "tsc -w",
+    "build": "tsc",
+    "serve": "tsc && cross-env NODE_ENV=development node build/index.js"
   },
-  "author": "Il Harper",
+  "author": "AceDroidX",
   "license": "MIT",
   "dependencies": {
     "@koa/cors": "^3.1.0",
-    "cheerio": "^1.0.0-rc.10",
     "cross-env": "^7.0.3",
     "koa": "^2.13.4",
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^10.1.1",
-    "koa-send": "^5.0.1",
-    "lru-cache": "^6.0.0",
-    "mongodb": "^4.2.1",
-    "node-schedule": "^2.1.0",
-    "request": "^2.88.2",
-    "request-promise-native": "^1.0.9",
-    "uuid": "^8.3.2"
+    "mongodb": "^4.2.2",
+    "typescript": "^4.5.4",
+    "winston": "^3.3.3",
+    "winston-transport": "^4.4.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "@types/koa": "^2.13.4",
+    "@types/koa__cors": "^3.1.1",
+    "@types/koa-bodyparser": "^4.3.5",
+    "@types/koa-router": "^7.4.4",
+    "@types/ws": "^8.2.1"
   }
 }
