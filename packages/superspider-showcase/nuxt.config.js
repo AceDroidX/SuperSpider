@@ -97,6 +97,7 @@ export default {
     baseApiUrl:
       process.env.BASE_API_URL || 'https://bilisc.api.acedroidx.top:4430',
     version: process.env.npm_package_version,
+    GIT_HASH: process.env.GITHUB_SHA,
   },
   router: {
     base: '/'

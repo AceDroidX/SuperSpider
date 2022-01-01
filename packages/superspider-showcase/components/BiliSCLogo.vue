@@ -13,7 +13,9 @@
     <v-list-item align-center style="text-align: center">
       <v-list-item-content>
         <v-list-item-title class="text-h6"> BiliSC </v-list-item-title>
-        <v-list-item-subtitle> v{{ version }} </v-list-item-subtitle>
+        <v-list-item-subtitle>
+          v{{ version }}{{ GIT_HASH }}
+        </v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
   </div>
@@ -26,6 +28,13 @@ export default {
       type: String,
       default: 'null',
     },
+  },
+  data() {
+    return {
+      GIT_HASH: process.env.GIT_HASH
+        ? ' - ' + process.env.GIT_HASH.slice(0, 7)
+        : '',
+    }
   },
 }
 </script>
