@@ -1,7 +1,8 @@
 import { Collection } from "mongodb";
 
 interface IDBAppContext {
-    amdb: Collection;
+    maindb: Collection;
+    livedb: Collection;
 }
 interface IDBAppState {
     // amdb: Collection;

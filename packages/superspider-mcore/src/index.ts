@@ -45,10 +45,12 @@ async function main() {
     await client.connect()
     console.log('数据库已连接')
     const db = client.db('amdb')
-    const amdb = db.collection('maindb')
+    const maindb = db.collection('maindb')
+    const livedb = db.collection('livedb')
     // const predb = db.collection('predb')
     // app.context.amdb = amdb
-    app.context.amdb = amdb
+    app.context.maindb = maindb
+    app.context.livedb = livedb
     router.use('/sc', sc.routes(), sc.allowedMethods())
     app.use(router.routes())
     app.listen(2162)
