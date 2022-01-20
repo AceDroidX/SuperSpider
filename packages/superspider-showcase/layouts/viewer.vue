@@ -7,7 +7,7 @@
       fixed
       app
     >
-      <BiliSCLogo :version="version"/>
+      <BiliSCLogo :version="version" />
       <v-divider></v-divider>
       <v-list dense nav>
         <v-list-item>
@@ -48,6 +48,14 @@
           </v-list-item-content>
         </v-list-item>
         <v-divider></v-divider>
+        <v-list-item>
+          <v-list-item-content @click="openLink(miniViewerURL, true)"
+            ><v-btn>小窗模式</v-btn></v-list-item-content
+          >
+          <v-list-item-content @click="copyURL()"
+            ><v-btn>复制链接</v-btn></v-list-item-content
+          >
+        </v-list-item>
         <v-list-item>
           <v-list-item-content
             ><v-btn @click="newVersionDialog = true"
@@ -145,6 +153,9 @@ export default {
         this.$store.commit('ViewerConfig/setShowMarkNative', value)
       },
     },
+    miniViewerURL() {
+      return `/mini?room=${this.room}&limit=${this.pageLimit}&mark=${this.showMarkNative}`
+    },
     ...mapState({
       startFetch: (state) => state.ViewerConfig.startFetch,
     }),
@@ -177,6 +188,21 @@ export default {
     setVersion() {
       localStorage.setItem('version', process.env.version)
       this.newVersionDialog = false
+    },
+    openLink(link, extra) {
+      if (extra)
+        window.open(
+          link,
+          'BiliSC for OBS',
+          'menubar=0,location=0,scrollbars=0,toolbar=0,width=500,height=700'
+        )
+      else window.open(link)
+    },
+    copyURL() {
+      this.copyText(window.location.origin + this.miniViewerURL)
+    },
+    copyText(text) {
+      navigator.clipboard.writeText(text)
     },
   },
 }

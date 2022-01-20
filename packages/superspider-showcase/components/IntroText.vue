@@ -1,7 +1,7 @@
 <template>
   <p>
     如果获取成功，页面顶端将会显示蓝条并加载SC。<br />如果获取失败，页面顶端将会显示红条。<br />
-    消息将会自动更新。可以将下面的链接(还未完工)放入OBS中显示。<br />
+    消息将会自动更新。可以复制链接并放入OBS中显示。<br />
     如有问题请联系<a href="https://github.com/AceDroidX" target="_blank"
       >AceDroidX</a
     ><br />

@@ -1,5 +1,8 @@
 <template>
   <v-card-text>
+    BiliSC v2.1.2 (2022.1.20) <br />
+    1.添加小窗模式/OBS链接<br />
+    <br />
     BiliSC v2.1.1 (2021.12.30 77a9044) <br />
     1.使用TS重写SC爬虫 <br />
     2.优化网页组件复用<br />

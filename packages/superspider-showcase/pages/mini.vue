@@ -6,10 +6,9 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 export default {
-  name: 'FullSCViewer',
-  layout: 'viewer',
+  name: 'MiniSCViewer',
+  layout: 'miniViewer',
   data() {
     return {
       rawSCData: [],
@@ -23,17 +22,26 @@ export default {
   },
   head() {
     return {
-      title: 'BiliSC',
+      title: 'BiliSC(mini)',
       titleTemplate: `${this.room} - %s`,
     }
   },
   computed: {
-    ...mapState({
-      room: (state) => state.ViewerConfig.room,
-      pageLimit: (state) => state.ViewerConfig.pageLimit,
-      showMarkNative: (state) => state.ViewerConfig.showMarkNative,
-      startFetch: (state) => state.ViewerConfig.startFetch,
-    }),
+    room() {
+      return isNaN(parseFloat(this.$route.query.room))
+        ? parseFloat(this.$route.query.room)
+        : 21452505
+    },
+    showMarkNative() {
+      return this.$route.query.mark
+        ? this.$route.query.mark === 'true'
+        : true // This controls the default value
+    },
+    pageLimit() {
+      return isNaN(parseFloat(this.$route.query.limit))
+        ? parseFloat(this.$route.query.limit)
+        : 100
+    },
   },
   watch: {
     startFetch() {
@@ -49,21 +57,12 @@ export default {
     },
   },
   async mounted() {
+      if (this.room && this.room !== '') await this.startFetchData()
   },
   beforeDestroy() {
     if (this.timer) clearTimeout(this.timer)
   },
   methods: {
-    // copyText() {
-    //   this.$copyText(this.addText).then(
-    //     () => {
-    //       this.$message(this.$t('common.copySucceed'))
-    //     },
-    //     () => {
-    //       this.$message(this.$t('common.copyFailed'))
-    //     }
-    //   )
-    // },
     async startFetchData() {
       if (!this.room) return
       console.log('startFetchData')
