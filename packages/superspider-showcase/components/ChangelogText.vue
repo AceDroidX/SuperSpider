@@ -1,6 +1,6 @@
 <template>
   <v-card-text>
-    BiliSC v2.1.2 (2022.1.20) <br />
+    BiliSC v2.1.2 (2022.1.20 2cb353d) <br />
     1.添加小窗模式/OBS链接<br />
     <br />
     BiliSC v2.1.1 (2021.12.30 77a9044) <br />

@@ -49,7 +49,7 @@
         </v-list-item>
         <v-divider></v-divider>
         <v-list-item>
-          <v-list-item-content @click="openLink(miniViewerURL, true)"
+          <v-list-item-content @click="openMiniViewer()"
             ><v-btn>小窗模式</v-btn></v-list-item-content
           >
           <v-list-item-content @click="copyURL()"
@@ -197,6 +197,10 @@ export default {
           'menubar=0,location=0,scrollbars=0,toolbar=0,width=500,height=700'
         )
       else window.open(link)
+    },
+    openMiniViewer() {
+      this.setStartFetch(0)
+      this.openLink(this.miniViewerURL, true)
     },
     copyURL() {
       this.copyText(window.location.origin + this.miniViewerURL)

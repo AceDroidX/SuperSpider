@@ -13,7 +13,6 @@ export default {
   data() {
     return {
       rawSCData: [],
-      started: false,
       timer: false,
       addText: '',
       fontStyle: '',
@@ -39,6 +38,8 @@ export default {
     startFetch() {
       if (this.startFetch) {
         this.startFetchData()
+      } else {
+        this.stopFetchData()
       }
     },
     snackbarText(newval, oldval) {
@@ -48,10 +49,9 @@ export default {
       console.log(newval, oldval)
     },
   },
-  async mounted() {
-  },
+  async mounted() {},
   beforeDestroy() {
-    if (this.timer) clearTimeout(this.timer)
+    this.stopFetchData()
   },
   methods: {
     // copyText() {
@@ -67,15 +67,13 @@ export default {
     async startFetchData() {
       if (!this.room) return
       console.log('startFetchData')
-      await this.fetchData().catch(() => {})
-      if (this.started === this.room) return
+      await this.fetchData()
       if (this.timer) clearTimeout(this.timer)
       this.setTimeoutLoop()
-      this.started = this.room
     },
     setTimeoutLoop() {
       const fn = async () => {
-        await this.fetchData().catch(() => {})
+        await this.fetchData()
         this.timer = setTimeout(fn, 8000)
       }
       this.timer = setTimeout(fn, 8000)
@@ -105,6 +103,11 @@ export default {
         }
         console.warn(e)
       }
+    },
+    stopFetchData() {
+      if (this.timer) clearTimeout(this.timer)
+      this.timer = false
+      this.rawSCData = []
     },
   },
 }
