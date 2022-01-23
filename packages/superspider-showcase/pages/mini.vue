@@ -29,8 +29,8 @@ export default {
   computed: {
     room() {
       return isNaN(parseFloat(this.$route.query.room))
-        ? parseFloat(this.$route.query.room)
-        : 21452505
+        ? 21452505 // This controls the default value
+        : parseFloat(this.$route.query.room)
     },
     showMarkNative() {
       return this.$route.query.mark
@@ -39,8 +39,8 @@ export default {
     },
     pageLimit() {
       return isNaN(parseFloat(this.$route.query.limit))
-        ? parseFloat(this.$route.query.limit)
-        : 100
+        ? 100
+        : parseFloat(this.$route.query.limit)
     },
   },
   watch: {
