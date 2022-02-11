@@ -82,7 +82,7 @@ function rdbClose(rid: number) {
 export default async function main(amdb: Collection) {
   try {
     for (const item of roomlist) {
-      schList[Number(item)] = setInterval(rdbCore, 5000, Number(item), amdb)
+      schList[Number(item)] = setInterval(rdbCore, 1000, Number(item), amdb)
     }
   } catch (e) {
     console.log('ERR when fetch onLive')

@@ -20,13 +20,11 @@ process.on('uncaughtException', (err) => {
 async function main() {
     // DB Init
     const client = new MongoClient(
-        process.env.NODE_ENV == 'development'
-            ? 'mongodb://localhost:27017/amdb'
-            : 'mongodb://admin:' +
-            process.env.MONGODB_PASS +
-            '@' +
-            process.env.MONGODB_IP +
-            ':27017/admin?authMechanism=DEFAULT'
+        'mongodb://admin:' +
+        process.env.MONGODB_PASS +
+        '@' +
+        process.env.MONGODB_IP +
+        ':27017/admin?authMechanism=DEFAULT'
     )
 
     try {
