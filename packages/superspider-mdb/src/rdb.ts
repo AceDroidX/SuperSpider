@@ -41,6 +41,7 @@ async function rdbCore(rid: number, amdb: Collection) {
       // console.log(`LOG no data for room ${rid}`)
       return
     }
+    data.data.list.reverse()
     for (const item of data.data.list) {
       try {
         console.log(`LOG rdb room ${rid} item ${item.id}`)

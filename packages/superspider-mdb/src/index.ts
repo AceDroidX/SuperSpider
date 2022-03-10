@@ -36,7 +36,8 @@ async function main() {
         process.exit(1)
     }
     amdb.createIndex({ roomid: -1, livets: -1, })
-    amdb.createIndex({ roomid: -1, })
+    amdb.createIndex({ roomid: -1, ts: -1, })
+    amdb.createIndex({ id: -1, })
     amdb.createIndex({ ts: -1, })
     await delay(5000)
     console.log('RDB STARTED')
