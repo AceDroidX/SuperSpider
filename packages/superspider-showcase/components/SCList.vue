@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <div align="center">
-      <div v-for="item in scData" :key="item.id" style="margin: 20px">
+      <div v-for="item in scData" :key="item.id" style="margin-bottom: 20px">
         <!--
                               :title="
                   item.uname +
