@@ -31,43 +31,23 @@
           <div
             id="author-name"
             class="style-scope yt-live-chat-paid-message-renderer"
+            style="white-space: nowrap"
           >
             {{ title }}
           </div>
           <div
             id="purchase-amount"
             class="style-scope yt-live-chat-paid-message-renderer"
-            style="transform: scale(0.9); transform-origin: left"
+            style="font-size: 90%; transform-origin: left"
           >
-            {{
+            <span>{{
               hiderate
                 ? '￥' + price
                 : '￥' + price + ' = ' + price * exrate + '円'
-            }}
-          </div>
-        </div>
-      </div>
-      <!-- SC详细信息 -->
-      <div
-        id="header-detail"
-        class="style-scope yt-live-chat-paid-message-renderer"
-      >
-        <div
-          id="header-content-primary-column"
-          class="no-transition style-scope yt-live-chat-paid-message-renderer"
-        >
-          <div
-            id="author-name"
-            class="style-scope yt-live-chat-paid-message-renderer"
-          >
-            发送时间
-          </div>
-          <div
-            id="purchase-amount"
-            class="style-scope yt-live-chat-paid-message-renderer"
-            style="transform: scale(0.9); transform-origin: left"
-          >
-            {{ ts == 0 ? '获取失败' : $getTime(ts) }}
+            }}</span>
+            <span style="float: right">{{
+              ts == 0 ? '获取失败' : $getTime(ts)
+            }}</span>
           </div>
         </div>
       </div>

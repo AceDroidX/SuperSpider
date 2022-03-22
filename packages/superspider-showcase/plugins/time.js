@@ -5,12 +5,14 @@ export default (context, inject) => {
 }
 
 function getTimeF(timestamp = undefined) {
+    let hasMilliSeconds = true
     let now
     if (timestamp === undefined) {
         now = new Date()
     } else {
         if (timestamp.toString().length === 10) {
             timestamp = timestamp * 1000
+            hasMilliSeconds = false
         }
         now = new Date(timestamp)
     }
@@ -21,6 +23,11 @@ function getTimeF(timestamp = undefined) {
     const minute = now.getMinutes().toString().padStart(2, '0')
     const second = now.getSeconds().toString().padStart(2, '0')
     const milli = now.getMilliseconds().toString().padStart(3, '0')
-    const time = `${year}-${month}-${day} ${hour}:${minute}:${second}.${milli}`
+    let time
+    if (hasMilliSeconds) {
+        time = `${year}-${month}-${day} ${hour}:${minute}:${second}.${milli}`
+    } else {
+        time = `${year}-${month}-${day} ${hour}:${minute}:${second}`
+    }
     return time
 }
