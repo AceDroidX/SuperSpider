@@ -18,7 +18,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: packages/superspider-showcase
+        working-directory: ./
 
     steps:
       - name: Checkout 🛎
@@ -42,7 +42,7 @@ jobs:
         run: npm ci
 
       - name: Generate
-        run: npm run generate
+        run: npm run generate --workspace=superspider-showcase
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.7
