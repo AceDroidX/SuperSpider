@@ -93,9 +93,10 @@ export default {
       silent: false
     }
   },
-  env: {
-    baseApiUrl:
-      process.env.BASE_API_URL || 'https://bilisc.api.acedroidx.top:4430',
+  publicRuntimeConfig: {
+    NODE_ENV: process.env.NODE_ENV,
+    BASE_API_URL:
+      process.env.NODE_ENV === 'production' ? process.env.BASE_API_URL : 'http://localhost:2162',
     version: process.env.npm_package_version,
     GIT_HASH: process.env.GITHUB_SHA,
   },

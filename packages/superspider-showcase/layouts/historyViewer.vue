@@ -309,9 +309,9 @@ export default {
     },
   },
   mounted() {
-    this.version = process.env.version
+    this.version = this.$config.version
     const version = localStorage.getItem('version')
-    if (process.env.version !== version) {
+    if (this.$config.version !== version) {
       console.log('version changed')
       this.newVersionDialog = true
     }
@@ -326,7 +326,7 @@ export default {
       console.log(value)
     },
     setVersion() {
-      localStorage.setItem('version', process.env.version)
+      localStorage.setItem('version', this.$config.version)
       this.newVersionDialog = false
     },
   },

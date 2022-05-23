@@ -89,7 +89,7 @@ export default {
       if (!this.room || isNaN(Number(this.room)) || this.room === '') return
       try {
         const scData = await this.$axios({
-          url: process.env.baseApiUrl + '/sc/getDataByTS',
+          url: this.$config.BASE_API_URL + '/sc/getDataByTS',
           method: 'POST',
           data: `roomid=${this.room}&start=${this.startTS}&end=${this.endTS}`,
           headers: {

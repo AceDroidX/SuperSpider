@@ -83,7 +83,7 @@ export default {
       if (!this.room || isNaN(Number(this.room)) || this.room === '') return
       try {
         const scData = await this.$axios({
-          url: process.env.baseApiUrl + '/sc/getData',
+          url: this.$config.BASE_API_URL + '/sc/getData',
           method: 'POST',
           data: `roomid=${this.room}&limit=${this.pageLimit}${
             this.giftFilterNative ? '&filter=on' : ''
