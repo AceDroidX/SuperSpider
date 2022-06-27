@@ -1,0 +1,7 @@
+.git
+.nuxt
+node_modules
+log
+dist
+data
+backup

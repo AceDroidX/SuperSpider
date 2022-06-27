@@ -4,30 +4,37 @@ on:
   push:
     branches:
       - master
+      - dev
+    paths:
+      - "packages/superspider-showcase/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
+      - "tsconfig.json"
   workflow_dispatch:
 
 jobs:
-  build:
+  build-gh-pages:
     runs-on: ubuntu-latest
-
     env:
       BASE_API_URL: ${{ secrets.BASE_API_URL }}
-
     defaults:
       run:
         shell: bash
         working-directory: ./
-
     steps:
       - name: Checkout 🛎
         uses: actions/checkout@v2
-
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 7.1.7
       - name: Setup node env 🏗
-        uses: actions/setup-node@v2.1.5
+        uses: actions/setup-node@v3
         with:
           node-version: 16
           check-latest: true
-
+          cache: "pnpm"
       # - name: Cache node_modules 📦
       #   uses: actions/cache@v2.1.4
       #   with:
@@ -35,15 +42,27 @@ jobs:
       #     key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
       #     restore-keys: |
       #       ${{ runner.os }}-node-
-
       - name: Install dependencies 👨🏻‍💻
-        run: npm ci
-
+        run: pnpm fetch && pnpm install --offline ; exit 0
       - name: Generate
-        run: npm run generate --workspace=superspider-showcase
-
+        run: pnpm run -F superspider-showcase generate
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.7
         with:
           branch: gh-pages # The branch the action should deploy to.
           folder: packages/superspider-showcase/dist
+  build-docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Branch name
+        run: echo running on branch ${GITHUB_REF##*/}
+      - uses: satackey/action-docker-layer-caching@v0.0.11
+        continue-on-error: true
+      - name: Build
+        run: docker build -f ./packages/superspider-showcase/Dockerfile -t acedroidx/superspider-showcase:${GITHUB_REF##*/} .
+      - name: Log In
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      - name: Push
+        run: docker push acedroidx/superspider-showcase:${GITHUB_REF##*/}

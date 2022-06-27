@@ -1,10 +1,20 @@
+FROM node:16-alpine AS build
+WORKDIR /app
+ENV TZ=Asia/Shanghai
+RUN npm install -g pnpm@7.1.7 && npm cache clean --force
+COPY pnpm-lock.yaml ./
+RUN pnpm fetch
+COPY . ./
+RUN pnpm install --offline ; \
+  pnpm run -F superspider-predb build
+
 FROM node:16-alpine
 WORKDIR /app
 ENV TZ=Asia/Shanghai
-COPY package.json tsconfig.json /app/
-RUN ls -al\
-  && npm --registry https://registry.npmmirror.com install
-COPY src/ /app/src/
-# COPY config/ /app/config/
-RUN npm run build
-CMD ["npm","run","start"]
+RUN npm install -g pnpm@7.1.7 && npm cache clean --force
+COPY pnpm-lock.yaml ./
+RUN pnpm fetch --prod
+COPY . ./
+COPY --from=build /app/packages/superspider-predb/dist/ ./packages/superspider-predb/dist/
+RUN pnpm install --offline --prod ; exit 0
+ENTRYPOINT ["pnpm","run","-F","superspider-predb","start"]

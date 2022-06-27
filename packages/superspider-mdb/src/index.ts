@@ -1,5 +1,7 @@
 
-import fs from 'fs'
+if (process.env.NODE_ENV != 'production') {
+  require('dotenv').config({ debug: true })
+}
 import rdb from './rdb'
 import { Collection, MongoClient } from 'mongodb'
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
@@ -20,12 +22,10 @@ process.on('uncaughtException', (err) => {
 async function main() {
     // DB Init
     const client = new MongoClient(
-        'mongodb://admin:' +
-        process.env.MONGODB_PASS +
-        '@' +
-        process.env.MONGODB_IP +
-        ':27017/admin?authMechanism=DEFAULT'
-    )
+      process.env.NODE_ENV == 'production'
+          ? `mongodb://admin:${process.env.MONGODB_PASS}@${process.env.MONGODB_IP}:27017/?authMechanism=DEFAULT`
+          : 'mongodb://admin:admin@localhost:27017/'
+  )
 
     try {
         await client.connect()

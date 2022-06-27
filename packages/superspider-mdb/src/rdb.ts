@@ -3,7 +3,7 @@
 import axios from 'axios'
 import { Collection, MongoClient, ObjectId } from 'mongodb'
 // const athome = require('./athome')
-const roomlist = [21452505, 80397, 22622535]
+const roomlist = [21452505, 80397]
 
 const schList: any[] = []
 const tsList: any[] = []

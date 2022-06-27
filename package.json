@@ -4,43 +4,29 @@
   "description": "走召虫——BiliBili SuperChat 爬虫",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore . --fix",
     "commit": "git cz"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dd-center/SuperSpider.git"
+    "url": "git+https://github.com/AceDroidX/SuperSpider.git"
   },
-  "lint-staged": {
-    "*.{js,vue}": "eslint"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "author": "Il Harper",
+  "author": "AceDroidX",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/dd-center/SuperSpider/issues"
+    "url": "https://github.com/AceDroidX/SuperSpider/issues"
   },
-  "homepage": "https://github.com/dd-center/SuperSpider#readme",
+  "homepage": "https://github.com/AceDroidX/SuperSpider#readme",
   "config": {
     "commitizen": {
       "path": "./node_modules/git-cz"
     }
   },
-  "private": true,
   "workspaces": [
     "packages/*"
   ],
   "devDependencies": {
-    "@babel/eslint-parser": "^7.16.3",
-    "eslint": "^8.4.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-vue": "^8.1.1",
-    "git-cz": "^4.8.0",
-    "prettier": "^2.5.0"
+    "dotenv": "latest",
+    "husky": "latest",
+    "git-cz": "latest"
   }
 }

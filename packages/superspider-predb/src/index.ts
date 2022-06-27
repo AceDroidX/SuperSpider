@@ -1,4 +1,6 @@
-import fs from 'fs'
+if (process.env.NODE_ENV != 'production') {
+  require('dotenv').config({ debug: true })
+}
 import { Collection, MongoClient } from 'mongodb'
 import { KeepLiveWS } from 'bilibili-live-ws'
 
@@ -7,14 +9,10 @@ const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 async function main() {
     // DB Init
     const client = new MongoClient(
-        process.env.NODE_ENV == 'development'
-            ? 'mongodb://localhost:27017/'
-            : 'mongodb://admin:' +
-            process.env.MONGODB_PASS +
-            '@' +
-            (process.env.MONGODB_IP || '172.18.0.1') +
-            ':27017/admin?authMechanism=DEFAULT'
-    )
+      process.env.NODE_ENV == 'production'
+          ? `mongodb://admin:${process.env.MONGODB_PASS}@${process.env.MONGODB_IP}:27017/?authMechanism=DEFAULT`
+          : 'mongodb://admin:admin@localhost:27017/'
+  )
     try {
         await client.connect()
     } catch (err) {

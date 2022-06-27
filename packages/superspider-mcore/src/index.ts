@@ -1,4 +1,6 @@
-import fs from 'fs'
+if (process.env.NODE_ENV != 'production') {
+  require('dotenv').config({ debug: true })
+}
 import Koa from 'koa'
 import Router from 'koa-router'
 import bodyParser from 'koa-bodyparser'
@@ -32,14 +34,10 @@ async function main() {
   // DB Init
 
   const client = new MongoClient(
-    process.env.NODE_ENV == 'development'
-      ? 'mongodb://localhost:27017/amdb'
-      : 'mongodb://admin:' +
-      process.env.MONGODB_PASS +
-      '@' +
-      process.env.MONGODB_IP +
-      ':27017/admin?authMechanism=DEFAULT'
-  )
+    process.env.NODE_ENV == 'production'
+        ? `mongodb://admin:${process.env.MONGODB_PASS}@${process.env.MONGODB_IP}:27017/?authMechanism=DEFAULT`
+        : 'mongodb://admin:admin@localhost:27017/'
+)
 
   try {
     await client.connect()
