@@ -35,7 +35,7 @@
           <v-list-item-content>
             <v-select
               v-model="room"
-              :items="['21452505', '80397']"
+              :items="$config.ROOM_ID"
               hide-details
               class="ma-0 pa-0"
             ></v-select>

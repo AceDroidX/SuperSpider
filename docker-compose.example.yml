@@ -6,71 +6,54 @@ services:
         restart: unless-stopped
         volumes:
             - mongodata:/data/db
-        networks:
-            - default
         environment:
             NODE_ENV: production
             MONGO_INITDB_ROOT_USERNAME: admin
             MONGO_INITDB_ROOT_PASSWORD: admin
     superspider-predb:
-        build:
-            context: .
-            dockerfile: ./packages/superspider-predb/Dockerfile
+        image: acedroidx/superspider-predb:master
         container_name: superspider-predb
         restart: unless-stopped
         depends_on:
             - superspider-mongo
-        networks:
-            - default
         environment:
             NODE_ENV: production
             MONGODB_PASS: admin
             MONGODB_IP: superspider-mongo
+            room_id: 21452505
     superspider-mdb:
-        build:
-            context: .
-            dockerfile: ./packages/superspider-mdb/Dockerfile
+        image: acedroidx/superspider-mdb:master
         container_name: superspider-mdb
         restart: unless-stopped
         depends_on:
             - superspider-mongo
-        networks:
-            - default
         environment:
+            NODE_ENV: production
             MONGODB_PASS: admin
             MONGODB_IP: superspider-mongo
+            room_id: 21452505,80397
     superspider-mcore:
-        build:
-            context: .
-            dockerfile: ./packages/superspider-mcore/Dockerfile
+        image: acedroidx/superspider-mcore:master
         container_name: superspider-mcore
         restart: unless-stopped
         depends_on:
             - superspider-mongo
             - superspider-mdb
         environment:
+            NODE_ENV: production
             MONGODB_PASS: admin
             MONGODB_IP: superspider-mongo
         ports:
             - "2162:2162"
-        networks:
-            - default
     superspider-showcase:
-        build:
-            context: .
-            dockerfile: ./packages/superspider-showcase/Dockerfile
+        image: acedroidx/superspider-showcase:master
         container_name: superspider-showcase
         environment:
             BASE_API_URL: https://api.example.com
+            room_id: 21452505,80397
         ports:
             - "2164:2164"
-        networks:
-            - default
 
 volumes:
     mongodata:
-
-
-networks:
-    default:
-        driver: bridge
+        name: "superspider-mongodata"

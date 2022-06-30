@@ -1,3 +1,5 @@
+docker-compose.yml
+docker-compose-*.yml
 .git
 .nuxt
 node_modules

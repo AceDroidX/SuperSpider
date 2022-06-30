@@ -99,6 +99,7 @@ export default {
       process.env.NODE_ENV === 'production' ? process.env.BASE_API_URL : 'http://localhost:2162',
     version: process.env.npm_package_version,
     GIT_HASH: process.env.GITHUB_SHA,
+    ROOM_ID: process.env.ROOM_ID ? process.env.room_id.split(',') : ['21452505', '80397'],
   },
   router: {
     base: '/'

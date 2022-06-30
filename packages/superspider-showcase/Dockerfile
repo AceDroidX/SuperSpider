@@ -10,6 +10,8 @@ RUN pnpm install --offline ; \
 
 FROM node:16-alpine
 WORKDIR /app
+ARG GITHUB_SHA
+ENV GITHUB_SHA=$GITHUB_SHA
 ENV TZ=Asia/Shanghai
 RUN npm install -g pnpm@7.1.7 && npm cache clean --force
 COPY pnpm-lock.yaml ./

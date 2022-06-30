@@ -1,5 +1,5 @@
 if (process.env.NODE_ENV != 'production') {
-  require('dotenv').config({ debug: true })
+    require('dotenv').config({ debug: true })
 }
 import { Collection, MongoClient } from 'mongodb'
 import { KeepLiveWS } from 'bilibili-live-ws'
@@ -9,10 +9,10 @@ const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 async function main() {
     // DB Init
     const client = new MongoClient(
-      process.env.NODE_ENV == 'production'
-          ? `mongodb://admin:${process.env.MONGODB_PASS}@${process.env.MONGODB_IP}:27017/?authMechanism=DEFAULT`
-          : 'mongodb://admin:admin@localhost:27017/'
-  )
+        process.env.NODE_ENV == 'production'
+            ? `mongodb://admin:${process.env.MONGODB_PASS}@${process.env.MONGODB_IP}:27017/?authMechanism=DEFAULT`
+            : 'mongodb://admin:admin@localhost:27017/'
+    )
     try {
         await client.connect()
     } catch (err) {
@@ -22,11 +22,19 @@ async function main() {
     }
     await delay(5000)
     console.log('PREDB STARTED')
-    await openRoom(21452505, 434334701, client)
+    const roomid_str = process.env['room_id']
+    if (!roomid_str) {
+        console.error('请设置room_id')
+        process.exit(1)
+    }
+    const roomid = roomid_str.split(',').map(x => parseInt(x))
+    roomid.forEach((value: number) => {
+        openRoom(value, client)
+    })
 }
 
 async function onMsg(data: any, db: Collection) {
-    switch(data.cmd){
+    switch (data.cmd) {
         case 'STOP_LIVE_ROOM_LIST':
         case 'NOTICE_MSG':
         case 'WIDGET_BANNER':
@@ -36,7 +44,7 @@ async function onMsg(data: any, db: Collection) {
     await db.insertOne(data)
 }
 
-async function openRoom(roomid: number, mid: number, client: MongoClient) {
+async function openRoom(roomid: number, client: MongoClient) {
     // console.log(`OPEN: ${roomid}`)
     const db = client.db('fullmsg').collection(roomid.toString())
     await db.createIndex({ ts: -1, })
