@@ -66,6 +66,7 @@ importers:
       bilibili-live-ws: ^6.0.3
       cross-env: latest
       mongodb: ^4.2.2
+      superspider-shared: 'workspace:'
       typescript: latest
       winston: ^3.3.3
       winston-transport: ^4.4.1
@@ -74,6 +75,7 @@ importers:
       axios: 0.24.0
       bilibili-live-ws: 6.2.1_s6dgubocm6srlbjottxvb2ofwu
       mongodb: 4.7.0
+      superspider-shared: link:../superspider-shared
       winston: 3.8.0
       winston-transport: 4.5.0
       ws: 8.8.0
@@ -89,6 +91,7 @@ importers:
       bilibili-live-ws: ^6.0.3
       cross-env: latest
       mongodb: ^4.2.2
+      superspider-shared: 'workspace:'
       typescript: latest
       winston: ^3.3.3
       winston-transport: ^4.4.1
@@ -97,12 +100,19 @@ importers:
       axios: 0.24.0
       bilibili-live-ws: 6.2.1_s6dgubocm6srlbjottxvb2ofwu
       mongodb: 4.7.0
+      superspider-shared: link:../superspider-shared
       winston: 3.8.0
       winston-transport: 4.5.0
       ws: 8.8.0
     devDependencies:
       '@types/ws': 8.5.3
       cross-env: 7.0.3
+      typescript: 4.7.4
+
+  packages/superspider-shared:
+    specifiers:
+      typescript: latest
+    devDependencies:
       typescript: 4.7.4
 
   packages/superspider-showcase:

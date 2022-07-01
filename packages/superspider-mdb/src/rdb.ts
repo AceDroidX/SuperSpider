@@ -1,7 +1,8 @@
 // const fs = require('fs')
 // import { exampleJson } from './test'
 import axios from 'axios'
-import { Collection, MongoClient, ObjectId } from 'mongodb'
+import { Collection } from 'mongodb'
+import { SuperChat } from 'superspider-shared'
 // const athome = require('./athome')
 
 const roomid_str = process.env['room_id']
@@ -51,22 +52,22 @@ async function rdbCore(rid: number, amdb: Collection) {
         for (const item of data.data.list) {
             try {
                 console.log(`LOG rdb room ${rid} item ${item.id}`)
-                await amdb.updateOne({ id: Number(item.id) }, {
-                    $set: {
-                        id: Number(item.id),
-                        roomid: Number(rid),
-                        ts: Number(item.start_time),
-                        uname: item.user_info.uname,
-                        avatar: item.user_info.face,
-                        price: Number(item.price),
-                        // msg: item.message.replace(/\s*/g, '').replace(/[\r\n]/g, ''),
-                        msg: item.message,
-                        // msgjpn: item.message_trans.replace(/\s*/g, '').replace(/[\r\n]/g, ''),
-                        msgjpn: item.message_trans,
-                        bcolor: item.background_bottom_color,
-                        pcolor: item.background_price_color,
-                    }
-                }, { upsert: true })
+                const sc: SuperChat = {
+                    id: Number(item.id),
+                    roomid: Number(rid),
+                    ts: Number(item.start_time),
+                    uid: Number(item.uid),
+                    uname: item.user_info.uname,
+                    avatar: item.user_info.face,
+                    price: Number(item.price),
+                    // msg: item.message.replace(/\s*/g, '').replace(/[\r\n]/g, ''),
+                    msg: item.message,
+                    // msgjpn: item.message_trans.replace(/\s*/g, '').replace(/[\r\n]/g, ''),
+                    msgjpn: item.message_trans,
+                    bcolor: item.background_bottom_color,
+                    pcolor: item.background_price_color,
+                }
+                await amdb.updateOne({ id: Number(item.id) }, { $set: sc }, { upsert: true })
             } catch (e) {
                 console.log('ERR when writing data: ')
                 console.log(data)

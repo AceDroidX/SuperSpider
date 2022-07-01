@@ -1,8 +1,9 @@
 {
-    "name": "superspider-predb",
+    "name": "superspider-shared",
     "version": "0.1.0",
     "description": "",
     "main": "index.js",
+    "types": "dist/index.d.ts",
     "scripts": {
         "start": "node dist/index.js",
         "test": "echo \"Error: no test specified\" && exit 1",
@@ -13,18 +14,8 @@
     },
     "author": "AceDroidX",
     "license": "MIT",
-    "dependencies": {
-        "axios": "^0.24.0",
-        "bilibili-live-ws": "^6.0.3",
-        "mongodb": "^4.2.2",
-        "winston": "^3.3.3",
-        "winston-transport": "^4.4.1",
-        "ws": "^8.4.0",
-        "superspider-shared": "workspace:"
-    },
+    "dependencies": {},
     "devDependencies": {
-        "@types/ws": "^8.2.1",
-        "cross-env": "latest",
         "typescript": "latest"
     }
 }
