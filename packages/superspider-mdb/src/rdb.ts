@@ -51,7 +51,6 @@ async function rdbCore(rid: number, amdb: Collection) {
         data.data.list.reverse()
         for (const item of data.data.list) {
             try {
-                console.log(`LOG rdb room ${rid} item ${item.id}`)
                 const sc: SuperChat = {
                     id: Number(item.id),
                     roomid: Number(rid),
@@ -67,7 +66,8 @@ async function rdbCore(rid: number, amdb: Collection) {
                     bcolor: item.background_bottom_color,
                     pcolor: item.background_price_color,
                 }
-                await amdb.updateOne({ id: Number(item.id) }, { $set: sc }, { upsert: true })
+                const result = await amdb.updateOne({ id: Number(item.id) }, { $set: sc }, { upsert: true })
+                console.log(`${item.id} update result:${JSON.stringify(result)}`)
             } catch (e) {
                 console.log('ERR when writing data: ')
                 console.log(data)
