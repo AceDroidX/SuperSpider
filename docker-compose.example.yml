@@ -21,6 +21,7 @@ services:
             MONGODB_PASS: admin
             MONGODB_IP: superspider-mongo
             room_id: 21452505
+            fullmsg_id: 21452505
     superspider-mdb:
         image: acedroidx/superspider-mdb:master
         container_name: superspider-mdb

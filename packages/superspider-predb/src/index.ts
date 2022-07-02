@@ -23,7 +23,6 @@ async function main() {
         console.log(err)
         process.exit(1)
     }
-    await delay(5000)
     console.log('PREDB STARTED')
     const roomid_str = process.env['room_id']
     if (!roomid_str) {
@@ -31,13 +30,19 @@ async function main() {
         process.exit(1)
     }
     const roomid = roomid_str.split(',').map(x => parseInt(x))
+    const fullmsg_id_str = process.env['fullmsg_id']
+    if (!fullmsg_id_str) {
+        console.error('请设置fullmsg_id')
+        process.exit(1)
+    }
+    const fullmsg_id = fullmsg_id_str.split(',').map(x => parseInt(x))
     const confTask = new GetConfTask()
     roomid.forEach((value: number) => {
-        openRoom(value, client, confTask)
+        openRoom(value, client, confTask, fullmsg_id.includes(value))
     })
 }
 
-async function onMsg(data: any, maindb: Collection, predb: Collection) {
+async function onMsg(data: any, maindb: Collection, predb: Collection, isfullmsg: boolean) {
     switch (data.cmd) {
         case 'STOP_LIVE_ROOM_LIST':
         case 'NOTICE_MSG':
@@ -97,21 +102,31 @@ async function onMsg(data: any, maindb: Collection, predb: Collection) {
             }
             break
     }
-    data.ts = new Date()
-    await predb.insertOne(data)
+    if (isfullmsg) {
+        try {
+            data.ts = new Date()
+            await predb.insertOne(data)
+        } catch (error) {
+            console.error('ERR on fullmsg')
+            console.error(error)
+        }
+    }
 }
 
-async function openRoom(roomid: number, client: MongoClient, confTask: GetConfTask) {
+async function openRoom(roomid: number, client: MongoClient, confTask: GetConfTask, isfullmsg: boolean) {
     // console.log(`OPEN: ${roomid}`)
     const maindb = client.db('amdb').collection('maindb')
-    const predb = client.db('fullmsg').collection(roomid.toString())
-    await predb.createIndex({ ts: -1, })
+    let predb: Collection
+    if (isfullmsg) {
+        predb = client.db('fullmsg').collection(roomid.toString())
+        await predb.createIndex({ ts: -1, })
+    }
     const liveconf = await confTask.getConf(roomid) as TCPOptions
     const live = new KeepLiveTCPWithConf(roomid, confTask, liveconf)
     live.on('open', () => { })
-    live.on('live', () => console.log(`live<${roomid}>`))
+    live.on('live', () => console.log(`live<${roomid}>isfullmsg:${isfullmsg}`))
     live.on('heartbeat', () => { })
-    live.on('msg', async (data) => onMsg(data, maindb, predb))
+    live.on('msg', async (data) => onMsg(data, maindb, predb, isfullmsg))
     live.on('close', () => { console.log(`close<${roomid}>`) })
     live.on('error', (e) => { console.log(`error<${roomid}>:${e.message}`) })
 }
