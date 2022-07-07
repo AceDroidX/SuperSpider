@@ -85,8 +85,14 @@ async function onMsg(data: any, maindb: Collection, predb: Collection, isfullmsg
                     bcolor: item.background_bottom_color,
                     pcolor: item.background_price_color,
                 }
-                const result = await maindb.updateOne({ id: Number(item.id) }, { $set: sc }, { upsert: true })
-                console.log(`${item.id} update result:${JSON.stringify(result)}`)
+                const isExists = await maindb.findOne({ id: Number(item.id) })
+                if (isExists != null) {
+                    const result = await maindb.insertOne(sc)
+                    console.log(`${item.id} insert result:${JSON.stringify(result)}`)
+                } else {
+                    const result = await maindb.updateOne({ id: Number(item.id) }, { $set: sc })
+                    console.log(`${item.id} update result:${JSON.stringify(result)}`)
+                }
             } catch (error) {
                 console.error('ERR on SUPER_CHAT_MESSAGE')
                 console.error(error)
