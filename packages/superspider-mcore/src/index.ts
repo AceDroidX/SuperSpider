@@ -16,6 +16,7 @@ const router = new Router<IDBAppState, IDBAppContext>()
 process.on('uncaughtException', (err) => {
   console.log('ERR unc expt')
   console.log(err)
+  process.exit(1)
 })
 
 async function main() {

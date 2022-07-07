@@ -140,6 +140,7 @@ async function openRoom(roomid: number, client: MongoClient, confTask: GetConfTa
 process.on('uncaughtException', (err) => {
     console.log('ERR unc expt')
     console.log(err)
+    process.exit(1)
 })
 
 main()

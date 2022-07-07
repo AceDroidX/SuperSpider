@@ -16,6 +16,7 @@ var amdb: Collection
 process.on('uncaughtException', (err) => {
     console.log('ERR unc expt')
     console.log(err)
+    process.exit(1)
 })
 
 // schedule.scheduleJob('*/5 * * * *', adb)
