@@ -18,6 +18,7 @@
           :message="item.msg"
           :messagejpn="''"
           :avatar="item.avatar"
+          :uid="item.uid"
           :contentcolor="item.bcolor"
           :headercolor="item.pcolor"
           :hiderate="true"

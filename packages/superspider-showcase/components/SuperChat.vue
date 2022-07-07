@@ -19,6 +19,7 @@
         height="40"
         width="40"
         :src="avatar"
+        @click="openUserSpace(uid)"
       />
       <div
         id="header-content"
@@ -97,6 +98,10 @@ export default {
     avatar: {
       type: String,
       default: 'https://static.hdslb.com/images/member/noface.gif',
+    },
+    uid: {
+      type: Number,
+      default: 0,
     },
     contentcolor: {
       type: String,
@@ -186,6 +191,9 @@ export default {
         B.toString(16).length === 1 ? '0' + B.toString(16) : B.toString(16)
 
       return '#' + RR + GG + BB
+    },
+    openUserSpace(uid) {
+      if (uid !== 0) window.open(`https://space.bilibili.com/${uid}`)
     },
   },
 }
