@@ -74,10 +74,15 @@ export default {
     async updateData(data) {
       try {
         const scData = data.slice()
-        for (const data of scData) {
-          if (this.showmarknative)
+        for (const [index, data] of scData.entries()) {
+          if (data.hide) {
+            scData.splice(index, 1)
+          }
+          if (this.showmarknative) {
             data.markstate = await this.getMarkState(data.id)
-          else data.markstate = 0
+          } else {
+            data.markstate = 0
+          }
         }
         this.scData = scData
       } catch (e) {
