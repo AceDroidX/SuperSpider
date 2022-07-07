@@ -67,7 +67,7 @@ async function rdbCore(rid: number, amdb: Collection) {
                     pcolor: item.background_price_color,
                 }
                 const isExists = await amdb.findOne({ id: Number(item.id) })
-                if (isExists != null) {
+                if (isExists == null) {
                     const result = await amdb.insertOne(sc)
                     console.log(`${item.id} insert result:${JSON.stringify(result)}`)
                 } else {

@@ -1,3 +1,4 @@
+import { inflates } from 'bilibili-live-ws/src/inflate/node'
 import { KeepLiveTCP, relayEvent, TCPOptions } from 'bilibili-live-ws'
 import { GetConfTask } from './GetConfTask';
 
@@ -10,8 +11,8 @@ export class KeepLiveTCPWithConf extends KeepLiveTCP {
     async connect(reconnect = true) {
         if (reconnect) {
             this.connection.close()
-            const conf = await this.confTask.getConf(this.roomid)
-            this.connection = new (this.Base as any)(this.roomid, conf)
+            const conf = await this.confTask.getConf(this.roomid) as TCPOptions
+            this.connection = new (this.Base)(inflates, this.roomid, conf)
         }
         const connection = this.connection
 

@@ -30,10 +30,9 @@ async function main() {
         process.exit(1)
     }
     const roomid = roomid_str.split(',').map(x => parseInt(x))
-    const fullmsg_id_str = process.env['fullmsg_id']
+    let fullmsg_id_str = process.env['fullmsg_id']
     if (!fullmsg_id_str) {
-        console.error('请设置fullmsg_id')
-        process.exit(1)
+        fullmsg_id_str = ""
     }
     const fullmsg_id = fullmsg_id_str.split(',').map(x => parseInt(x))
     const confTask = new GetConfTask()
@@ -86,7 +85,7 @@ async function onMsg(data: any, maindb: Collection, predb: Collection, isfullmsg
                     pcolor: item.background_price_color,
                 }
                 const isExists = await maindb.findOne({ id: Number(item.id) })
-                if (isExists != null) {
+                if (isExists == null) {
                     const result = await maindb.insertOne(sc)
                     console.log(`${item.id} insert result:${JSON.stringify(result)}`)
                 } else {
@@ -128,6 +127,7 @@ async function openRoom(roomid: number, client: MongoClient, confTask: GetConfTa
         await predb.createIndex({ ts: -1, })
     }
     const liveconf = await confTask.getConf(roomid) as TCPOptions
+    console.log(liveconf)
     const live = new KeepLiveTCPWithConf(roomid, confTask, liveconf)
     live.on('open', () => { })
     live.on('live', () => console.log(`live<${roomid}>isfullmsg:${isfullmsg}`))
