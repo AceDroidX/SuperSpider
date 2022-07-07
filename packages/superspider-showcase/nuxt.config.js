@@ -29,7 +29,7 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['~/plugins/time.js'],
+  plugins: [{ src: '~/plugins/time.js', mode: 'client' }, { src: '~/plugins/vuex-persist.js', mode: 'client' }],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,

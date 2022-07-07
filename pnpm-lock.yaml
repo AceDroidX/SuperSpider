@@ -139,6 +139,7 @@ importers:
       vue-template-compiler: ^2.6.14
       vuetify: ^2.6.1
       vuex: ^3.6.2
+      vuex-persist: latest
       webpack: ^4.46.0
     dependencies:
       '@nuxtjs/axios': 5.13.6
@@ -151,6 +152,7 @@ importers:
       vue-template-compiler: 2.6.14
       vuetify: 2.6.6_vue@2.6.14
       vuex: 3.6.2_vue@2.6.14
+      vuex-persist: 3.1.3_vuex@3.6.2
       webpack: 4.46.0
     devDependencies:
       '@babel/eslint-parser': 7.18.2_cz6e4qppzra6gosrrzcvbsxiom
@@ -6904,7 +6906,6 @@ packages:
 
   /flatted/3.2.6:
     resolution: {integrity: sha512-0sQoMh9s0BYsm+12Huy/rkKxVu4R1+r96YX5cG44rHV0pQ6iC3Q+mkoMFaGWObMFYQxCVT+ssG1ksneA2MI9KQ==}
-    dev: true
 
   /flatten/1.0.3:
     resolution: {integrity: sha512-dVsPA/UwQ8+2uoFe5GHtiBMu48dWLTdsuEd7CKGlZlD78r1TTWBvDuFaFGKCo/ZfEr95Uk56vZoX86OsHkUeIg==}
@@ -13067,6 +13068,16 @@ packages:
       vue: ^2.6.4
     dependencies:
       vue: 2.6.14
+
+  /vuex-persist/3.1.3_vuex@3.6.2:
+    resolution: {integrity: sha512-QWOpP4SxmJDC5Y1+0+Yl/F4n7z27syd1St/oP+IYCGe0X0GFio0Zan6kngZFufdIhJm+5dFGDo3VG5kdkCGeRQ==}
+    peerDependencies:
+      vuex: '>=2.5'
+    dependencies:
+      deepmerge: 4.2.2
+      flatted: 3.2.6
+      vuex: 3.6.2_vue@2.6.14
+    dev: false
 
   /vuex/3.6.2_vue@2.6.14:
     resolution: {integrity: sha512-ETW44IqCgBpVomy520DT5jf8n0zoCac+sxWnn+hMe/CzaSejb/eVw2YToiXYX+Ex/AuHHia28vWTq4goAexFbw==}
