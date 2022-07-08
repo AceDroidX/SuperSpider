@@ -2,7 +2,6 @@ import colors from 'vuetify/es5/util/colors'
 import GithubIcon from '@/components/GithubIcon.vue'
 
 export default {
-  customVariables: ['~/assets/variables.scss'],
   theme: {
     dark: true,
     themes: {
@@ -18,6 +17,7 @@ export default {
     },
   },
   icons: {
+    iconfont: 'mdi',
     values: {
       github: { // name of our custom icon
         component: GithubIcon, // our custom component
