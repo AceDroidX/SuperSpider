@@ -4,41 +4,48 @@
     :style="{ 'background-color': $vuetify.theme.dark ? '#363636' : '#ffffff' }"
     outlined
   >
-    <v-list dense>
-      <v-list-item>
+    <v-list dense nav>
+      <v-list-item class="ma-0 pa-0">
         <v-list-item-title>
           <v-btn
             rounded
             text
+            small
+            class="text-body-2"
             href="https://github.com/AceDroidX/SuperSpider"
             target="_blank"
           >
-            <v-icon>$github</v-icon>
-            SuperSpider</v-btn
+            <v-icon small>$github</v-icon>
+            BiliSC</v-btn
           >
         </v-list-item-title>
       </v-list-item>
-      <v-list-item>
+      <v-list-item class="ma-0 pa-0">
         <v-list-item-title>
           <v-btn
             rounded
             text
+            small
+            class="text-body-2"
             href="https://github.com/AceDroidX"
             target="_blank"
           >
-            <v-icon> mdi-account-circle </v-icon> AceDroidX</v-btn
+            <v-icon small> mdi-account-circle </v-icon> AceDroidX</v-btn
           >
         </v-list-item-title>
       </v-list-item>
-      <v-list-item>
+      <v-list-item class="ma-0 pa-0">
         <v-list-item-title>
           <v-btn
             rounded
             text
+            small
+            class="text-body-2"
             href="https://github.com/Afanyiyu"
             target="_blank"
           >
-            <v-icon> mdi-account-circle </v-icon> Il Harper (原作者)</v-btn
+            <v-icon small> mdi-account-circle </v-icon> Il Harper
+            (原作者)</v-btn
           >
         </v-list-item-title>
       </v-list-item>
