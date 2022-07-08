@@ -3,7 +3,7 @@
     <div align-center style="text-align: center">
       <img
         :src="
-          require(`~/assets/${$vuetify.theme.dark ? 'Logo_Trans' : 'Logo'}.png`)
+          require(`~/assets/${$vuetify.theme.dark ? 'Logo_Trans' : 'Logo_Trans_Dark'}.png`)
         "
         height="150px"
         width="150px"

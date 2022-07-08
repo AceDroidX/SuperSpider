@@ -33,14 +33,15 @@ export default {
         : parseFloat(this.$route.query.room)
     },
     showMarkNative() {
-      return this.$route.query.mark
-        ? this.$route.query.mark === 'true'
-        : true // This controls the default value
+      return this.$route.query.mark ? this.$route.query.mark === 'true' : true // This controls the default value
     },
     pageLimit() {
       return isNaN(parseFloat(this.$route.query.limit))
         ? 100
         : parseFloat(this.$route.query.limit)
+    },
+    dark() {
+      return this.$route.query.dark ? this.$route.query.dark === 'true' : true // This controls the default value
     },
   },
   watch: {
@@ -57,7 +58,8 @@ export default {
     },
   },
   async mounted() {
-      if (this.room && this.room !== '') await this.startFetchData()
+    this.$vuetify.theme.dark = this.dark
+    if (this.room && this.room !== '') await this.startFetchData()
   },
   beforeDestroy() {
     if (this.timer) clearTimeout(this.timer)

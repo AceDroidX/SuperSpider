@@ -97,9 +97,7 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title v-text="title" />
       <v-spacer />
-      <v-btn icon @click.stop="$vuetify.theme.dark = !$vuetify.theme.dark">
-        <v-icon v-text="`mdi-brightness-${$vuetify.theme.dark ? '4' : '6'}`" />
-      </v-btn>
+      <ThemeBtn />
       <v-btn icon @click.stop="clipped = !clipped">
         <v-icon v-text="'mdi-application'"></v-icon>
       </v-btn>
@@ -154,7 +152,7 @@ export default {
       },
     },
     miniViewerURL() {
-      return `/mini?room=${this.room}&limit=${this.pageLimit}&mark=${this.showMarkNative}`
+      return `/mini?room=${this.room}&limit=${this.pageLimit}&mark=${this.showMarkNative}&dark=${this.$vuetify.theme.dark}`
     },
     ...mapState({
       startFetch: (state) => state.ViewerConfig.startFetch,

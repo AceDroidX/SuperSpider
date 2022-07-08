@@ -211,9 +211,7 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title v-text="title" />
       <v-spacer />
-      <v-btn icon @click.stop="$vuetify.theme.dark = !$vuetify.theme.dark">
-        <v-icon v-text="`mdi-brightness-${$vuetify.theme.dark ? '4' : '6'}`" />
-      </v-btn>
+      <ThemeBtn />
       <v-btn icon @click.stop="clipped = !clipped">
         <v-icon v-text="'mdi-application'"></v-icon>
       </v-btn>
