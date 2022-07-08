@@ -1,5 +1,15 @@
 <template>
   <v-card-text>
+    BiliSC v2.2.0 (2022.7.8 0bc29ab) <br />
+    1.优化构建部署流程 <br />
+    2.更换字体以优化Windows下的渲染 <br />
+    3.记住上次的设置 <br />
+    4.可跟随系统切换主题 <br />
+    5.可点击头像进入主页 <br />
+    6.修改侧栏说明 <br />
+    7.修复CPU满载时SC重复添加的问题 <br />
+    8.修复各种细节 <br />
+    <br />
     BiliSC v2.1.2 (2022.1.20 2cb353d) <br />
     1.添加小窗模式/OBS链接<br />
     <br />
@@ -16,8 +26,5 @@
     2.增加暗色模式 <br />
     3.动态自适应各种屏幕大小 <br />
     4.静态构建并托管在Github Pages<br />
-    <font color="red">注意：网站地址已变更，旧地址将会重定向至新页面</font
-    ><br />
-    https://bsc.acedroidx.top/
   </v-card-text>
 </template>

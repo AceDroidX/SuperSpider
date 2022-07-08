@@ -1,6 +1,6 @@
 {
   "name": "superspider-showcase",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "private": true,
   "scripts": {
     "dev": "nuxt",
