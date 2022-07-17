@@ -1,6 +1,6 @@
 
 if (process.env.NODE_ENV != 'production') {
-  require('dotenv').config({ debug: true })
+    require('dotenv').config({ debug: true })
 }
 import rdb from './rdb'
 import { Collection, MongoClient } from 'mongodb'
@@ -23,10 +23,10 @@ process.on('uncaughtException', (err) => {
 async function main() {
     // DB Init
     const client = new MongoClient(
-      process.env.NODE_ENV == 'production'
-          ? `mongodb://admin:${process.env.MONGODB_PASS}@${process.env.MONGODB_IP}:27017/?authMechanism=DEFAULT`
-          : 'mongodb://admin:admin@localhost:27017/'
-  )
+        process.env.NODE_ENV == 'production'
+            ? `mongodb://admin:${process.env.MONGODB_PASS}@${process.env.MONGODB_IP}:27017/?authMechanism=DEFAULT`
+            : 'mongodb://admin:admin@localhost:27017/'
+    )
 
     try {
         await client.connect()
@@ -38,7 +38,7 @@ async function main() {
     }
     amdb.createIndex({ roomid: -1, livets: -1, })
     amdb.createIndex({ roomid: -1, ts: -1, })
-    amdb.createIndex({ id: -1, })
+    amdb.createIndex({ id: -1, }, { unique: true })
     amdb.createIndex({ ts: -1, })
     await delay(5000)
     console.log('RDB STARTED')

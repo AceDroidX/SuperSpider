@@ -66,13 +66,14 @@ async function rdbCore(rid: number, amdb: Collection) {
                     bcolor: item.background_bottom_color,
                     pcolor: item.background_price_color,
                 }
-                const isExists = await amdb.findOne({ id: Number(item.id) })
-                if (isExists == null) {
-                    const result = await amdb.insertOne(sc)
-                    console.log(`${item.id} insert result:${JSON.stringify(result)}`)
-                } else {
-                    const result = await amdb.updateOne({ id: Number(item.id) }, { $set: sc })
-                    console.log(`${item.id} update result:${JSON.stringify(result)}`)
+                try {
+                    const result = await amdb.updateOne({ id: Number(item.id) }, { $set: sc }, { upsert: true })
+                    console.log(`${item.id} upsert result:${JSON.stringify(result)}`)
+                } catch (e) {
+                    console.warn(`WARN when upsert`)
+                    console.warn(e)
+                    const result = await amdb.updateOne({ id: Number(item.id) }, { $set: sc }, { upsert: true })
+                    console.log(`${item.id} upsert result:${JSON.stringify(result)}`)
                 }
             } catch (e) {
                 console.log('ERR when writing data: ')
