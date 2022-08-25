@@ -1,34 +1,34 @@
 {
-  "name": "superspider-mcore",
-  "version": "0.1.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "node dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "clean": "tsc --build --clean",
-    "dev": "tsc -w",
-    "build": "tsc",
-    "serve": "tsc && cross-env NODE_ENV=development node dist/index.js"
-  },
-  "author": "AceDroidX",
-  "license": "MIT",
-  "dependencies": {
-    "@koa/cors": "^3.1.0",
-    "koa": "^2.13.4",
-    "koa-bodyparser": "^4.3.0",
-    "koa-router": "^10.1.1",
-    "mongodb": "^4.2.2",
-    "winston": "^3.3.3",
-    "winston-transport": "^4.4.1"
-  },
-  "devDependencies": {
-    "@types/koa": "^2.13.4",
-    "@types/koa__cors": "^3.1.1",
-    "@types/koa-bodyparser": "^4.3.5",
-    "@types/koa-router": "^7.4.4",
-    "@types/ws": "^8.2.1",
-    "cross-env": "latest",
-    "typescript": "latest"
-  }
+    "name": "superspider-mcore",
+    "version": "0.1.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node dist/index.js",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "clean": "tsc --build --clean",
+        "dev": "tsc -w",
+        "build": "tsc",
+        "serve": "tsc && cross-env NODE_ENV=development node dist/index.js"
+    },
+    "author": "AceDroidX",
+    "license": "MIT",
+    "dependencies": {
+        "@koa/cors": "latest",
+        "koa": "latest",
+        "koa-bodyparser": "latest",
+        "koa-router": "latest",
+        "mongodb": "latest",
+        "winston": "latest",
+        "winston-transport": "latest"
+    },
+    "devDependencies": {
+        "@types/koa": "latest",
+        "@types/koa__cors": "latest",
+        "@types/koa-bodyparser": "latest",
+        "@types/koa-router": "latest",
+        "@types/ws": "latest",
+        "cross-env": "latest",
+        "typescript": "latest"
+    }
 }

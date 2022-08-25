@@ -14,16 +14,16 @@
     "author": "AceDroidX",
     "license": "MIT",
     "dependencies": {
-        "axios": "^0.24.0",
-        "bilibili-live-ws": "^6.0.3",
-        "mongodb": "^4.2.2",
-        "winston": "^3.3.3",
-        "winston-transport": "^4.4.1",
-        "ws": "^8.4.0",
+        "axios": "latest",
+        "bilibili-live-ws": "latest",
+        "mongodb": "latest",
+        "winston": "latest",
+        "winston-transport": "latest",
+        "ws": "latest",
         "superspider-shared": "workspace:"
     },
     "devDependencies": {
-        "@types/ws": "^8.2.1",
+        "@types/ws": "latest",
         "cross-env": "latest",
         "typescript": "latest"
     }

@@ -26,7 +26,6 @@
   ],
   "devDependencies": {
     "dotenv": "latest",
-    "husky": "latest",
     "git-cz": "latest"
   }
 }
