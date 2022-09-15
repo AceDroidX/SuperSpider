@@ -54,7 +54,7 @@ jobs:
                   cache-to: type=registry,ref=acedroidx/superspider-${{ matrix.package }}:buildcache,mode=max
     build-docker:
         needs: [changes, build-shared]
-        if: always() && (needs.build-shared.result == 'success' || needs.build-shared.result == 'skipped')
+        if: always() && (needs.build-shared.result == 'success' || needs.build-shared.result == 'skipped') && needs.changes.outputs.packages != '[]'
         strategy:
             matrix:
                 package: ${{ fromJSON(needs.changes.outputs.packages) }}
