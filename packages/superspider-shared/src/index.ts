@@ -27,3 +27,22 @@ export type MedalInfo = {
     medal_name: string,
     target_id: number,
 }
+
+import logger from './logger'
+import { MongoClient } from 'mongodb'
+import winston from 'winston';
+import 'winston-mongodb'
+
+const mClient = new MongoClient(
+    process.env.NODE_ENV == 'production'
+        ? `mongodb://admin:${process.env.MONGODB_PASS}@${process.env.MONGODB_IP}:27017/?authMechanism=DEFAULT`
+        : 'mongodb://admin:admin@localhost:27017/'
+)
+
+export function addMongoTrans(collName: string) {
+    logger.add(new winston.transports.MongoDB({
+        level: 'debug', db: mClient.connect(), collection: collName, tryReconnect: true
+    }))
+}
+
+export { logger, mClient }

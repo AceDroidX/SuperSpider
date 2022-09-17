@@ -7,8 +7,8 @@ RUN npm install -g pnpm@7.9.4 && npm cache clean --force
 COPY pnpm-lock.yaml ./
 RUN pnpm fetch
 COPY . ./
-RUN pnpm install --offline ; \
-  pnpm run -F superspider-mcore build
+RUN pnpm install --offline
+RUN pnpm run -F superspider-shared build && pnpm run -F superspider-mcore build
 
 FROM acedroidx/superspider-shared:${IMAGE_TAG}
 COPY --from=build /app/packages/superspider-mcore/dist/ ./packages/superspider-mcore/dist/

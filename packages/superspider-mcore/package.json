@@ -20,7 +20,8 @@
         "koa-router": "latest",
         "mongodb": "latest",
         "winston": "latest",
-        "winston-transport": "latest"
+        "winston-transport": "latest",
+        "superspider-shared": "workspace:"
     },
     "devDependencies": {
         "@types/koa": "latest",

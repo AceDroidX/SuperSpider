@@ -14,7 +14,12 @@
     },
     "author": "AceDroidX",
     "license": "MIT",
-    "dependencies": {},
+    "dependencies": {
+        "mongodb": "latest",
+        "logform": "latest",
+        "winston": "latest",
+        "winston-mongodb": "latest"
+    },
     "devDependencies": {
         "typescript": "latest"
     }

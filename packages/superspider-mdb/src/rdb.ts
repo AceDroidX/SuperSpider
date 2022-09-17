@@ -2,12 +2,12 @@
 // import { exampleJson } from './test'
 import axios from 'axios'
 import { Collection } from 'mongodb'
-import { SuperChat } from 'superspider-shared'
+import { logger, SuperChat } from 'superspider-shared'
 // const athome = require('./athome')
 
 const roomid_str = process.env['room_id']
 if (!roomid_str) {
-    console.error('请设置room_id')
+    logger.error('请设置room_id')
     process.exit(1)
 }
 const roomlist = roomid_str.split(',').map(x => parseInt(x))
@@ -15,9 +15,7 @@ const roomlist = roomid_str.split(',').map(x => parseInt(x))
 const schList: any[] = []
 const tsList: any[] = []
 
-let exRate = 14.7
-
-const log = process.env.NODE_ENV == 'development' ? console.log : () => { }
+// let exRate = 14.7
 
 async function rdbCore(rid: number, amdb: Collection) {
     if (!amdb) return
@@ -42,10 +40,10 @@ async function rdbCore(rid: number, amdb: Collection) {
         //   data = (await axios.get('https://api.live.bilibili.com/xlive/web-room/v1/index/getInfoByRoom?room_id=' + rid)).data
         // }
         if (data.code !== 0) {
-            console.log('ERR when rp room ' + rid + ' by code')
+            logger.error(`ERR when rp room ${rid} by code ${data.code}`)
             return
         } else if (data.data.list == undefined) {
-            // console.log(`LOG no data for room ${rid}`)
+            // logger.info(`LOG no data for room ${rid}`)
             return
         }
         data.data.list.reverse()
@@ -68,22 +66,19 @@ async function rdbCore(rid: number, amdb: Collection) {
                 }
                 try {
                     const result = await amdb.updateOne({ id: Number(item.id) }, { $set: sc }, { upsert: true })
-                    console.log(`${item.id} upsert result:${JSON.stringify(result)}`)
+                    logger.info(`${item.id} upsert result:${JSON.stringify(result)}`)
                 } catch (e) {
-                    console.warn(`WARN when upsert`)
-                    console.warn(e)
+                    logger.warn(`WARN when upsert`)
+                    logger.warn(e)
                     const result = await amdb.updateOne({ id: Number(item.id) }, { $set: sc }, { upsert: true })
-                    console.log(`${item.id} upsert result:${JSON.stringify(result)}`)
+                    logger.info(`${item.id} upsert result:${JSON.stringify(result)}`)
                 }
             } catch (e) {
-                console.log('ERR when writing data: ')
-                console.log(data)
-                console.log(e)
+                logger.error(`ERR when writing data:\n${JSON.stringify(data)}\n${JSON.stringify(e)}`)
             }
         }
     } catch (e) {
-        console.log('ERR when rp room ' + rid)
-        console.log(e)
+        logger.error(`ERR when rp room ${rid}:\n` + JSON.stringify(e))
     }
 }
 
@@ -100,8 +95,7 @@ export default async function main(amdb: Collection) {
             schList[Number(item)] = setInterval(rdbCore, 1000, Number(item), amdb)
         }
     } catch (e) {
-        console.log('ERR when fetch onLive')
-        console.log(e)
+        logger.error('ERR when fetch onLive:\n' + JSON.stringify(e))
     }
-    exRate = Number((await axios.get('https://api.live.bilibili.com/userext/v1/Conf/getExchangeRate')).data.data.exchange_rate)
+    // exRate = Number((await axios.get('https://api.live.bilibili.com/userext/v1/Conf/getExchangeRate')).data.data.exchange_rate)
 }

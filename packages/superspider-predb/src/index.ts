@@ -1,32 +1,24 @@
 if (process.env.NODE_ENV != 'production') {
     require('dotenv').config({ debug: true })
 }
-import { Collection, MongoClient } from 'mongodb'
 import { TCPOptions } from 'bilibili-live-ws'
-import { MedalInfo, SuperChat } from 'superspider-shared'
+import { Collection, MongoClient } from 'mongodb'
+import { addMongoTrans, logger, mClient as client, MedalInfo, SuperChat } from 'superspider-shared'
 import { GetConfTask } from './GetConfTask'
 import { KeepLiveTCPWithConf } from './KeepLiveTCPWithConf'
 
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
-
 async function main() {
-    // DB Init
-    const client = new MongoClient(
-        process.env.NODE_ENV == 'production'
-            ? `mongodb://admin:${process.env.MONGODB_PASS}@${process.env.MONGODB_IP}:27017/?authMechanism=DEFAULT`
-            : 'mongodb://admin:admin@localhost:27017/'
-    )
+    addMongoTrans('log-predb')
     try {
         await client.connect()
     } catch (err) {
-        console.log('ERR when connect to PREDB')
-        console.log(err)
+        logger.error('ERR when connect to PREDB:\n' + JSON.stringify(err))
         process.exit(1)
     }
-    console.log('PREDB STARTED')
+    logger.info('PREDB STARTED')
     const roomid_str = process.env['room_id']
     if (!roomid_str) {
-        console.error('请设置room_id')
+        logger.error('请设置room_id')
         process.exit(1)
     }
     const roomid = roomid_str.split(',').map(x => parseInt(x))
@@ -86,25 +78,25 @@ async function onMsg(data: any, maindb: Collection, predb: Collection, isfullmsg
                 }
                 try {
                     const result = await maindb.updateOne({ id: Number(item.id) }, { $set: sc }, { upsert: true })
-                    console.log(`${item.id} upsert result:${JSON.stringify(result)}`)
+                    logger.info(`${item.id} upsert result:${JSON.stringify(result)}`)
                 } catch (e) {
-                    console.warn(`WARN when upsert`)
-                    console.warn(e)
+                    logger.warn(`WARN when upsert`)
+                    logger.warn(e)
                     const result = await maindb.updateOne({ id: Number(item.id) }, { $set: sc }, { upsert: true })
-                    console.log(`${item.id} upsert result:${JSON.stringify(result)}`)
+                    logger.info(`${item.id} upsert result:${JSON.stringify(result)}`)
                 }
             } catch (error) {
-                console.error('ERR on SUPER_CHAT_MESSAGE')
-                console.error(error)
+                logger.error('ERR on SUPER_CHAT_MESSAGE')
+                logger.error(error)
             }
             break
         case 'SUPER_CHAT_MESSAGE_JPN':
             try {
                 const result2 = await maindb.updateOne({ id: Number(data.data.id) }, { $set: { msgjpn: data.data.message_jpn } })
-                console.log(`${data.data.id} JPN update result:${JSON.stringify(result2)}`)
+                logger.info(`${data.data.id} JPN update result:${JSON.stringify(result2)}`)
             } catch (error) {
-                console.error('ERR on SUPER_CHAT_MESSAGE_JPN')
-                console.error(error)
+                logger.error('ERR on SUPER_CHAT_MESSAGE_JPN')
+                logger.error(error)
             }
             break
     }
@@ -113,14 +105,14 @@ async function onMsg(data: any, maindb: Collection, predb: Collection, isfullmsg
             data.ts = new Date()
             await predb.insertOne(data)
         } catch (error) {
-            console.error('ERR on fullmsg')
-            console.error(error)
+            logger.error('ERR on fullmsg')
+            logger.error(error)
         }
     }
 }
 
 async function openRoom(roomid: number, client: MongoClient, confTask: GetConfTask, isfullmsg: boolean) {
-    // console.log(`OPEN: ${roomid}`)
+    // logger.info(`OPEN: ${roomid}`)
     const maindb = client.db('amdb').collection('maindb')
     let predb: Collection
     if (isfullmsg) {
@@ -128,19 +120,18 @@ async function openRoom(roomid: number, client: MongoClient, confTask: GetConfTa
         await predb.createIndex({ ts: -1, })
     }
     const liveconf = await confTask.getConf(roomid) as TCPOptions
-    console.log(liveconf)
+    logger.info(liveconf)
     const live = new KeepLiveTCPWithConf(roomid, confTask, liveconf)
     live.on('open', () => { })
-    live.on('live', () => console.log(`live<${roomid}>isfullmsg:${isfullmsg}`))
+    live.on('live', () => logger.info(`live<${roomid}>isfullmsg:${isfullmsg}`))
     live.on('heartbeat', () => { })
     live.on('msg', async (data) => onMsg(data, maindb, predb, isfullmsg))
-    live.on('close', () => { console.log(`close<${roomid}>`) })
-    live.on('error', (e) => { console.log(`error<${roomid}>:${e.message}`) })
+    live.on('close', () => { logger.info(`close<${roomid}>`) })
+    live.on('error', (e) => { logger.info(`error<${roomid}>:${e.message}`) })
 }
 
 process.on('uncaughtException', (err) => {
-    console.log('ERR unc expt')
-    console.log(err)
+    logger.error('ERR unc expt:\n' + JSON.stringify(err))
     process.exit(1)
 })
 
