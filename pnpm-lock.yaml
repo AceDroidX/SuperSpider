@@ -32,7 +32,6 @@ importers:
       '@types/koa-router': latest
       '@types/koa__cors': latest
       '@types/ws': latest
-      cross-env: latest
       koa: latest
       koa-bodyparser: latest
       koa-router: latest
@@ -56,7 +55,6 @@ importers:
       '@types/koa-router': 7.4.4
       '@types/koa__cors': 3.3.0
       '@types/ws': 8.5.4
-      cross-env: 7.0.3
       typescript: 4.9.4
 
   packages/superspider-mdb:
@@ -64,7 +62,6 @@ importers:
       '@types/ws': latest
       axios: latest
       bilibili-live-ws: latest
-      cross-env: latest
       mongodb: latest
       superspider-shared: 'workspace:'
       typescript: latest
@@ -81,7 +78,6 @@ importers:
       ws: 8.11.0
     devDependencies:
       '@types/ws': 8.5.4
-      cross-env: 7.0.3
       typescript: 4.9.4
 
   packages/superspider-predb:
@@ -89,7 +85,6 @@ importers:
       '@types/ws': latest
       axios: latest
       bilibili-live-ws: latest
-      cross-env: latest
       mongodb: latest
       superspider-shared: 'workspace:'
       typescript: latest
@@ -106,7 +101,6 @@ importers:
       ws: 8.11.0
     devDependencies:
       '@types/ws': 8.5.4
-      cross-env: 7.0.3
       typescript: 4.9.4
 
   packages/superspider-shared:

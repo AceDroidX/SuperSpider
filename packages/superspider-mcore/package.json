@@ -8,8 +8,7 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "clean": "tsc --build --clean",
         "dev": "tsc -w",
-        "build": "tsc",
-        "serve": "tsc && cross-env NODE_ENV=development node dist/index.js"
+        "build": "tsc"
     },
     "author": "AceDroidX",
     "license": "MIT",
@@ -29,7 +28,6 @@
         "@types/koa-bodyparser": "latest",
         "@types/koa-router": "latest",
         "@types/ws": "latest",
-        "cross-env": "latest",
         "typescript": "latest"
     }
 }
