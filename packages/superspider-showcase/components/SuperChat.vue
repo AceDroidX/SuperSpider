@@ -19,7 +19,7 @@
         height="40"
         width="40"
         :src="avatar"
-        @click="openUserSpace(uid)"
+        @click.stop="openUserSpace(uid)"
       />
       <div
         id="header-content"
