@@ -1,7 +1,7 @@
 if (process.env.NODE_ENV != 'production') {
     require('dotenv').config({ debug: true })
 }
-import { TCPOptions } from 'bilibili-live-ws'
+import { KeepLiveTCP, TCPOptions } from 'bilibili-live-ws'
 import { Collection, MongoClient } from 'mongodb'
 import { addMongoTrans, logger, mClient as client, MedalInfo, SuperChat } from 'superspider-shared'
 import { GetConfTask } from './GetConfTask'
@@ -121,13 +121,13 @@ async function openRoom(roomid: number, client: MongoClient, confTask: GetConfTa
     }
     const liveconf = await confTask.getConf(roomid) as TCPOptions
     logger.info(liveconf)
-    const live = new KeepLiveTCPWithConf(roomid, confTask, liveconf)
+    const live = process.env['no_conf'] == 'true' ? new KeepLiveTCP(roomid) :  new KeepLiveTCPWithConf(roomid, confTask, liveconf)
     live.on('open', () => { })
     live.on('live', () => logger.info(`live<${roomid}>isfullmsg:${isfullmsg}`))
     live.on('heartbeat', () => { })
     live.on('msg', async (data) => onMsg(data, maindb, predb, isfullmsg))
-    live.on('close', () => { logger.info(`close<${roomid}>`) })
-    live.on('error', (e) => { logger.info(`error<${roomid}>:${e.message}`) })
+    live.on('close', () => { logger.warn(`close<${roomid}>`) })
+    live.on('error', (e) => { logger.error(`error<${roomid}>:${e.message}`) })
 }
 
 process.on('uncaughtException', (err) => {
