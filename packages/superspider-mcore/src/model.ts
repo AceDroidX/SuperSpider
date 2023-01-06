@@ -8,7 +8,20 @@ interface IDBAppState {
     // amdb: Collection;
 }
 
+interface URLParaGetData {
+    roomid: string
+    limit: string
+}
+
+interface URLParaGetDataByTS {
+    roomid: string
+    start: string
+    end: string
+}
+
 export {
     IDBAppContext,
-    IDBAppState
+    IDBAppState,
+    URLParaGetData,
+    URLParaGetDataByTS,
 }

@@ -1,6 +1,6 @@
 import Router from 'koa-router'
 import { logger } from 'superspider-shared'
-import { IDBAppContext, IDBAppState } from '../model'
+import { IDBAppContext, IDBAppState, URLParaGetData, URLParaGetDataByTS } from '../model'
 
 const mergeTime = 30000005
 
@@ -30,20 +30,21 @@ sc.post('/getData', async (ctx, next) => {
         return
     }
     const maindb = ctx.maindb
-    if (!ctx.request.body?.roomid || isNaN(Number(ctx.request.body.roomid))) {
+    const body = <URLParaGetData>ctx.request.body
+    if (!body?.roomid || isNaN(Number(body.roomid))) {
         ctx.response.status = 404
         ctx.response.body = 'Bad Request Format'
         await next()
     } else {
         try {
             ctx.response.status = 200
-            const roomid = Number(ctx.request.body.roomid)
-            if (!ctx.request.body.limit || isNaN(Number(ctx.request.body.limit))) {
+            const roomid = Number(body.roomid)
+            if (!body.limit || isNaN(Number(body.limit))) {
                 var pageLimit = 100
-            } else if (Number(ctx.request.body.limit) > 1000) {
+            } else if (Number(body.limit) > 1000) {
                 var pageLimit = 1000
             } else {
-                var pageLimit = Number(ctx.request.body.limit)
+                var pageLimit = Number(body.limit)
             }
             const finded = await maindb
                 .find({ roomid })
@@ -75,19 +76,20 @@ sc.post('/getDataByTS', async (ctx, next) => {
         return
     }
     const maindb = ctx.maindb
+    const body = <URLParaGetDataByTS>ctx.request.body
     switch (true) {
-        case !ctx.request.body?.roomid || isNaN(Number(ctx.request.body.roomid)):
-        case !ctx.request.body?.start || isNaN(Number(ctx.request.body.start)):
-        case !ctx.request.body?.end || isNaN(Number(ctx.request.body.end)):
+        case !body?.roomid || isNaN(Number(body.roomid)):
+        case !body?.start || isNaN(Number(body.start)):
+        case !body?.end || isNaN(Number(body.end)):
             ctx.response.status = 404
             ctx.response.body = 'Bad Request Format'
             await next()
             return
     }
     try {
-        const roomid = Number(ctx.request.body?.roomid)
-        const start = Number(ctx.request.body?.start)
-        const end = Number(ctx.request.body?.end)
+        const roomid = Number(body?.roomid)
+        const start = Number(body?.start)
+        const end = Number(body?.end)
         const finded = await maindb
             .find({ roomid: roomid, ts: { $gte: start, $lte: end } })
             .sort('ts', -1)
