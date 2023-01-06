@@ -29,7 +29,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v2.0.1
         with:
-          version: 7.9.4
+          version: 7.22.0
       - name: Setup node env 🏗
         uses: actions/setup-node@v3
         with:
