@@ -2,21 +2,19 @@
   <div>
     <div align-center style="text-align: center">
       <img
-        :src="
-          require(`~/assets/${$vuetify.theme.dark ? 'Logo_Trans' : 'Logo_Trans_Dark'}.png`)
-        "
+        :src="`/${$vuetify.theme.dark ? 'Logo_Trans' : 'Logo_Trans_Dark'}.png`"
         height="150px"
         width="150px"
         style="text-align: center"
       />
     </div>
     <v-list-item align-center style="text-align: center">
-      <v-list-item-content>
+      <div>
         <v-list-item-title class="text-h6"> BiliSC </v-list-item-title>
         <v-list-item-subtitle>
           v{{ version }}{{ GIT_HASH }}
         </v-list-item-subtitle>
-      </v-list-item-content>
+      </div>
     </v-list-item>
   </div>
 </template>

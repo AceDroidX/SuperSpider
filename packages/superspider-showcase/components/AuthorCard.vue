@@ -15,7 +15,7 @@
             href="https://github.com/AceDroidX/SuperSpider"
             target="_blank"
           >
-            <v-icon small>$github</v-icon>
+            <v-icon small>custom:github</v-icon>
             BiliSC</v-btn
           >
         </v-list-item-title>

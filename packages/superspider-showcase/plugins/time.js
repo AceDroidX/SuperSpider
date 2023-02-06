@@ -1,8 +1,10 @@
-export default (context, inject) => {
-    const getTime = (timestamp) => getTimeF(timestamp)
-    // Inject $hello(msg) in Vue, context and store.
-    inject('getTime', getTime)
-}
+export default defineNuxtPlugin(nuxtApp => {
+    return {
+        provide: {
+            getTime: (timestamp) => getTimeF(timestamp)
+        }
+    }
+})
 
 function getTimeF(timestamp = undefined) {
     let hasMilliSeconds = true

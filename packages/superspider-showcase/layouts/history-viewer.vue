@@ -218,7 +218,7 @@
     </v-app-bar>
     <v-main id="scrolling-techniques-6">
       <v-container>
-        <Nuxt />
+        <slot />
       </v-container>
     </v-main>
   </v-app>

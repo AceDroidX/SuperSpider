@@ -7,9 +7,11 @@
 
 <script>
 import { mapState } from 'vuex'
+definePageMeta({
+    name: 'FullSCViewer',
+    layout: 'viewer',
+})
 export default {
-  name: 'FullSCViewer',
-  layout: 'viewer',
   data() {
     return {
       rawSCData: [],
@@ -81,10 +83,10 @@ export default {
     async fetchData() {
       if (!this.room || isNaN(Number(this.room)) || this.room === '') return
       try {
-        const scData = await this.$axios({
-          url: this.$config.BASE_API_URL + '/sc/getData',
+        const runtimeConfig = useRuntimeConfig()
+        const scData = await useFetch(runtimeConfig.BASE_API_URL + '/sc/getData',{
           method: 'POST',
-          data: `roomid=${this.room}&limit=${this.pageLimit}${
+          body: `roomid=${this.room}&limit=${this.pageLimit}${
             this.giftFilterNative ? '&filter=on' : ''
           }`,
           headers: {

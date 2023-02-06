@@ -84,7 +84,7 @@ export default {
     async fetchData() {
       if (!this.room || isNaN(Number(this.room)) || this.room === '') return
       try {
-        const scData = await this.$axios({
+        const scData = await useFetch({
           url: this.$config.BASE_API_URL + '/sc/getData',
           method: 'POST',
           data: `roomid=${this.room}&limit=${this.pageLimit}${

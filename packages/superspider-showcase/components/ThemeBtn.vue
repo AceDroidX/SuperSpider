@@ -1,6 +1,6 @@
 <template>
   <v-btn icon @click.stop="changeStorageTheme()">
-    <v-icon v-text="iconText" />
+    <v-icon :icon="iconText" />
   </v-btn>
 </template>
 

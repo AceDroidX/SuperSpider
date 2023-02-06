@@ -166,7 +166,7 @@ export default {
   //   }
   // },
   // mounted() {
-  //   new Buffer(await this.$axios.$get(this.avatar)).toString('base64')
+  //   new Buffer(await useFetch.$get(this.avatar)).toString('base64')
   // },
   methods: {
     // https://stackoverflow.com/questions/5560248/programmatically-lighten-or-darken-a-hex-color-or-rgb-and-blend-colors

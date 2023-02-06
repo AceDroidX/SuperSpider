@@ -2,7 +2,7 @@
   <v-app dark>
     <v-main>
       <v-container>
-        <Nuxt />
+        <slot />
       </v-container>
     </v-main>
   </v-app>

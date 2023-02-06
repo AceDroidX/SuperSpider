@@ -1,69 +1,76 @@
 <template>
   <v-app dark>
+    <v-app-bar
+      :collapse="!drawer"
+      :collapse-on-scroll="false"
+      scroll-target="#scrolling-techniques-6"
+    >
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+      <v-toolbar-title v-text="title" />
+      <v-spacer />
+      <ThemeBtn />
+    </v-app-bar>
     <v-navigation-drawer
       v-model="drawer"
-      width="400px"
-      :clipped="clipped"
-      fixed
-      app
+      width="400"
     >
       <BiliSCLogo :version="version" />
       <v-divider></v-divider>
       <v-list dense nav>
         <v-list-item>
-          <v-list-item-content> 标记显示 </v-list-item-content>
-          <v-list-item-content>
+          <div> 标记显示 </div>
+          <div>
             <v-switch
               v-model="showMarkNative"
               hide-details
               class="ma-0 pa-0"
             ></v-switch>
-          </v-list-item-content>
+          </div>
         </v-list-item>
         <v-list-item>
-          <v-list-item-content> 显示数量 </v-list-item-content>
-          <v-list-item-content>
+          <div> 显示数量 </div>
+          <div>
             <v-text-field
               v-model="pageLimit"
               hide-details
               class="ma-0 pa-0"
             ></v-text-field>
-          </v-list-item-content>
+          </div>
         </v-list-item>
         <v-list-item>
-          <v-list-item-content> 房间号 </v-list-item-content>
-          <v-list-item-content>
+          <div> 房间号 </div>
+          <div>
             <v-select
               v-model="room"
               :items="$config.ROOM_ID"
               hide-details
               class="ma-0 pa-0"
             ></v-select>
-          </v-list-item-content>
+          </div>
         </v-list-item>
         <v-list-item>
-          <v-list-item-content><v-spacer /></v-list-item-content>
-          <v-list-item-content>
+          <div><v-spacer /></div>
+          <div>
             <v-btn @click="setStartFetch(startFetch + 1)">GO</v-btn>
-          </v-list-item-content>
+          </div>
         </v-list-item>
         <v-divider></v-divider>
         <v-list-item>
-          <v-list-item-content @click="openMiniViewer()"
-            ><v-btn>小窗模式</v-btn></v-list-item-content
+          <div @click="openMiniViewer()"
+            ><v-btn>小窗模式</v-btn></div
           >
-          <v-list-item-content @click="copyURL()"
-            ><v-btn>复制链接</v-btn></v-list-item-content
+          <div @click="copyURL()"
+            ><v-btn>复制链接</v-btn></div
           >
         </v-list-item>
         <v-list-item>
-          <v-list-item-content
+          <div
             ><v-btn @click="newVersionDialog = true"
               >更新日志</v-btn
-            ></v-list-item-content
+            ></div
           >
-          <v-list-item-content
-            ><v-btn nuxt to="/history">历史SC</v-btn></v-list-item-content
+          <div
+            ><v-btn nuxt to="/history">历史SC</v-btn></div
           >
         </v-list-item>
         <v-list-item>
@@ -86,25 +93,9 @@
         </v-card>
       </v-dialog>
     </v-navigation-drawer>
-    <v-app-bar
-      :collapse="!drawer"
-      :collapse-on-scroll="false"
-      scroll-target="#scrolling-techniques-6"
-      :clipped-left="clipped"
-      fixed
-      app
-    >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-toolbar-title v-text="title" />
-      <v-spacer />
-      <ThemeBtn />
-      <v-btn icon @click.stop="clipped = !clipped">
-        <v-icon v-text="'mdi-application'"></v-icon>
-      </v-btn>
-    </v-app-bar>
     <v-main id="scrolling-techniques-6">
       <v-container>
-        <Nuxt />
+        <slot />
       </v-container>
     </v-main>
   </v-app>
@@ -116,7 +107,6 @@ export default {
   name: 'SCViewerLayout',
   data() {
     return {
-      clipped: true,
       drawer: true,
       right: true,
       rightDrawer: false,
@@ -160,7 +150,7 @@ export default {
   },
   watch: {
     startFetch() {
-      switch (this.$vuetify.breakpoint.name) {
+      switch (this.$vuetify.display.name) {
         case 'xs':
         case 'sm':
           this.drawer = false
@@ -177,9 +167,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations({
-      setStartFetch: 'ViewerConfig/setStartFetch',
-    }),
+    ...mapMutations('ViewerConfig',['setStartFetch']),
     log(value) {
       console.log(value)
     },
