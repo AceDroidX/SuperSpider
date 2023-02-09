@@ -1,6 +1,6 @@
 <template>
   <p class="text-body-2" @click="updateTips()">
-    <v-icon dense>mdi-lightbulb-on-outline</v-icon>{{ tipsText }}
+    <v-icon class="me-1" icon="mdi-lightbulb-on-outline" />{{ tipsText }}
   </p>
 </template>
 

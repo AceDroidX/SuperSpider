@@ -2,9 +2,9 @@
   <div>
     <div align-center style="text-align: center">
       <img
-        :src="`/${$vuetify.theme.dark ? 'Logo_Trans' : 'Logo_Trans_Dark'}.png`"
-        height="150px"
-        width="150px"
+        :src="`/${$vuetify.theme.current.dark ? 'Logo_Trans' : 'Logo_Trans_Dark'}.png`"
+        height="150"
+        width="150"
         style="text-align: center"
       />
     </div>

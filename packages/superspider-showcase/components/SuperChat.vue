@@ -134,7 +134,7 @@ export default {
         return {
           'background-color': '#777777',
         }
-      } else if (this.$vuetify.theme.dark) {
+      } else if (this.$vuetify.theme.current.dark) {
         return {
           'background-color': this.shadeColor(this.headercolor, -20),
         }
@@ -149,7 +149,7 @@ export default {
         return {
           'background-color': '#666666',
         }
-      } else if (this.$vuetify.theme.dark) {
+      } else if (this.$vuetify.theme.current.dark) {
         return {
           'background-color': this.shadeColor(this.contentcolor, -20),
         }

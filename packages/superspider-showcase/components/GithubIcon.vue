@@ -1,6 +1,6 @@
 <template>
   <img
-    :src="`/GitHub-Mark${$vuetify.theme.dark ? '-Light-' : '-'}64px.png`"
+    :src="`/GitHub-Mark${$vuetify.theme.current.dark ? '-Light-' : '-'}64px.png`"
   />
 </template>
 

@@ -7,8 +7,10 @@ superspider-showcase todo:
 
 - [x] [useFetch](https://nuxt.com/docs/getting-started/data-fetching)
 - [ ] vuex persist
-- [ ] UI修复
+- [x] UI修复
 - [ ] 其他页面修复
+- [ ] 字体修复
+- [ ] 更新日志+提交正式版v2.3
 - [ ] 迁移至pinia
 - [ ] pinia persist
 - [ ] 使用TypeScript重构

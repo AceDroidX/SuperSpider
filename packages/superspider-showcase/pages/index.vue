@@ -29,12 +29,7 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      room: (state) => state.ViewerConfig.room,
-      pageLimit: (state) => state.ViewerConfig.pageLimit,
-      showMarkNative: (state) => state.ViewerConfig.showMarkNative,
-      startFetch: (state) => state.ViewerConfig.startFetch,
-    }),
+    ...mapState('ViewerConfig',['room','pageLimit','showMarkNative','startFetch']),
   },
   watch: {
     startFetch() {

@@ -1,69 +1,57 @@
 <template>
-  <v-card
-    class="mx-auto"
-    :style="{ 'background-color': $vuetify.theme.dark ? '#363636' : '#ffffff' }"
-    outlined
-  >
-    <v-list dense nav>
-      <v-list-item class="ma-0 pa-0">
-        <v-list-item-title>
-          <v-btn
-            rounded
-            text
-            small
-            class="text-body-2"
-            href="https://github.com/AceDroidX/SuperSpider"
-            target="_blank"
-          >
-            <v-icon small>custom:github</v-icon>
-            BiliSC</v-btn
-          >
-        </v-list-item-title>
-      </v-list-item>
-      <v-list-item class="ma-0 pa-0">
-        <v-list-item-title>
-          <v-btn
-            rounded
-            text
-            small
-            class="text-body-2"
-            href="https://github.com/AceDroidX"
-            target="_blank"
-          >
-            <v-icon small> mdi-account-circle </v-icon> AceDroidX</v-btn
-          >
-        </v-list-item-title>
-      </v-list-item>
-      <v-list-item class="ma-0 pa-0">
-        <v-list-item-title>
-          <v-btn
-            rounded
-            text
-            small
-            class="text-body-2"
-            href="https://github.com/Afanyiyu"
-            target="_blank"
-          >
-            <v-icon small> mdi-account-circle </v-icon> Il Harper
-            (原作者)</v-btn
-          >
-        </v-list-item-title>
-      </v-list-item>
-    </v-list>
-  </v-card>
+    <v-card variant="outlined">
+        <v-container class="pa-3">
+            <v-row no-gutters>
+                <v-col>
+                    <v-btn
+                        rounded="pill"
+                        variant="text"
+                        class="text-body-2"
+                        href="https://github.com/AceDroidX/SuperSpider"
+                        target="_blank"
+                    >
+                        <v-icon size="small" icon="custom:github" />
+                        BiliSC</v-btn
+                    >
+                </v-col>
+            </v-row>
+            <v-row no-gutters>
+                <v-col>
+                    <v-btn
+                        rounded="pill"
+                        variant="text"
+                        class="text-body-2"
+                        href="https://github.com/AceDroidX"
+                        target="_blank"
+                    >
+                        <v-icon size="small" icon="mdi-account-circle" />
+                        AceDroidX</v-btn
+                    >
+                </v-col>
+            </v-row>
+            <v-row no-gutters>
+                <v-col>
+                    <v-btn
+                        rounded="pill"
+                        variant="text"
+                        class="text-body-2"
+                        href="https://github.com/Afanyiyu"
+                        target="_blank"
+                    >
+                        <v-icon size="small" icon="mdi-account-circle" /> Il
+                        Harper (原作者)</v-btn
+                    >
+                </v-col>
+            </v-row>
+        </v-container>
+    </v-card>
 </template>
 
-<script>
-export default {
-  name: 'AuthorCard',
-}
-</script>
-
-<style>
+<style scoped>
 .v-btn {
-  text-transform: none;
+    text-transform: none;
 }
 .v-icon {
-  margin-right: 4px;
+    margin-right: 4px;
 }
-</style>>
+</style>
