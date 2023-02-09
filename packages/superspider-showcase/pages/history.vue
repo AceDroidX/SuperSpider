@@ -7,9 +7,11 @@
 
 <script>
 import { mapState } from 'vuex'
+definePageMeta({
+    name: 'HistorySCViewer',
+    layout: 'history-viewer',
+})
 export default {
-  name: 'HistorySCViewer',
-  layout: 'historyViewer',
   data() {
     return {
       rawSCData: [],
@@ -30,13 +32,7 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      room: (state) => state.HistoryViewerConfig.room,
-      showMarkNative: (state) => state.HistoryViewerConfig.showMarkNative,
-      startFetch: (state) => state.HistoryViewerConfig.startFetch,
-      startTS: (state) => state.HistoryViewerConfig.startTS,
-      endTS: (state) => state.HistoryViewerConfig.endTS,
-    }),
+    ...mapState('HistoryViewerConfig',['room','showMarkNative','startFetch','startTS','endTS']),
   },
   watch: {
     startFetch() {
@@ -50,25 +46,11 @@ export default {
     if (this.$route.query.roomid) {
       if (this.room && this.room !== '') await this.startFetchData()
     }
-    this.fetchAdd()
   },
   beforeDestroy() {
     if (this.timer) clearTimeout(this.timer)
   },
   methods: {
-    fetchAdd() {
-      this.addText =
-        'https://bilisc.com/sc/obs?roomid=' +
-        this.room +
-        '&showTime=' +
-        this.showTimeNative +
-        '&showKana=' +
-        this.showKanaNative +
-        '&showGift=' +
-        this.showGiftNative +
-        '&giftFilter=' +
-        this.giftFilterNative
-    },
     async startFetchData() {
       if (!this.room) return
       console.log('startFetchData')
@@ -88,10 +70,10 @@ export default {
     async fetchData() {
       if (!this.room || isNaN(Number(this.room)) || this.room === '') return
       try {
-        const scData = await useFetch({
-          url: this.$config.BASE_API_URL + '/sc/getDataByTS',
+        const runtimeConfig = useRuntimeConfig()
+        const scData = await useFetch(runtimeConfig.BASE_API_URL + '/sc/getDataByTS',{
           method: 'POST',
-          data: `roomid=${this.room}&start=${this.startTS}&end=${this.endTS}`,
+          body: `roomid=${this.room}&start=${this.startTS}&end=${this.endTS}`,
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
           },
@@ -108,15 +90,6 @@ export default {
         }
         console.warn(e)
       }
-    },
-    openLink(link, extra) {
-      if (extra)
-        window.open(
-          link,
-          'BiliSC for OBS',
-          'menubar=0,location=0,scrollbars=0,toolbar=0,width=600,height=600'
-        )
-      else window.open(link)
     },
   },
 }
