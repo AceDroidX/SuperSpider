@@ -114,11 +114,13 @@ importers:
       vite-plugin-vuetify: ^1.0.2
       vuetify: ^3.1.4
       vuex: ^4.1.0
+      vuex-persist: ^3.1.3
     dependencies:
       idb: 7.1.1
       sass: 1.58.0
       vuetify: 3.1.4_zhdigtlnoj4qfl4bi7c6fb2bly
       vuex: 4.1.0_vue@3.2.47
+      vuex-persist: 3.1.3_vuex@4.1.0
     devDependencies:
       '@mdi/font': 7.1.96
       '@vuepic/vue-datepicker': 3.6.8_vue@3.2.47
@@ -2500,7 +2502,6 @@ packages:
   /deepmerge/4.3.0:
     resolution: {integrity: sha512-z2wJZXrmeHdvYJp/Ux55wIjqo81G5Bp4c+oELTW+7ar6SogWHajt5a9gO3s3IDaGSAXjDk0vlQKN3rms8ab3og==}
     engines: {node: '>=0.10.0'}
-    dev: true
 
   /defaults/1.0.4:
     resolution: {integrity: sha512-eFuaLoy/Rxalv2kr+lqMlUnrDWV+3j4pljOIJgLIhI058IQfWJ7vXhyEIHu+HtC738klGALYxOKDO0bQP3tg8A==}
@@ -2872,6 +2873,10 @@ packages:
     resolution: {integrity: sha512-b6suED+5/3rTpUBdG1gupIl8MPFCAMA0QXwmljLhvCUKcUvdE4gWky9zpuGCcXHOsz4J9wPGNWq6OKpmIzz3hQ==}
     hasBin: true
     dev: true
+
+  /flatted/3.2.7:
+    resolution: {integrity: sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==}
+    dev: false
 
   /fn.name/1.1.0:
     resolution: {integrity: sha512-GRnmB5gPyJpAhTQdSZTSp9uaPSvl09KoYcMQtsB9rQoOmzs9dH6ffeccH+Z+cv6P68Hu5bC6JjRh4Ah/mHSNRw==}
@@ -5773,6 +5778,16 @@ packages:
     dependencies:
       vite-plugin-vuetify: 1.0.2_vltl7q6cpe6z6buo7xeaeuprdy
       vue: 3.2.47
+
+  /vuex-persist/3.1.3_vuex@4.1.0:
+    resolution: {integrity: sha512-QWOpP4SxmJDC5Y1+0+Yl/F4n7z27syd1St/oP+IYCGe0X0GFio0Zan6kngZFufdIhJm+5dFGDo3VG5kdkCGeRQ==}
+    peerDependencies:
+      vuex: '>=2.5'
+    dependencies:
+      deepmerge: 4.3.0
+      flatted: 3.2.7
+      vuex: 4.1.0_vue@3.2.47
+    dev: false
 
   /vuex/4.1.0_vue@3.2.47:
     resolution: {integrity: sha512-hmV6UerDrPcgbSy9ORAtNXDr9M4wlNP4pEFKye4ujJF8oqgFFuxDCdOLS3eNoRTtq5O3hoBDh9Doj1bQMYHRbQ==}

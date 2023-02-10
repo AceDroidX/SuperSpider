@@ -1,4 +1,5 @@
 import { createStore } from 'vuex'
+import { VuexPersistence } from 'vuex-persist'
 
 const ViewerConfig = {
     namespaced: true,
@@ -60,5 +61,6 @@ export const store = createStore({
     modules: {
         ViewerConfig: ViewerConfig,
         HistoryViewerConfig: HistoryViewerConfig
-    }
+    },
+    plugins: [new VuexPersistence().plugin]
 })

@@ -6,16 +6,16 @@
 superspider-showcase todo:  
 
 - [x] [useFetch](https://nuxt.com/docs/getting-started/data-fetching)
-- [ ] vuex persist
+- [x] vuex persist
 - [x] UI修复
-- [ ] 其他页面修复
+- [x] 其他页面修复
 - [ ] 字体修复
 - [ ] 更新日志+提交正式版v2.3
 - [ ] 迁移至pinia
 - [ ] pinia persist
 - [ ] 使用TypeScript重构
 - [ ] 使用组合式api重构
-- [ ] 优化侧边栏按钮间隔
+- [x] 优化侧边栏按钮间隔
 - [ ] html2canvas生成SC截图
 
 待上游修复的问题:  
