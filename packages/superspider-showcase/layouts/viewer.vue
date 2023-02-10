@@ -20,7 +20,7 @@
                         <v-switch
                             v-model="showMarkNative"
                             hide-details="auto"
-                            flat="true"
+                            flat
                             density="compact"
                         ></v-switch>
                     </v-col>
