@@ -9,7 +9,7 @@ superspider-showcase todo:
 - [x] vuex persist
 - [x] UI修复
 - [x] 其他页面修复
-- [ ] 字体修复
+- [x] 字体修复
 - [ ] 更新日志+提交正式版v2.3
 - [ ] 迁移至pinia
 - [ ] pinia persist
