@@ -229,3 +229,12 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+.v-btn--variant-outlined {
+    border-color: rgba(var(--v-theme-on-surface), 0.20)
+}
+.v-card--variant-outlined {
+    border-color: rgba(var(--v-theme-on-surface), 0.12)
+}
+</style>
