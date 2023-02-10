@@ -57,7 +57,7 @@ export default {
     },
   },
   async mounted() {
-    this.$vuetify.theme.dark = this.dark
+    this.$vuetify.theme.global.name = this.dark ? "dark" : "light"
     if (this.room && this.room !== '') await this.startFetchData()
   },
   beforeDestroy() {
