@@ -1,4 +1,5 @@
 // plugins/vuetify.js
+import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 // import * as components from 'vuetify/components'
 // import * as directives from 'vuetify/directives'
@@ -8,7 +9,7 @@ import type { IconSet, IconAliases, IconProps } from 'vuetify'
 import { aliases, mdi } from 'vuetify/iconsets/mdi'
 import { GithubIcon } from '#components'
 const custom: IconSet = {
-    component: GithubIcon,
+    component: (props: IconProps) => h(GithubIcon),
 }
 
 export default defineNuxtPlugin(nuxtApp => {

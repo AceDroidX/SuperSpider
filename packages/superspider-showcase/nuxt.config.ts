@@ -2,10 +2,10 @@
 import vuetify from 'vite-plugin-vuetify'
 export default defineNuxtConfig({
     // https://codybontecou.com/how-to-use-vuetify-with-nuxt-3.html
-    css: ['vuetify/lib/styles/main.sass'],
-    build: {
-        transpile: ['vuetify'],
-    },
+    // css: ['vuetify/lib/styles/main.sass'],
+    // build: {
+    //     transpile: ['vuetify'],
+    // },
     modules: [
         // https://next.vuetifyjs.com/en/features/treeshaking/
         // https://nuxt.com/docs/api/advanced/hooks
