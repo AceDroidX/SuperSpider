@@ -10,10 +10,12 @@ COPY . ./
 RUN pnpm install --offline ; \
   pnpm run -F superspider-showcase build
 
-FROM acedroidx/superspider-shared:${IMAGE_TAG}
+FROM node:16-alpine
+WORKDIR /app
 ARG GITHUB_SHA
 ENV GITHUB_SHA=$GITHUB_SHA
-COPY --from=build /app/packages/superspider-showcase/dist/ ./packages/superspider-showcase/dist/
-COPY --from=build /app/packages/superspider-showcase/.nuxt/ ./packages/superspider-showcase/.nuxt/
+ENV NITRO_HOST=0.0.0.0
+ENV NITRO_PORT=2164
+COPY --from=build /app/packages/superspider-showcase/.output/ ./
 EXPOSE 2164
-ENTRYPOINT ["pnpm","run","-F","superspider-showcase","start"]
+ENTRYPOINT ["node","./server/index.mjs"]

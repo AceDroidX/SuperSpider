@@ -1,9 +1,15 @@
 docker-compose.yml
 docker-compose-*.yml
 .git
-.nuxt
-node_modules
 log
-dist
 data
 backup
+# superspider-showcase
+node_modules
+*.log*
+.nuxt
+.nitro
+.cache
+.output
+.env
+dist
