@@ -12,8 +12,8 @@ RUN pnpm install --offline ; \
 
 FROM node:16-alpine
 WORKDIR /app
-ARG GITHUB_SHA
-ENV GITHUB_SHA=$GITHUB_SHA
+ARG GIT_HASH
+ENV NUXT_PUBLIC_GIT_HASH=$GIT_HASH
 ENV NITRO_HOST=0.0.0.0
 ENV NITRO_PORT=2164
 COPY --from=build /app/packages/superspider-showcase/.output/ ./

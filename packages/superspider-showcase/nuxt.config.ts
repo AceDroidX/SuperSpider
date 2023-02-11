@@ -17,7 +17,7 @@ export default defineNuxtConfig({
         public: {
             NODE_ENV: process.env.NODE_ENV,
             version: process.env.npm_package_version,
-            GIT_HASH: process.env.GITHUB_SHA,
+            GIT_HASH: process.env.GIT_HASH,
             BASE_API_URL: process.env.BASE_API_URL ?? 'http://localhost:2162',
             ROOM_ID: process.env.room_id ?? '21452505,80397',
         }
