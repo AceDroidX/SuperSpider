@@ -30,7 +30,7 @@
                     <v-col>
                         <v-select
                             v-model="room"
-                            :items="$config.ROOM_ID"
+                            :items="roomlist"
                             variant="underlined"
                             hide-details="auto"
                             density="compact"
@@ -171,6 +171,7 @@ export default {
     name: "HistorySCViewerLayout",
     data() {
         return {
+            roomlist: this.$config.ROOM_ID.split(","),
             drawer: true,
             title: "BiliSC",
             newVersionDialog: false,

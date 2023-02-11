@@ -11,5 +11,5 @@ node_modules
 .nitro
 .cache
 .output
-.env
+.env*
 dist

@@ -16,11 +16,10 @@ export default defineNuxtConfig({
     runtimeConfig: {
         public: {
             NODE_ENV: process.env.NODE_ENV,
-            BASE_API_URL:
-                process.env.NODE_ENV === 'production' ? process.env.BASE_API_URL : 'http://localhost:2162',
             version: process.env.npm_package_version,
             GIT_HASH: process.env.GITHUB_SHA,
-            ROOM_ID: process.env.room_id ? process.env.room_id.split(',') : ['21452505', '80397'],
+            BASE_API_URL: process.env.BASE_API_URL ?? 'http://localhost:2162',
+            ROOM_ID: process.env.room_id ?? '21452505,80397',
         }
     },
     app: {
