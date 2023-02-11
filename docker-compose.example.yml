@@ -51,8 +51,8 @@ services:
         image: acedroidx/superspider-showcase:master
         container_name: superspider-showcase
         environment:
-            BASE_API_URL: https://api.example.com
-            room_id: 21452505,80397
+            NUXT_PUBLIC_BASE_API_URL: https://api.example.com
+            NUXT_PUBLIC_ROOM_ID: 21452505,80397
         ports:
             - "2164:2164"
 

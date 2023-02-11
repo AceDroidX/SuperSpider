@@ -3,6 +3,8 @@
 由[原项目](https://github.com/dd-center/SuperSpider)修改而来  
 相比原项目使用pnpm、TypeScript、Vue3、Vuetify3重构并删除了不需要的功能
 
+推荐使用`docker compose`部署，示例请参考`docker-compose.example.yml`
+
 superspider-showcase todo:  
 
 - [x] [useFetch](https://nuxt.com/docs/getting-started/data-fetching)
