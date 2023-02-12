@@ -12,7 +12,7 @@ superspider-showcase todo:
 - [x] UI修复
 - [x] 其他页面修复
 - [x] 字体修复
-- [ ] 更新日志+提交正式版v2.3
+- [x] 更新日志+提交正式版v2.3
 - [ ] 迁移至pinia
 - [ ] pinia persist
 - [ ] 使用TypeScript重构

@@ -1,5 +1,10 @@
 <template>
   <v-card-text>
+    BiliSC v2.3.0 (2023.2.11 ec616a0) <br />
+    1.更新至Nuxt3/Vuetify3 <br />
+    2.修复点击头像与点击SC事件的冲突 <br />
+    3.优化部分样式 <br />
+    <br />
     BiliSC v2.2.0 (2022.7.8 0bc29ab) <br />
     1.优化构建部署流程 <br />
     2.更换字体以优化Windows下的渲染 <br />
