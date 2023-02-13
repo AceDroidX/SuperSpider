@@ -71,10 +71,7 @@
                         <v-spacer />
                     </v-col>
                     <v-col cols="6">
-                        <v-btn
-                            block
-                            variant="outlined"
-                            @click="setStartFetch(startFetch + 1)"
+                        <v-btn block variant="outlined" @click="startFetch += 1"
                             >GO</v-btn
                         >
                     </v-col>
@@ -82,21 +79,6 @@
                 <v-row>
                     <v-col>
                         <v-divider></v-divider>
-                    </v-col>
-                </v-row>
-                <v-row justify="space-around">
-                    <v-col cols="4">
-                        <v-btn
-                            block
-                            variant="outlined"
-                            @click="openMiniViewer()"
-                            >小窗模式</v-btn
-                        >
-                    </v-col>
-                    <v-col cols="4">
-                        <v-btn block variant="outlined" @click="copyURL()"
-                            >复制链接</v-btn
-                        >
                     </v-col>
                 </v-row>
                 <v-row justify="space-around">
@@ -151,22 +133,22 @@
     </v-app>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
-import { useStore } from "vuex";
-const store = useStore();
+import { HistoryViewerConfig } from "@/stores/viewer-config";
+const store = HistoryViewerConfig();
 const format = ref("yyyy.MM.dd HH:mm");
 const startTime = ref(new Date());
 const endTime = ref(new Date());
-watchEffect(async () => {
-    store.commit("HistoryViewerConfig/setStartTS", startTime.value / 1000);
-    store.commit("HistoryViewerConfig/setEndTS", endTime.value / 1000);
-});
+watch([startTime, endTime], ([newStart, newEnd]) => {
+  store.startTS = newStart.getTime() / 1000;
+  store.endTS = newEnd.getTime() / 1000;
+})
 </script>
 
-<script>
-import { mapState, mapMutations } from "vuex";
+<script lang="ts">
+import { mapWritableState } from "pinia";
 export default {
     name: "HistorySCViewerLayout",
     data() {
@@ -179,34 +161,14 @@ export default {
         };
     },
     computed: {
-        room: {
-            get() {
-                return this.$store.state.HistoryViewerConfig.room;
-            },
-            set(value) {
-                this.$store.commit("HistoryViewerConfig/setRoom", value);
-            },
-        },
-        pageLimit: {
-            get() {
-                return this.$store.state.HistoryViewerConfig.pageLimit;
-            },
-            set(value) {
-                this.$store.commit("HistoryViewerConfig/setPageLimit", value);
-            },
-        },
-        showMarkNative: {
-            get() {
-                return this.$store.state.HistoryViewerConfig.showMarkNative;
-            },
-            set(value) {
-                this.$store.commit(
-                    "HistoryViewerConfig/setShowMarkNative",
-                    value
-                );
-            },
-        },
-        ...mapState("HistoryViewerConfig", ["startFetch", "startTS", "endTS"]),
+        ...mapWritableState(HistoryViewerConfig, [
+            "room",
+            "pageLimit",
+            "showMarkNative",
+            "startFetch",
+            "startTS",
+            "endTS",
+        ]),
     },
     watch: {
         startFetch() {
@@ -227,8 +189,7 @@ export default {
         }
     },
     methods: {
-        ...mapMutations("HistoryViewerConfig", ["setStartFetch"]),
-        log(value) {
+        log(value: any) {
             console.log(value);
         },
         setVersion() {
@@ -241,9 +202,9 @@ export default {
 
 <style scoped>
 .v-btn--variant-outlined {
-    border-color: rgba(var(--v-theme-on-surface), 0.20)
+    border-color: rgba(var(--v-theme-on-surface), 0.2);
 }
 .v-card--variant-outlined {
-    border-color: rgba(var(--v-theme-on-surface), 0.12)
+    border-color: rgba(var(--v-theme-on-surface), 0.12);
 }
 </style>

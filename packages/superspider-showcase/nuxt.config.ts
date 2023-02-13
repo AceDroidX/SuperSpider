@@ -7,6 +7,7 @@ export default defineNuxtConfig({
     //     transpile: ['vuetify'],
     // },
     modules: [
+        '@pinia/nuxt',
         // https://next.vuetifyjs.com/en/features/treeshaking/
         // https://nuxt.com/docs/api/advanced/hooks
         async (options, nuxt) => {

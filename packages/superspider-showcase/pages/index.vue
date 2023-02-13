@@ -6,7 +6,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from "pinia";
+import { ViewerConfig } from "@/stores/viewer-config";
 definePageMeta({
     name: 'FullSCViewer',
     layout: 'viewer',
@@ -29,7 +30,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('ViewerConfig',['room','pageLimit','showMarkNative','startFetch']),
+    ...mapState(ViewerConfig,['room','pageLimit','showMarkNative','startFetch']),
   },
   watch: {
     startFetch() {

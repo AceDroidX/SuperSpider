@@ -6,7 +6,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from "pinia";
+import { HistoryViewerConfig } from "@/stores/viewer-config";
 definePageMeta({
     name: 'HistorySCViewer',
     layout: 'history-viewer',
@@ -32,7 +33,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('HistoryViewerConfig',['room','showMarkNative','startFetch','startTS','endTS']),
+    ...mapState(HistoryViewerConfig,['room','showMarkNative','startFetch','startTS','endTS']),
   },
   watch: {
     startFetch() {

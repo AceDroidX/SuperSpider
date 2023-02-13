@@ -55,10 +55,7 @@
                         <v-spacer />
                     </v-col>
                     <v-col cols="6">
-                        <v-btn
-                            block
-                            variant="outlined"
-                            @click="setStartFetch(startFetch + 1)"
+                        <v-btn block variant="outlined" @click="startFetch += 1"
                             >GO</v-btn
                         >
                     </v-col>
@@ -135,8 +132,9 @@
     </v-app>
 </template>
 
-<script>
-import { mapState, mapMutations } from "vuex";
+<script lang="ts">
+import { mapWritableState } from "pinia";
+import { ViewerConfig } from "@/stores/viewer-config";
 export default {
     name: "SCViewerLayout",
     data() {
@@ -152,34 +150,15 @@ export default {
         };
     },
     computed: {
-        room: {
-            get() {
-                return this.$store.state.ViewerConfig.room;
-            },
-            set(value) {
-                this.$store.commit("ViewerConfig/setRoom", value);
-            },
-        },
-        pageLimit: {
-            get() {
-                return this.$store.state.ViewerConfig.pageLimit;
-            },
-            set(value) {
-                this.$store.commit("ViewerConfig/setPageLimit", value);
-            },
-        },
-        showMarkNative: {
-            get() {
-                return this.$store.state.ViewerConfig.showMarkNative;
-            },
-            set(value) {
-                this.$store.commit("ViewerConfig/setShowMarkNative", value);
-            },
-        },
+        ...mapWritableState(ViewerConfig, [
+            "room",
+            "pageLimit",
+            "showMarkNative",
+            "startFetch",
+        ]),
         miniViewerURL() {
             return `/mini?room=${this.room}&limit=${this.pageLimit}&mark=${this.showMarkNative}&dark=${this.$vuetify.theme.current.dark}`;
         },
-        ...mapState("ViewerConfig", ["startFetch"]),
     },
     watch: {
         startFetch() {
@@ -200,15 +179,14 @@ export default {
         }
     },
     methods: {
-        ...mapMutations("ViewerConfig", ["setStartFetch"]),
-        log(value) {
+        log(value: any) {
             console.log(value);
         },
         setVersion() {
             localStorage.setItem("version", this.$config.version);
             this.newVersionDialog = false;
         },
-        openLink(link, extra) {
+        openLink(link: string | URL | undefined, extra: boolean) {
             if (extra)
                 window.open(
                     link,
@@ -218,13 +196,13 @@ export default {
             else window.open(link);
         },
         openMiniViewer() {
-            this.setStartFetch(0);
+            this.startFetch = 0;
             this.openLink(this.miniViewerURL, true);
         },
         copyURL() {
             this.copyText(window.location.origin + this.miniViewerURL);
         },
-        copyText(text) {
+        copyText(text: string) {
             navigator.clipboard.writeText(text);
         },
     },
@@ -233,9 +211,9 @@ export default {
 
 <style scoped>
 .v-btn--variant-outlined {
-    border-color: rgba(var(--v-theme-on-surface), 0.20)
+    border-color: rgba(var(--v-theme-on-surface), 0.2);
 }
 .v-card--variant-outlined {
-    border-color: rgba(var(--v-theme-on-surface), 0.12)
+    border-color: rgba(var(--v-theme-on-surface), 0.12);
 }
 </style>
