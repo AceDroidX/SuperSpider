@@ -107,6 +107,7 @@ importers:
   packages/superspider-showcase:
     specifiers:
       '@mdi/font': ^7.1.96
+      '@pinia-plugin-persistedstate/nuxt': ^1.0.0
       '@pinia/nuxt': ^0.4.6
       '@vuepic/vue-datepicker': ^3.6.8
       idb: ^7.1.1
@@ -116,6 +117,7 @@ importers:
       vuetify: ^3.1.4
     devDependencies:
       '@mdi/font': 7.1.96
+      '@pinia-plugin-persistedstate/nuxt': 1.0.0_lo54kkkyl5mmzcydynlrcmvxry
       '@pinia/nuxt': 0.4.6_vue@3.2.47
       '@vuepic/vue-datepicker': 3.6.8_vue@3.2.47
       idb: 7.1.1
@@ -1145,6 +1147,20 @@ packages:
       - vls
       - vti
       - vue-tsc
+    dev: true
+
+  /@pinia-plugin-persistedstate/nuxt/1.0.0_lo54kkkyl5mmzcydynlrcmvxry:
+    resolution: {integrity: sha512-oBLnkFXy0mcP9wCR0NQj1SguhgalEoubDF302gpRr1lh0V34vSL2Nlw8XDwRrULq5v3eHt4da632YSjNny1+BA==}
+    peerDependencies:
+      '@pinia/nuxt': ^0.4.4
+    dependencies:
+      '@nuxt/kit': 3.1.2
+      '@pinia/nuxt': 0.4.6_vue@3.2.47
+      pinia-plugin-persistedstate: 3.0.2_pinia@2.0.30
+    transitivePeerDependencies:
+      - pinia
+      - rollup
+      - supports-color
     dev: true
 
   /@pinia/nuxt/0.4.6_vue@3.2.47:
@@ -4483,6 +4499,14 @@ packages:
   /pify/2.3.0:
     resolution: {integrity: sha512-udgsAY+fTnvv7kI7aaxbqwWNb0AHiB0qBO89PZKPkoTmGOgdbrHDKD+0B2X4uTfJ/FT1R09r9gTsjUjNJotuog==}
     engines: {node: '>=0.10.0'}
+    dev: true
+
+  /pinia-plugin-persistedstate/3.0.2_pinia@2.0.30:
+    resolution: {integrity: sha512-84vPyUhPA/8Pr+1mT1ioNb2d8z4tvdgYRqMQf8xyauOVBKjo0ZcRBwPQBV7ZAJG43Kwar43nXG2jU+ZMvAFFRQ==}
+    peerDependencies:
+      pinia: ^2.0.0
+    dependencies:
+      pinia: 2.0.30_vue@3.2.47
     dev: true
 
   /pinia/2.0.30_vue@3.2.47:

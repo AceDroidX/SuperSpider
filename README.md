@@ -14,7 +14,7 @@ superspider-showcase todo:
 - [x] 字体修复
 - [x] 更新日志+提交正式版v2.3
 - [x] 迁移至Pinia
-- [ ] pinia persist
+- [x] pinia persist
 - [ ] 使用TypeScript重构
 - [ ] 使用组合式api重构
 - [x] 优化侧边栏按钮间隔
