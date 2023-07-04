@@ -29,11 +29,11 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v2.0.1
         with:
-          version: 7.22.0
+          version: 8.6.6
       - name: Setup node env 🏗
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
           check-latest: true
           cache: "pnpm"
       # - name: Cache node_modules 📦
