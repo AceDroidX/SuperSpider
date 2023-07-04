@@ -7,7 +7,7 @@ RUN npm install -g pnpm@8.6.6 && npm cache clean --force
 COPY pnpm-lock.yaml ./
 RUN pnpm fetch
 COPY . ./
-RUN pnpm install --offline
+RUN pnpm install --offline --force
 RUN pnpm run -F superspider-shared build && pnpm run -F superspider-predb build
 
 FROM acedroidx/superspider-shared:${IMAGE_TAG}

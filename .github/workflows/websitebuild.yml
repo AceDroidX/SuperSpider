@@ -44,7 +44,7 @@ jobs:
       #     restore-keys: |
       #       ${{ runner.os }}-node-
       - name: Install dependencies 👨🏻‍💻
-        run: pnpm fetch && pnpm install --offline ; exit 0
+        run: pnpm fetch && pnpm install --offline --force ; exit 0
       - name: Generate
         run: pnpm run -F superspider-showcase generate
       - name: Deploy 🚀
