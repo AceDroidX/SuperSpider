@@ -44,7 +44,7 @@ importers:
     devDependencies:
       '@types/koa':
         specifier: latest
-        version: 2.13.5
+        version: 2.13.6
       '@types/koa-bodyparser':
         specifier: latest
         version: 4.3.10
@@ -56,7 +56,7 @@ importers:
         version: 3.3.0
       '@types/ws':
         specifier: latest
-        version: 8.5.4
+        version: 8.5.5
       typescript:
         specifier: latest
         version: 5.1.6
@@ -68,7 +68,7 @@ importers:
         version: 1.4.0
       bilibili-live-ws:
         specifier: latest
-        version: 6.3.0(buffer@6.0.3)(events@3.3.0)(pako@2.1.0)
+        version: 6.3.1(buffer@6.0.3)(events@3.3.0)(pako@2.1.0)
       mongodb:
         specifier: latest
         version: 5.6.0
@@ -87,7 +87,7 @@ importers:
     devDependencies:
       '@types/ws':
         specifier: latest
-        version: 8.5.4
+        version: 8.5.5
       typescript:
         specifier: latest
         version: 5.1.6
@@ -99,7 +99,7 @@ importers:
         version: 1.4.0
       bilibili-live-ws:
         specifier: latest
-        version: 6.3.0(buffer@6.0.3)(events@3.3.0)(pako@2.1.0)
+        version: 6.3.1(buffer@6.0.3)(events@3.3.0)(pako@2.1.0)
       mongodb:
         specifier: latest
         version: 5.6.0
@@ -118,7 +118,7 @@ importers:
     devDependencies:
       '@types/ws':
         specifier: latest
-        version: 8.5.4
+        version: 8.5.5
       typescript:
         specifier: latest
         version: 5.1.6
@@ -1617,23 +1617,23 @@ packages:
   /@types/koa-bodyparser@4.3.10:
     resolution: {integrity: sha512-6ae05pjhmrmGhUR8GYD5qr5p9LTEMEGfGXCsK8VaSL+totwigm8+H/7MHW7K4854CMeuwRAubT8qcc/EagaeIA==}
     dependencies:
-      '@types/koa': 2.13.5
+      '@types/koa': 2.13.6
     dev: true
 
   /@types/koa-compose@3.2.5:
     resolution: {integrity: sha512-B8nG/OoE1ORZqCkBVsup/AKcvjdgoHnfi4pZMn5UwAPCbhk/96xyv284eBYW8JlQbQ7zDmnpFr68I/40mFoIBQ==}
     dependencies:
-      '@types/koa': 2.13.5
+      '@types/koa': 2.13.6
     dev: true
 
   /@types/koa-router@7.4.4:
     resolution: {integrity: sha512-3dHlZ6CkhgcWeF6wafEUvyyqjWYfKmev3vy1PtOmr0mBc3wpXPU5E8fBBd4YQo5bRpHPfmwC5yDaX7s4jhIN6A==}
     dependencies:
-      '@types/koa': 2.13.5
+      '@types/koa': 2.13.6
     dev: true
 
-  /@types/koa@2.13.5:
-    resolution: {integrity: sha512-HSUOdzKz3by4fnqagwthW/1w/yJspTgppyyalPVbgZf8jQWvdIXcVW5h2DGtw4zYntOaeRGx49r1hxoPWrD4aA==}
+  /@types/koa@2.13.6:
+    resolution: {integrity: sha512-diYUfp/GqfWBAiwxHtYJ/FQYIXhlEhlyaU7lB/bWQrx4Il9lCET5UwpFy3StOAohfsxxvEQ11qIJgT1j2tfBvw==}
     dependencies:
       '@types/accepts': 1.3.5
       '@types/content-disposition': 0.5.5
@@ -1648,7 +1648,7 @@ packages:
   /@types/koa__cors@3.3.0:
     resolution: {integrity: sha512-FUN8YxcBakIs+walVe3+HcNP+Bxd0SB8BJHBWkglZ5C1XQWljlKcEFDG/dPiCIqwVCUbc5X0nYDlH62uEhdHMA==}
     dependencies:
-      '@types/koa': 2.13.5
+      '@types/koa': 2.13.6
     dev: true
 
   /@types/mime@1.3.2:
@@ -1704,8 +1704,8 @@ packages:
       '@types/webidl-conversions': 7.0.0
     dev: false
 
-  /@types/ws@8.5.4:
-    resolution: {integrity: sha512-zdQDHKUgcX/zBc4GrwsE/7dVdAD8JR4EuiAXiiUhhfyIJXXb2+PrGshFyeXWQPMmmZ2XxgaqclgpIC7eTXc1mg==}
+  /@types/ws@8.5.5:
+    resolution: {integrity: sha512-lwhs8hktwxSjf9UaZ9tG5M03PGogvFaH8gUgLNbN9HKIg0dvv6q+gkSuJ8HN4/VbyxkuLzCjlN7GquQ0gUJfIg==}
     dependencies:
       '@types/node': 20.3.3
     dev: true
@@ -2189,8 +2189,8 @@ packages:
   /base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
 
-  /bilibili-live-ws@6.3.0(buffer@6.0.3)(events@3.3.0)(pako@2.1.0):
-    resolution: {integrity: sha512-2kaZ4EmPM6mSFvjKYgRI09qlUxBUn+6knmU0YaZkhrXFUo6gCJmHOy5Xykz4PijcRaB7LuJai/PSThRNoqYjvA==}
+  /bilibili-live-ws@6.3.1(buffer@6.0.3)(events@3.3.0)(pako@2.1.0):
+    resolution: {integrity: sha512-+j15XRce44YqwkKF3rmG6G3IK3e57gX7WFJHBs4epX9aw+vJLISPJXbg6z/yiMQj1QtiTqyDDG9k/aDj7wDhMQ==}
     peerDependencies:
       buffer: ^6.0.3
       events: ^3.3.0

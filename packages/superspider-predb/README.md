@@ -6,4 +6,5 @@ ROOM_BLOCK_MSG
 
 {cmd:'DANMU_MSG','info.2.1':''}
 
-mongodump -u admin -p superspider -o 220211-0752
+mongodump -u admin --authenticationDatabase=admin --gzip --archive="230704-1735-amdb" -d amdb --host
+mongodump -u admin --authenticationDatabase=admin --gzip --archive="230704-1735-fullmsg" -d fullmsg --host

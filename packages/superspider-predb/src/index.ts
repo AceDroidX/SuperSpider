@@ -1,11 +1,10 @@
 if (process.env.NODE_ENV != 'production') {
     require('dotenv').config({ debug: true })
 }
-import { KeepLiveTCP, TCPOptions } from 'bilibili-live-ws'
+import { LiveTCP, TCPOptions } from 'bilibili-live-ws'
 import { Collection, MongoClient } from 'mongodb'
 import { addMongoTrans, logger, mClient as client, MedalInfo, SuperChat } from 'superspider-shared'
 import { GetConfTask } from './GetConfTask'
-import { KeepLiveTCPWithConf } from './KeepLiveTCPWithConf'
 
 async function main() {
     addMongoTrans('log-predb')
@@ -21,15 +20,15 @@ async function main() {
         logger.error('请设置room_id')
         process.exit(1)
     }
-    const roomid = roomid_str.split(',').map(x => parseInt(x))
+    const roomid = roomid_str.split(',').map(u => u.split(':').map(x => parseInt(x)))
     let fullmsg_id_str = process.env['fullmsg_id']
     if (!fullmsg_id_str) {
         fullmsg_id_str = ""
     }
     const fullmsg_id = fullmsg_id_str.split(',').map(x => parseInt(x))
     const confTask = new GetConfTask()
-    roomid.forEach((value: number) => {
-        openRoom(value, client, confTask, fullmsg_id.includes(value))
+    roomid.forEach((value: number[]) => {
+        openRoom(value[0], value[1], client, confTask, fullmsg_id.includes(value[0]))
     })
 }
 
@@ -111,7 +110,7 @@ async function onMsg(data: any, maindb: Collection, predb: Collection, isfullmsg
     }
 }
 
-async function openRoom(roomid: number, client: MongoClient, confTask: GetConfTask, isfullmsg: boolean) {
+async function openRoom(roomid: number, uid: number, client: MongoClient, confTask: GetConfTask, isfullmsg: boolean) {
     // logger.info(`OPEN: ${roomid}`)
     const maindb = client.db('amdb').collection('maindb')
     let predb: Collection
@@ -119,14 +118,18 @@ async function openRoom(roomid: number, client: MongoClient, confTask: GetConfTa
         predb = client.db('fullmsg').collection(roomid.toString())
         await predb.createIndex({ ts: -1, })
     }
-    const liveconf = await confTask.getConf(roomid) as TCPOptions
+    const liveconf = await confTask.getConf(roomid, uid) as TCPOptions
     logger.info(liveconf)
-    const live = process.env['no_conf'] == 'true' ? new KeepLiveTCP(roomid) :  new KeepLiveTCPWithConf(roomid, confTask, liveconf)
+    const live = process.env['no_conf'] == 'true' ? new LiveTCP(roomid) : new LiveTCP(roomid, liveconf)
     live.on('open', () => { })
     live.on('live', () => logger.info(`live<${roomid}>isfullmsg:${isfullmsg}`))
     live.on('heartbeat', () => { })
     live.on('msg', async (data) => onMsg(data, maindb, predb, isfullmsg))
-    live.on('close', () => { logger.warn(`close<${roomid}>`) })
+    live.on('close', async () => {
+        logger.warn(`close<${roomid}>`)
+        await new Promise(r => setTimeout(r, 5000));
+        await openRoom(roomid, uid, client, confTask, isfullmsg)
+    })
     live.on('error', (e) => { logger.error(`error<${roomid}>:${e.message}`) })
 }
 

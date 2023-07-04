@@ -20,7 +20,7 @@ services:
             NODE_ENV: production
             MONGODB_PASS: admin
             MONGODB_IP: superspider-mongo
-            room_id: 21452505
+            room_id: 21452505:434334701,80397:7706705
             fullmsg_id: 21452505
             no_conf: false # 是否使用默认弹幕服务器地址 true使用默认地址 false通过API获取服务器地址 选项默认为false
     superspider-mdb:
