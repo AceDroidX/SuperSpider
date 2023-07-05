@@ -1,0 +1,1 @@
+import{a as e,o as t,e as o,j as s}from"./entry.2a47a7fd.js";const r={head:{title:"BiliSC"},mounted(){this.$router.push({path:"/",query:{...this.$route.query}})}},n=s("h1",null,null,-1),a=[n];function c(u,i,l,_,d,p){return t(),o("div",null,a)}const f=e(r,[["render",c]]);export{f as default};

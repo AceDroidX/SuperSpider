@@ -1,0 +1,1 @@
+import{m as t,u as n}from"./tag.3dcb0d75.js";import{M as r,f as s}from"./entry.2a47a7fd.js";const l=r({name:"VContainer",props:{fluid:{type:Boolean,default:!1},...t()},setup(e,a){let{slots:o}=a;return n(()=>s(e.tag,{class:["v-container",{"v-container--fluid":e.fluid}]},o)),{}}});export{l as V};
