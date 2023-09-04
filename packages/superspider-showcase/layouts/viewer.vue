@@ -55,7 +55,10 @@
                         <v-spacer />
                     </v-col>
                     <v-col cols="6">
-                        <v-btn block variant="outlined" @click="store.startFetch += 1"
+                        <v-btn
+                            block
+                            variant="outlined"
+                            @click="store.startFetch += 1"
                             >GO</v-btn
                         >
                     </v-col>
@@ -117,7 +120,11 @@
                     <v-divider></v-divider>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="primary" text @click="setVersion">
+                        <v-btn
+                            color="primary"
+                            variant="text"
+                            @click="setVersion"
+                        >
                             OK
                         </v-btn>
                     </v-card-actions>

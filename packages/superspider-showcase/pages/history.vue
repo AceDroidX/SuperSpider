@@ -10,7 +10,7 @@ useHead({
     title: "BiliSC",
     titleTemplate: `${store.room} - %s`,
 });
-let timer: NodeJS.Timer | undefined = undefined;
+let timer: NodeJS.Timeout | undefined = undefined;
 const rawSCData: any = ref([]);
 const snackbar = ref(false);
 const snackbarText = ref("Error");
@@ -42,7 +42,7 @@ async function fetchData() {
     if (!store.room || isNaN(Number(store.room)) || store.room === "") return;
     try {
         const scData = await useFetch(
-            runtimeConfig.BASE_API_URL + "/sc/getDataByTS",
+            runtimeConfig.public.BASE_API_URL + "/sc/getDataByTS",
             {
                 method: "POST",
                 body: `roomid=${store.room}&start=${store.startTS}&end=${store.endTS}`,

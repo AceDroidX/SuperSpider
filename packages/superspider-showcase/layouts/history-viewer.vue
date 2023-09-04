@@ -118,7 +118,11 @@
                     <v-divider></v-divider>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="primary" text @click="setVersion">
+                        <v-btn
+                            color="primary"
+                            variant="text"
+                            @click="setVersion"
+                        >
                             OK
                         </v-btn>
                     </v-card-actions>
@@ -142,9 +146,9 @@ const format = ref("yyyy.MM.dd HH:mm");
 const startTime = ref(new Date());
 const endTime = ref(new Date());
 watch([startTime, endTime], ([newStart, newEnd]) => {
-  store.startTS = newStart.getTime() / 1000;
-  store.endTS = newEnd.getTime() / 1000;
-})
+    store.startTS = newStart.getTime() / 1000;
+    store.endTS = newEnd.getTime() / 1000;
+});
 </script>
 
 <script lang="ts">
@@ -153,7 +157,7 @@ export default {
     name: "HistorySCViewerLayout",
     data() {
         return {
-            roomlist: this.$config.ROOM_ID.split(","),
+            roomlist: this.$config.public.ROOM_ID.split(","),
             drawer: true,
             title: "BiliSC",
             newVersionDialog: false,
@@ -181,7 +185,7 @@ export default {
         },
     },
     mounted() {
-        this.version = this.$config.version;
+        this.version = this.$config.public.version;
         const version = localStorage.getItem("version");
         if (this.$config.version !== version) {
             console.log("version changed");
@@ -193,7 +197,7 @@ export default {
             console.log(value);
         },
         setVersion() {
-            localStorage.setItem("version", this.$config.version);
+            localStorage.setItem("version", this.$config.public.version);
             this.newVersionDialog = false;
         },
     },

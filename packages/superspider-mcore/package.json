@@ -18,15 +18,15 @@
         "koa-bodyparser": "latest",
         "koa-router": "latest",
         "mongodb": "latest",
+        "superspider-shared": "workspace:^",
         "winston": "latest",
-        "winston-transport": "latest",
-        "superspider-shared": "workspace:"
+        "winston-transport": "latest"
     },
     "devDependencies": {
         "@types/koa": "latest",
-        "@types/koa__cors": "latest",
         "@types/koa-bodyparser": "latest",
         "@types/koa-router": "latest",
+        "@types/koa__cors": "latest",
         "@types/ws": "latest",
         "typescript": "latest"
     }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useTheme } from "vuetify/lib/framework.mjs";
+import { useTheme } from "vuetify";
 const runtimeConfig = useRuntimeConfig();
 const route = useRoute();
 const theme = useTheme();
@@ -24,7 +24,7 @@ useHead({
     titleTemplate: `${room.value} - %s`,
 });
 
-let timer: NodeJS.Timer | undefined = undefined;
+let timer: NodeJS.Timeout | undefined = undefined;
 const rawSCData: any = ref([]);
 const snackbar = ref(false);
 const snackbarText = ref("Error");
@@ -50,7 +50,7 @@ function setTimeoutLoop() {
 async function fetchData() {
     try {
         const scData = await useFetch(
-            runtimeConfig.BASE_API_URL + "/sc/getData",
+            runtimeConfig.public.BASE_API_URL + "/sc/getData",
             {
                 method: "POST",
                 body: `roomid=${room.value}&limit=${pageLimit.value}`,

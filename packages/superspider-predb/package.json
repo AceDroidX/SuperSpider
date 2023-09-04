@@ -16,10 +16,10 @@
         "axios": "latest",
         "bilibili-live-ws": "latest",
         "mongodb": "latest",
+        "superspider-shared": "workspace:^",
         "winston": "latest",
         "winston-transport": "latest",
-        "ws": "latest",
-        "superspider-shared": "workspace:"
+        "ws": "latest"
     },
     "devDependencies": {
         "@types/ws": "latest",
