@@ -1,111 +1,87 @@
-<template>
-  <div>
-    <SCList :rawscdata="rawSCData" :showmarknative="showMarkNative" />
-    <v-snackbar v-model="snackbar"> {{ snackbarText }} </v-snackbar>
-  </div>
-</template>
+<script setup lang="ts">
+import { useTheme } from "vuetify/lib/framework.mjs";
+const runtimeConfig = useRuntimeConfig();
+const route = useRoute();
+const theme = useTheme();
 
-<script>
-export default {
-  name: 'MiniSCViewer',
-  data() {
-    return {
-      rawSCData: [],
-      started: false,
-      timer: false,
-      addText: '',
-      fontStyle: '',
-      snackbar: false,
-      snackbarText: 'Error',
-    }
-  },
-  head() {
-    return {
-      title: 'BiliSC(mini)',
-      titleTemplate: `${this.room} - %s`,
-    }
-  },
-  computed: {
-    room() {
-      return isNaN(parseFloat(this.$route.query.room))
-        ? 21452505 // This controls the default value
-        : parseFloat(this.$route.query.room)
-    },
-    showMarkNative() {
-      return this.$route.query.mark ? this.$route.query.mark === 'true' : true // This controls the default value
-    },
-    pageLimit() {
-      return isNaN(parseFloat(this.$route.query.limit))
-        ? 100
-        : parseFloat(this.$route.query.limit)
-    },
-    dark() {
-      return this.$route.query.dark ? this.$route.query.dark === 'true' : true // This controls the default value
-    },
-  },
-  watch: {
-    startFetch() {
-      if (this.startFetch) {
-        this.startFetchData()
-      }
-    },
-    snackbarText(newval, oldval) {
-      console.log(newval, oldval)
-    },
-    snackbar(newval, oldval) {
-      console.log(newval, oldval)
-    },
-  },
-  async mounted() {
-    this.$vuetify.theme.global.name = this.dark ? "dark" : "light"
-    if (this.room && this.room !== '') await this.startFetchData()
-  },
-  beforeDestroy() {
-    if (this.timer) clearTimeout(this.timer)
-  },
-  methods: {
-    async startFetchData() {
-      if (!this.room) return
-      console.log('startFetchData')
-      await this.fetchData().catch(() => {})
-      if (this.started === this.room) return
-      if (this.timer) clearTimeout(this.timer)
-      this.setTimeoutLoop()
-      this.started = this.room
-    },
-    setTimeoutLoop() {
-      const fn = async () => {
-        await this.fetchData().catch(() => {})
-        this.timer = setTimeout(fn, 8000)
-      }
-      this.timer = setTimeout(fn, 8000)
-    },
-    async fetchData() {
-      if (!this.room || isNaN(Number(this.room)) || this.room === '') return
-      try {
-        const runtimeConfig = useRuntimeConfig()
-        const scData = await useFetch(runtimeConfig.BASE_API_URL + '/sc/getData',{
-          method: 'POST',
-          body: `roomid=${this.room}&limit=${this.pageLimit}${
-            this.giftFilterNative ? '&filter=on' : ''
-          }`,
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-        })
-        this.rawSCData = scData.data
-      } catch (e) {
-        this.snackbar = true
+const room = computed(
+    () => parseFloat(route.query.room?.toString() ?? "21452505") || 21452505
+);
+const showMarkNative = computed(() =>
+    route.query.mark ? route.query.mark === "true" : true
+);
+const pageLimit = computed(
+    () => parseFloat(route.query.limit?.toString() ?? "100") || 100
+);
+const dark = computed(() =>
+    route.query.dark ? route.query.dark === "true" : true
+);
+definePageMeta({
+    name: "MiniSCViewer",
+});
+useHead({
+    title: "BiliSC(mini)",
+    titleTemplate: `${room.value} - %s`,
+});
+
+let timer: NodeJS.Timer | undefined = undefined;
+const rawSCData: any = ref([]);
+const snackbar = ref(false);
+const snackbarText = ref("Error");
+onMounted(async () => {
+    theme.global.name.value = dark ? "dark" : "light";
+    await startFetchData();
+});
+onBeforeUnmount(() => stopFetchData());
+async function startFetchData() {
+    if (!room) return;
+    console.log("startFetchData");
+    await fetchData();
+    if (timer) clearTimeout(timer);
+    setTimeoutLoop();
+}
+function setTimeoutLoop() {
+    const fn = async () => {
+        await fetchData();
+        timer = setTimeout(fn, 8000);
+    };
+    timer = setTimeout(fn, 8000);
+}
+async function fetchData() {
+    try {
+        const scData = await useFetch(
+            runtimeConfig.BASE_API_URL + "/sc/getData",
+            {
+                method: "POST",
+                body: `roomid=${room.value}&limit=${pageLimit.value}`,
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+            }
+        );
+        rawSCData.value = scData.data;
+    } catch (e: any) {
+        snackbar.value = true;
         if (e.response !== undefined) {
-          if (e.response.data !== undefined)
-            this.snackbarText = e.message + '\n' + e.response.data
-          else this.snackbarText = e.name + ': ' + e.message
+            if (e.response.data !== undefined)
+                snackbarText.value = e.message + "\n" + e.response.data;
+            else snackbarText.value = e.name + ": " + e.message;
         } else {
-          this.snackbarText = e.name + ': ' + e.message
+            snackbarText.value = e.name + ": " + e.message;
         }
-        console.warn(e)
-      }
-    },
-  },
+        console.warn(e);
+    }
+}
+function stopFetchData() {
+    if (timer) clearTimeout(timer);
+    timer = undefined;
+    rawSCData.value = [];
 }
 </script>
+
+<template>
+    <div>
+        <SCList :rawscdata="rawSCData.value" :showmarknative="showMarkNative" />
+        <v-snackbar v-model="snackbar"> {{ snackbarText }} </v-snackbar>
+    </div>
+</template>

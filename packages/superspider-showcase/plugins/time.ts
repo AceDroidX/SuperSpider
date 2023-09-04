@@ -1,12 +1,12 @@
 export default defineNuxtPlugin(nuxtApp => {
     return {
         provide: {
-            getTime: (timestamp) => getTimeF(timestamp)
+            getTime: (timestamp: number | undefined) => getTimeF(timestamp)
         }
     }
 })
 
-function getTimeF(timestamp = undefined) {
+function getTimeF(timestamp?: number) {
     let hasMilliSeconds = true
     let now
     if (timestamp === undefined) {

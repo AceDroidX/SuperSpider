@@ -18,7 +18,7 @@
                     <v-col> 标记显示 </v-col>
                     <v-col>
                         <v-switch
-                            v-model="showMarkNative"
+                            v-model="store.showMarkNative"
                             hide-details="auto"
                             flat
                             density="compact"
@@ -29,7 +29,7 @@
                     <v-col> 显示数量 </v-col>
                     <v-col>
                         <v-text-field
-                            v-model="pageLimit"
+                            v-model="store.pageLimit"
                             variant="underlined"
                             hide-details="auto"
                             density="compact"
@@ -41,7 +41,7 @@
                     <v-col> 房间号 </v-col>
                     <v-col>
                         <v-select
-                            v-model="room"
+                            v-model="store.room"
                             :items="roomlist"
                             variant="underlined"
                             hide-details="auto"
@@ -55,7 +55,7 @@
                         <v-spacer />
                     </v-col>
                     <v-col cols="6">
-                        <v-btn block variant="outlined" @click="startFetch += 1"
+                        <v-btn block variant="outlined" @click="store.startFetch += 1"
                             >GO</v-btn
                         >
                     </v-col>
@@ -132,81 +132,66 @@
     </v-app>
 </template>
 
-<script lang="ts">
-import { mapWritableState } from "pinia";
+<script setup lang="ts">
 import { ViewerConfig } from "@/stores/viewer-config";
-export default {
-    name: "SCViewerLayout",
-    data() {
-        return {
-            roomlist: this.$config.ROOM_ID.split(","),
-            drawer: true,
-            right: true,
-            rightDrawer: false,
-            title: "BiliSC",
-            collapseOnScroll: true,
-            newVersionDialog: false,
-            version: "null",
-        };
-    },
-    computed: {
-        ...mapWritableState(ViewerConfig, [
-            "room",
-            "pageLimit",
-            "showMarkNative",
-            "startFetch",
-        ]),
-        miniViewerURL() {
-            return `/mini?room=${this.room}&limit=${this.pageLimit}&mark=${this.showMarkNative}&dark=${this.$vuetify.theme.current.dark}`;
-        },
-    },
-    watch: {
-        startFetch() {
-            switch (this.$vuetify.display.name) {
-                case "xs":
-                case "sm":
-                    this.drawer = false;
-                    break;
-            }
-        },
-    },
-    mounted() {
-        this.version = this.$config.version;
-        const version = localStorage.getItem("version");
-        if (this.$config.version !== version) {
-            console.log("version changed");
-            this.newVersionDialog = true;
+import { useDisplay, useTheme } from "vuetify";
+const { name: displayName } = useDisplay();
+const { current: currentTheme } = useTheme();
+const store = ViewerConfig();
+const runtimeConfig = useRuntimeConfig();
+const roomlist = ref(runtimeConfig.public.ROOM_ID.split(","));
+const drawer = ref(true);
+const title = ref("BiliSC");
+const newVersionDialog = ref(false);
+const version = ref("null");
+
+onMounted(() => {
+    version.value = runtimeConfig.public.version;
+    const localVersion = localStorage.getItem("version");
+    if (version.value !== localVersion) {
+        console.log("version changed");
+        newVersionDialog.value = true;
+    }
+});
+
+watch(
+    () => store.startFetch,
+    (newval) => {
+        switch (displayName.value) {
+            case "xs":
+            case "sm":
+                drawer.value = false;
+                break;
         }
-    },
-    methods: {
-        log(value: any) {
-            console.log(value);
-        },
-        setVersion() {
-            localStorage.setItem("version", this.$config.version);
-            this.newVersionDialog = false;
-        },
-        openLink(link: string | URL | undefined, extra: boolean) {
-            if (extra)
-                window.open(
-                    link,
-                    "BiliSC for OBS",
-                    "menubar=0,location=0,scrollbars=0,toolbar=0,width=500,height=700"
-                );
-            else window.open(link);
-        },
-        openMiniViewer() {
-            this.startFetch = 0;
-            this.openLink(this.miniViewerURL, true);
-        },
-        copyURL() {
-            this.copyText(window.location.origin + this.miniViewerURL);
-        },
-        copyText(text: string) {
-            navigator.clipboard.writeText(text);
-        },
-    },
-};
+    }
+);
+
+function miniViewerURL() {
+    return `/mini?room=${store.room}&limit=${store.pageLimit}&mark=${store.showMarkNative}&dark=${currentTheme.value.dark}`;
+}
+function setVersion() {
+    localStorage.setItem("version", runtimeConfig.public.version);
+    newVersionDialog.value = false;
+}
+function openLink(link: string | URL | undefined, extra: boolean) {
+    if (extra)
+        window.open(
+            link,
+            "BiliSC for OBS",
+            "menubar=0,location=0,scrollbars=0,toolbar=0,width=500,height=700"
+        );
+    else window.open(link);
+}
+function openMiniViewer() {
+    store.startFetch = 0;
+    openLink(miniViewerURL(), true);
+}
+function copyURL() {
+    copyText(window.location.origin + miniViewerURL());
+}
+function copyText(text: string) {
+    navigator.clipboard.writeText(text);
+}
 </script>
 
 <style scoped>
