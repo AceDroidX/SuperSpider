@@ -20,9 +20,10 @@ services:
             NODE_ENV: production
             MONGODB_PASS: admin
             MONGODB_IP: superspider-mongo
-            room_id: 21452505:434334701,80397:7706705
-            fullmsg_id: 21452505
-            no_conf: false # 是否使用默认弹幕服务器地址 true使用默认地址 false通过API获取服务器地址 选项默认为false
+            room_id: 21452505:434334701,80397:7706705 # 房间号:用户UID 以逗号分隔不同用户
+            fullmsg_id: 21452505 # 存储完整弹幕数据的房间号 存储的mongodb路径为fullmsg.<房间号>
+            no_conf: false # true使用默认地址 false通过API获取服务器地址和token 选项默认为false
+            cookie: buvid3=12345678-1234-1234-1234-123456789123infoc;SESSDATA=________;DedeUserID=________ # 请求API时的cookie
     superspider-mdb:
         image: acedroidx/superspider-mdb:master
         container_name: superspider-mdb
