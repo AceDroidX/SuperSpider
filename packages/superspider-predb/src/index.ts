@@ -28,7 +28,7 @@ async function main() {
     const fullmsg_id = fullmsg_id_str.split(',').map(x => parseInt(x))
     const confTask = new GetConfTask()
     roomid.forEach((value: number[]) => {
-        openRoom(value[0], value[1], client, confTask, fullmsg_id.includes(value[0]))
+        openRoom(value[0], client, confTask, fullmsg_id.includes(value[0]))
     })
 }
 
@@ -110,7 +110,7 @@ async function onMsg(data: any, maindb: Collection, predb: Collection, isfullmsg
     }
 }
 
-async function openRoom(roomid: number, uid: number, client: MongoClient, confTask: GetConfTask, isfullmsg: boolean) {
+async function openRoom(roomid: number, client: MongoClient, confTask: GetConfTask, isfullmsg: boolean) {
     // logger.info(`OPEN: ${roomid}`)
     const maindb = client.db('amdb').collection('maindb')
     let predb: Collection
@@ -118,7 +118,7 @@ async function openRoom(roomid: number, uid: number, client: MongoClient, confTa
         predb = client.db('fullmsg').collection(roomid.toString())
         await predb.createIndex({ ts: -1, })
     }
-    const liveconf = await confTask.getConf(roomid, uid) as TCPOptions
+    const liveconf = await confTask.getConf(roomid, process.env['cookie']) as TCPOptions
     logger.info(liveconf)
     const live = process.env['no_conf'] == 'true' ? new LiveTCP(roomid) : new LiveTCP(roomid, liveconf)
     live.on('open', () => { })
@@ -128,7 +128,7 @@ async function openRoom(roomid: number, uid: number, client: MongoClient, confTa
     live.on('close', async () => {
         logger.warn(`close<${roomid}>`)
         await new Promise(r => setTimeout(r, 5000));
-        await openRoom(roomid, uid, client, confTask, isfullmsg)
+        await openRoom(roomid, client, confTask, isfullmsg)
     })
     live.on('error', (e) => { logger.error(`error<${roomid}>:${e.message}`) })
 }

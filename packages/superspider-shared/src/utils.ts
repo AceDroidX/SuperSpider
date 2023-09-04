@@ -69,3 +69,16 @@ function logError(msg: string, error: any) {
 function logWarn(msg: string, error: any) {
     logger.warn(`${msg}\nname:${error.name}\nmessage:${error.message}`)
 }
+
+export function cookieStrToMap(source: string) {
+    var result: any = {}
+    source.replace(/; /g, ';').replace(/;$/g, '').split(';').map(item => {
+        var name = item.match(/^.*?(?==)/)
+        var value = item.match(/(?<==)(.*)$/)
+        if (name == null || value == null) {
+            throw new Error('cookie格式错误')
+        }
+        result[name[0]] = value[0]
+    })
+    return result
+}

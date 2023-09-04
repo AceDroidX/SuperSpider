@@ -1,3 +1,5 @@
+export * from './utils'
+
 export type SuperChat = {
     id: number,
     roomid: number,
