@@ -1,10 +1,6 @@
 <template>
     <v-app dark>
-        <v-app-bar
-            :collapse="!drawer"
-            :collapse-on-scroll="false"
-            scroll-target="#scrolling-techniques-6"
-        >
+        <v-app-bar :collapse="!drawer">
             <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
             <v-toolbar-title v-text="title" />
             <v-spacer />
