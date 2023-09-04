@@ -17,6 +17,7 @@ export class GetConfTask {
                 : undefined;
             return {
                 ...(await getConf(roomid, cookie)),
+                protover: 3,
                 uid: Number(cookieMap?.DedeUserID),
                 buvid: cookieMap?.buvid3,
             };
