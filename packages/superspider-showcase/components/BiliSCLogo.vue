@@ -29,8 +29,8 @@ export default {
   },
   data() {
     return {
-      GIT_HASH: this.$config.GIT_HASH
-        ? ' - ' + this.$config.GIT_HASH.slice(0, 7)
+      GIT_HASH: this.$config.public.GIT_HASH
+        ? ' - ' + this.$config.public.GIT_HASH.slice(0, 7)
         : '',
     }
   },
