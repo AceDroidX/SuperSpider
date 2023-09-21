@@ -11,7 +11,7 @@
             <v-divider></v-divider>
             <v-container>
                 <v-row no-gutters align="center">
-                    <v-col> 标记显示 </v-col>
+                    <v-col cols="5"> 标记显示 </v-col>
                     <v-col>
                         <v-switch
                             v-model="showMarkNative"
@@ -22,7 +22,7 @@
                     </v-col>
                 </v-row>
                 <v-row no-gutters align="center">
-                    <v-col> 房间号 </v-col>
+                    <v-col cols="5"> 房间号 </v-col>
                     <v-col>
                         <v-select
                             v-model="room"
@@ -35,7 +35,7 @@
                     </v-col>
                 </v-row>
                 <v-row no-gutters align="center">
-                    <v-col> 开始时间 </v-col>
+                    <v-col cols="5"> 开始时间 </v-col>
                     <v-col>
                         <Datepicker
                             v-model="startTime"
@@ -49,7 +49,7 @@
                     </v-col>
                 </v-row>
                 <v-row no-gutters align="center">
-                    <v-col> 截止时间 </v-col>
+                    <v-col cols="5"> 截止时间 </v-col>
                     <v-col>
                         <Datepicker
                             v-model="endTime"
@@ -63,10 +63,10 @@
                     </v-col>
                 </v-row>
                 <v-row no-gutters>
-                    <v-col>
+                    <v-col cols="5">
                         <v-spacer />
                     </v-col>
-                    <v-col cols="6">
+                    <v-col>
                         <v-btn block variant="outlined" @click="startFetch += 1"
                             >GO</v-btn
                         >
@@ -183,7 +183,7 @@ export default {
     mounted() {
         this.version = this.$config.public.version;
         const version = localStorage.getItem("version");
-        if (this.$config.version !== version) {
+        if (this.$config.public.version !== version) {
             console.log("version changed");
             this.newVersionDialog = true;
         }
