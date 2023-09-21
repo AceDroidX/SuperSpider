@@ -10,6 +10,8 @@ COPY . ./
 RUN pnpm install --offline --force
 RUN pnpm run -F superspider-shared build && pnpm run -F superspider-predb build
 
-FROM acedroidx/superspider-shared:${IMAGE_TAG}
-COPY --from=build /app/packages/superspider-predb/dist/ ./packages/superspider-predb/dist/
-ENTRYPOINT ["pnpm","run","-F","superspider-predb","start"]
+FROM node:18-alpine
+WORKDIR /app
+ENV TZ=Asia/Shanghai
+COPY --from=build /app/packages/superspider-predb/dist/ /app/dist/
+CMD ["node","--enable-source-maps","dist/index.js"]

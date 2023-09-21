@@ -3,7 +3,7 @@ ARG IMAGE_TAG=master
 FROM node:18-alpine AS build
 WORKDIR /app
 ENV TZ=Asia/Shanghai
-RUN npm install -g pnpm@8.6.6 && npm cache clean --force
+RUN npm install -g pnpm@8.7.6 && npm cache clean --force
 COPY pnpm-lock.yaml ./
 RUN pnpm fetch
 COPY . ./

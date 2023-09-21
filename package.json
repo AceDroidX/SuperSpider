@@ -25,7 +25,8 @@
     "packages/*"
   ],
   "devDependencies": {
-    "dotenv": "latest",
-    "git-cz": "latest"
+    "dotenv": "^16.3.1",
+    "esbuild": "^0.19.3",
+    "git-cz": "^4.9.0"
   }
 }

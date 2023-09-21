@@ -8,26 +8,25 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "clean": "tsc --build --clean",
         "dev": "tsc -w",
-        "build": "tsc"
+        "build": "esbuild src/index.ts --bundle --minify --sourcemap --outdir=dist --platform=node"
     },
     "author": "AceDroidX",
     "license": "MIT",
     "dependencies": {
-        "@koa/cors": "latest",
-        "koa": "latest",
-        "koa-bodyparser": "latest",
-        "koa-router": "latest",
-        "mongodb": "latest",
+        "@koa/cors": "^4.0.0",
+        "koa": "^2.14.2",
+        "koa-bodyparser": "^4.4.1",
+        "koa-router": "^12.0.0",
+        "mongodb": "^6.1.0",
         "superspider-shared": "workspace:^",
-        "winston": "latest",
-        "winston-transport": "latest"
+        "winston": "^3.10.0",
+        "winston-transport": "^4.5.0"
     },
     "devDependencies": {
-        "@types/koa": "latest",
-        "@types/koa-bodyparser": "latest",
-        "@types/koa-router": "latest",
-        "@types/koa__cors": "latest",
-        "@types/ws": "latest",
-        "typescript": "latest"
+        "@types/koa": "^2.13.9",
+        "@types/koa-bodyparser": "^4.3.10",
+        "@types/koa-router": "^7.4.5",
+        "@types/koa__cors": "^4.0.1",
+        "typescript": "^5.2.2"
     }
 }

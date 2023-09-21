@@ -10,13 +10,13 @@
     },
     "devDependencies": {
         "@mdi/font": "^7.2.96",
-        "@pinia-plugin-persistedstate/nuxt": "^1.1.1",
+        "@pinia-plugin-persistedstate/nuxt": "^1.1.2",
         "@pinia/nuxt": "^0.4.11",
-        "@vuepic/vue-datepicker": "^3.6.8",
+        "@vuepic/vue-datepicker": "^6.1.0",
         "idb": "^7.1.1",
-        "nuxt": "^3.7.0",
-        "sass": "^1.66.1",
+        "nuxt": "^3.7.3",
+        "sass": "^1.68.0",
         "vite-plugin-vuetify": "^1.0.2",
-        "vuetify": "^3.3.15"
+        "vuetify": "^3.3.17"
     }
 }
