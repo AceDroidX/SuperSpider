@@ -1,9 +1,9 @@
-FROM node:18-slim
+FROM node:24.2-alpine
 
-RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/debian.sources \
-    && apt-get update && apt-get install -y \
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories \
+    && apk update && apk add --no-cache \
     git \
     curl \
     wget \
     nano \
-    && rm -rf /var/lib/apt/lists/*
+    && npm install -g pnpm@10.12.1

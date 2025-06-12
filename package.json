@@ -3,9 +3,6 @@
   "version": "0.1.0",
   "description": "走召虫——BiliBili SuperChat 爬虫",
   "main": "index.js",
-  "scripts": {
-    "commit": "git cz"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AceDroidX/SuperSpider.git"
@@ -16,17 +13,11 @@
     "url": "https://github.com/AceDroidX/SuperSpider/issues"
   },
   "homepage": "https://github.com/AceDroidX/SuperSpider#readme",
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/git-cz"
-    }
-  },
   "workspaces": [
     "packages/*"
   ],
   "devDependencies": {
     "dotenv": "^16.3.1",
-    "esbuild": "^0.19.3",
-    "git-cz": "^4.9.0"
+    "esbuild": "^0.19.3"
   }
 }
