@@ -35,11 +35,7 @@ import { MongoClient } from 'mongodb'
 import winston from 'winston';
 import 'winston-mongodb'
 
-const mClient = new MongoClient(
-    process.env.NODE_ENV == 'production'
-        ? `mongodb://admin:${process.env.MONGODB_PASS}@${process.env.MONGODB_IP}:27017/?authMechanism=DEFAULT`
-        : 'mongodb://admin:admin@localhost:27017/'
-)
+const mClient = new MongoClient(`mongodb://admin:${process.env.MONGODB_PASS ?? 'admin'}@${process.env.MONGODB_IP ?? 'localhost'}:27017/?authMechanism=DEFAULT`)
 
 export function addMongoTrans(collName: string) {
     logger.add(new winston.transports.MongoDB({
