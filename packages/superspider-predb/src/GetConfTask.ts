@@ -1,6 +1,6 @@
-import axios from "axios";
 import { cookieStrToMap } from "superspider-shared";
 import { AsyncQueue } from "./AsyncQueue";
+import { BiliGet } from "./BiliWbi";
 
 const sleep = (t: number) => new Promise((r) => setTimeout(r, t));
 
@@ -16,7 +16,7 @@ export class GetConfTask {
                 })
                 : undefined;
             return {
-                ...(await getConf(roomid, cookie)),
+                ...(await getConf(roomid)),
                 protover: 3,
                 uid: Number(cookieMap?.DedeUserID),
                 buvid: cookieMap?.buvid3,
@@ -33,7 +33,6 @@ class GetConfTaskQueue extends AsyncQueue {
 
 async function getConf(
     roomid: number,
-    cookie?: string
 ): Promise<{ key: string; host: string; address: string }> {
     const {
         data: {
@@ -41,10 +40,11 @@ async function getConf(
             host_list: [{ host }],
         },
     } = (
-        await axios.get(
-            `https://api.live.bilibili.com/xlive/web-room/v1/index/getDanmuInfo?id=${roomid}`,
-            { headers: { cookie } }
-        )
+        await BiliGet('https://api.live.bilibili.com/xlive/web-room/v1/index/getDanmuInfo', {
+            id: roomid,
+            type: 0,
+            web_location: '0.0',
+        })
     ).data;
     const address = `wss://${host}/sub`;
     return { key, host, address };
