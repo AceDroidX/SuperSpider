@@ -1,0 +1,15 @@
+version: "3.7"
+services:
+    superspider-mongo:
+        image: bitnami/mongodb:6.0.9-debian-11-r2
+        container_name: superspider-mongo
+        restart: unless-stopped
+        volumes:
+            - mongodata:/bitnami/mongodb/data/db
+        environment:
+            - MONGODB_ROOT_USER=admin
+            - MONGODB_ROOT_PASSWORD=admin
+
+volumes:
+    mongodata:
+        name: "superspider-mongodata"

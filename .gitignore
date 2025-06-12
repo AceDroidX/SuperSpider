@@ -1,8 +1,7 @@
 superspider-predb-old
 superspider-showcase-old
 backup/
-docker-compose.yml
-docker-compose-*.yml
+/docker-compose-*.yml
 
 # Logs
 logs

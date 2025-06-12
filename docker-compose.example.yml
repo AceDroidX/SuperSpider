@@ -1,15 +1,14 @@
 version: "3.7"
 services:
     superspider-mongo:
-        image: mongo
+        image: bitnami/mongodb:6.0.9-debian-11-r2
         container_name: superspider-mongo
         restart: unless-stopped
         volumes:
-            - mongodata:/data/db
+            - mongodata:/bitnami/mongodb/data/db
         environment:
-            NODE_ENV: production
-            MONGO_INITDB_ROOT_USERNAME: admin
-            MONGO_INITDB_ROOT_PASSWORD: admin
+            - MONGODB_ROOT_USER=admin
+            - MONGODB_ROOT_PASSWORD=admin
     superspider-predb:
         image: acedroidx/superspider-predb:master
         container_name: superspider-predb
