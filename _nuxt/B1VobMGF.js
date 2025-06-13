@@ -1,0 +1,1 @@
+import{bm as t,bn as e}from"./Ce15lXcl.js";const o=t("ViewerConfig",{persist:{storage:e.localStorage()},state:()=>({room:"21452505",showMarkNative:!0,pageLimit:"100",startFetch:0})}),s=t("HistoryViewerConfig",{persist:{storage:e.localStorage()},state:()=>({room:"21452505",showMarkNative:!0,pageLimit:"100",startFetch:0,startTS:0,endTS:0})});export{s as H,o as V};

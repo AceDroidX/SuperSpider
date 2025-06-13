@@ -1,0 +1,1 @@
+import{P as t,_ as s,x as o,z as r,y as a}from"./Ce15lXcl.js";const n={head:{title:"BiliSC"},mounted(){this.$router.push({path:"/",query:{...(this._.provides[t]||this.$route).query}})}};function u(l,e,i,p,c,d){return a(),o("div",null,e[0]||(e[0]=[r("h1",null,null,-1)]))}const f=s(n,[["render",u]]);export{f as default};
