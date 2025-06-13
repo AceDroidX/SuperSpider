@@ -17,6 +17,8 @@
     "packages/*"
   ],
   "devDependencies": {
+    "@tsconfig/node24": "^24.0.1",
+    "@tsconfig/node-ts": "^23.6.1",
     "dotenv": "^16.5.0",
     "esbuild": "^0.25.5"
   }

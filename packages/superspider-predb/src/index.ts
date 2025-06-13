@@ -1,10 +1,8 @@
-if (process.env.NODE_ENV != 'production') {
-    require('dotenv').config({ debug: true })
-}
-import { LiveTCP, TCPOptions } from 'bilibili-live-ws'
+import 'dotenv/config'
+import { LiveTCP, type TCPOptions } from 'bilibili-live-ws'
 import { Collection, MongoClient } from 'mongodb'
-import { addMongoTrans, logger, mClient as client, MedalInfo, SuperChat } from 'superspider-shared'
-import { GetConfTask } from './GetConfTask'
+import { addMongoTrans, logger, mClient as client, type MedalInfo, type SuperChat } from 'superspider-shared'
+import { GetConfTask } from './GetConfTask.ts'
 
 async function main() {
     addMongoTrans('log-predb')

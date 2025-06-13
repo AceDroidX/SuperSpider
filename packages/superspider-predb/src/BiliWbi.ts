@@ -127,7 +127,7 @@ async function fetch_w_webid(): Promise<string | undefined> {
         console.error('fetch_w_webid: no match');
         return
     }
-    const content = <{ access_id: string }>JSON.parse(decodeURIComponent(match[1]));
+    const content = JSON.parse(decodeURIComponent(match[1])) as { access_id: string };
     // console.log(content)
     return content.access_id
 }

@@ -2,7 +2,7 @@
 // import { exampleJson } from './test'
 import axios from 'axios'
 import { Collection } from 'mongodb'
-import { logger, SuperChat } from 'superspider-shared'
+import { logger, type SuperChat } from 'superspider-shared'
 // const athome = require('./athome')
 
 const roomid_str = process.env['room_id']

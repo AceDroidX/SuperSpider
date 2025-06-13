@@ -1,10 +1,7 @@
-
-if (process.env.NODE_ENV != 'production') {
-    require('dotenv').config({ debug: true })
-}
+import 'dotenv/config'
 import { Collection } from 'mongodb'
 import { addMongoTrans, logger, mClient as client } from 'superspider-shared'
-import rdb from './rdb'
+import rdb from './rdb.ts'
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 // global.adbRunning = false

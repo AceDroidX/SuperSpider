@@ -1,9 +1,9 @@
 import winston from 'winston';
 import { format, transports } from 'winston';
-import { TimestampOptions } from 'logform';
+import type { TimestampOptions } from 'logform';
 const { combine, timestamp, label, printf } = format;
 import 'winston-mongodb'
-import { getTime } from './utils';
+import { getTime } from './utils.ts';
 
 class MyTimestamp implements TimestampOptions {
     format() {

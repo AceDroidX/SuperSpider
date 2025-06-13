@@ -1,6 +1,6 @@
 import { cookieStrToMap } from "superspider-shared";
-import { AsyncQueue } from "./AsyncQueue";
-import { BiliGet } from "./BiliWbi";
+import { AsyncQueue } from "./AsyncQueue.ts";
+import { BiliGet } from "./BiliWbi.ts";
 
 const sleep = (t: number) => new Promise((r) => setTimeout(r, t));
 

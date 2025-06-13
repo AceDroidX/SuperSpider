@@ -19,7 +19,7 @@ interface URLParaGetDataByTS {
     end: string
 }
 
-export {
+export type {
     IDBAppContext,
     IDBAppState,
     URLParaGetData,

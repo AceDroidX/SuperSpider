@@ -1,13 +1,11 @@
-if (process.env.NODE_ENV != 'production') {
-    require('dotenv').config({ debug: true })
-}
+import 'dotenv/config'
 import cors from '@koa/cors'
 import Koa from 'koa'
 import bodyParser from 'koa-bodyparser'
 import Router from 'koa-router'
 import { addMongoTrans, logger, mClient as client } from 'superspider-shared'
-import sc from './api/sc'
-import { IDBAppContext, IDBAppState } from './model'
+import sc from './api/sc.ts'
+import type { IDBAppContext, IDBAppState } from './model.ts'
 
 const app = new Koa<IDBAppState, IDBAppContext>();
 const router = new Router<IDBAppState, IDBAppContext>()

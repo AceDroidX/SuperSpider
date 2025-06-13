@@ -2,10 +2,10 @@
     "name": "superspider-shared",
     "version": "0.1.0",
     "description": "",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
+    "type": "module",
+    "main": "src/index.ts",
     "scripts": {
-        "start": "node dist/index.js",
+        "start": "node src/index.ts",
         "test": "echo \"Error: no test specified\" && exit 1",
         "clean": "tsc --build --clean",
         "dev": "tsc -w",

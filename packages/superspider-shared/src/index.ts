@@ -1,4 +1,4 @@
-export * from './utils'
+export * from './utils.ts'
 
 export type SuperChat = {
     id: number,
@@ -30,7 +30,7 @@ export type MedalInfo = {
     target_id: number,
 }
 
-import logger from './logger'
+import logger from './logger.ts'
 import { MongoClient } from 'mongodb'
 import winston from 'winston';
 import 'winston-mongodb'

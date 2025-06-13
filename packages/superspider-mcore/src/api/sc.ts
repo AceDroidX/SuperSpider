@@ -1,6 +1,6 @@
 import Router from 'koa-router'
 import { logger } from 'superspider-shared'
-import { IDBAppContext, IDBAppState, URLParaGetData, URLParaGetDataByTS } from '../model'
+import type { IDBAppContext, IDBAppState, URLParaGetData, URLParaGetDataByTS } from '../model.ts'
 
 const mergeTime = 30000005
 
@@ -30,7 +30,7 @@ sc.post('/getData', async (ctx, next) => {
         return
     }
     const maindb = ctx.maindb
-    const body = <URLParaGetData>ctx.request.body
+    const body = ctx.request.body as URLParaGetData
     if (!body?.roomid || isNaN(Number(body.roomid))) {
         ctx.response.status = 404
         ctx.response.body = 'Bad Request Format'
@@ -76,7 +76,7 @@ sc.post('/getDataByTS', async (ctx, next) => {
         return
     }
     const maindb = ctx.maindb
-    const body = <URLParaGetDataByTS>ctx.request.body
+    const body = ctx.request.body as URLParaGetDataByTS;
     switch (true) {
         case !body?.roomid || isNaN(Number(body.roomid)):
         case !body?.start || isNaN(Number(body.start)):
