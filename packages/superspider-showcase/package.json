@@ -9,14 +9,14 @@
         "preview": "nuxt preview"
     },
     "devDependencies": {
-        "@mdi/font": "^7.2.96",
-        "@pinia-plugin-persistedstate/nuxt": "^1.1.2",
-        "@pinia/nuxt": "^0.4.11",
-        "@vuepic/vue-datepicker": "^6.1.0",
-        "idb": "^7.1.1",
-        "nuxt": "^3.7.3",
-        "sass": "^1.68.0",
-        "vite-plugin-vuetify": "^1.0.2",
-        "vuetify": "^3.3.17"
+        "@mdi/font": "^7.4.47",
+        "pinia-plugin-persistedstate": "^4.3.0",
+        "@pinia/nuxt": "^0.11.1",
+        "@vuepic/vue-datepicker": "^11.0.2",
+        "idb": "^8.0.3",
+        "nuxt": "^3.17.5",
+        "sass": "^1.89.2",
+        "vite-plugin-vuetify": "^2.1.1",
+        "vuetify": "^3.8.9"
     }
 }

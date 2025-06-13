@@ -17,7 +17,7 @@
     "packages/*"
   ],
   "devDependencies": {
-    "dotenv": "^16.3.1",
-    "esbuild": "^0.19.3"
+    "dotenv": "^16.5.0",
+    "esbuild": "^0.25.5"
   }
 }

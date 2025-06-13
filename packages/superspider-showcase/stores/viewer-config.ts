@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 
 export const ViewerConfig = defineStore('ViewerConfig', {
     persist: {
-        storage: persistedState.localStorage,
+        storage: piniaPluginPersistedstate.localStorage(),
     },
     state: () => ({
         room: '21452505',
@@ -14,7 +14,7 @@ export const ViewerConfig = defineStore('ViewerConfig', {
 
 export const HistoryViewerConfig = defineStore('HistoryViewerConfig', {
     persist: {
-        storage: persistedState.localStorage,
+        storage: piniaPluginPersistedstate.localStorage(),
     },
     state: () => ({
         room: '21452505',

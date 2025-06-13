@@ -8,7 +8,7 @@ export default defineNuxtConfig({
     // },
     modules: [
         '@pinia/nuxt',
-        '@pinia-plugin-persistedstate/nuxt',
+        'pinia-plugin-persistedstate/nuxt',
         // https://next.vuetifyjs.com/en/features/treeshaking/
         // https://nuxt.com/docs/api/advanced/hooks
         async (options, nuxt) => {
@@ -31,7 +31,6 @@ export default defineNuxtConfig({
             meta: [
                 { charset: 'utf-8' },
                 { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-                { hid: 'description', name: 'description', content: '' },
                 { name: 'format-detection', content: 'telephone=no' },
                 { name: 'referrer', content: 'never' },
             ],
@@ -39,4 +38,5 @@ export default defineNuxtConfig({
         },
     },
     ssr: false,
+    compatibilityDate: '2025-06-13',
 })
