@@ -13,7 +13,7 @@
     "author": "AceDroidX",
     "license": "MIT",
     "dependencies": {
-        "axios": "^1.9.0",
+        "axios": "^1.13.5",
         "bilibili-live-ws": "^6.3.1",
         "mongodb": "^6.17.0",
         "superspider-shared": "workspace:^",
