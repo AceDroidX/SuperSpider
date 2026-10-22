@@ -1,7 +1,7 @@
 version: "3.7"
 services:
     superspider-mongo:
-        image: bitnami/mongodb:6.0.9-debian-11-r2
+        image: bitnamilegacy/mongodb:6.0.9-debian-11-r2
         container_name: superspider-mongo
         restart: unless-stopped
         volumes:
