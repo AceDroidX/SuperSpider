@@ -1,0 +1,1 @@
+import{At as e,G as t,I as n,cn as r}from"./Cq9uP91Q.js";import{c as i,u as a}from"./C-pLAQMX.js";var o=t({__name:`sc`,async setup(t){let o,s,c=a();return[o,s]=r(()=>i({path:`/`,query:c.query},{replace:!0})),await o,s(),(t,r)=>(e(),n(`div`))}});export{o as default};

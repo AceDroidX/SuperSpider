@@ -1,0 +1,1 @@
+import{a as e,r as t}from"#entry";var n=e(`ViewerConfig`,{persist:{storage:t.localStorage()},state:()=>({room:`21452505`,showMarkNative:!0,pageLimit:`100`,startFetch:0})}),r=e(`HistoryViewerConfig`,{persist:{storage:t.localStorage()},state:()=>({room:`21452505`,showMarkNative:!0,pageLimit:`100`,startFetch:0,startTS:0,endTS:0})});export{n,r as t};

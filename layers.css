@@ -1,0 +1,22 @@
+/*
+ * Vuetify 4 使用 CSS 级联层；浏览器按层首次出现的顺序确定其优先级。
+ * Vite 构建拆包后，组件样式可能先于基础样式加载，使 reset 层反而优先。
+ * 本项目曾出现普通 button 被 font: inherit 重置为 16px，而链接按钮 a
+ * 保留组件默认 14px 的差异（“历史SC”与旁边三个按钮的文字大小不一致）。
+ *
+ * 按官方 Nuxt 方案，在页面 head 中单独 link 此 public 文件，提前声明
+ * 顶层及嵌套层的顺序。不要从 JS 或其他样式文件 import，否则仍可能被重排。
+ * 官方说明：https://vuetifyjs.com/en/styles/layers/
+ * 同症状的上游报告：https://github.com/vuetifyjs/vuetify/issues/22752
+ */
+@layer vuetify-core {
+    @layer reset, base;
+}
+@layer vuetify-components;
+@layer vuetify-overrides;
+@layer vuetify-utilities {
+    @layer theme-base, typography, helpers, theme-background, theme-foreground;
+}
+@layer vuetify-final {
+    @layer transitions, trumps;
+}
