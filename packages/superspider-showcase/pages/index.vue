@@ -11,7 +11,7 @@ useHead({
     titleTemplate: `${store.room} - %s`,
 });
 let timer: NodeJS.Timeout | undefined = undefined;
-const rawSCData: any = ref([]);
+const rawSCData = ref<any[]>([]);
 const snackbar = ref(false);
 const snackbarText = ref("Error");
 
@@ -41,8 +41,8 @@ function setTimeoutLoop() {
 async function fetchData() {
     if (!store.room || isNaN(Number(store.room)) || store.room === "") return;
     try {
-        const scData = await useFetch(
-            runtimeConfig.public.BASE_API_URL + "/sc/getData",
+        const scData = await $fetch<any[]>(
+            runtimeConfig.public.BASE_API_URL.replace(/\/+$/, "") + "/sc/getData",
             {
                 method: "POST",
                 body: `roomid=${store.room}&limit=${store.pageLimit}`,
@@ -51,7 +51,7 @@ async function fetchData() {
                 },
             }
         );
-        rawSCData.value = scData.data;
+        rawSCData.value = scData;
     } catch (e: any) {
         snackbar.value = true;
         if (e.response !== undefined) {
@@ -74,7 +74,7 @@ function stopFetchData() {
 <template>
     <div>
         <SCList
-            :rawscdata="rawSCData.value"
+            :rawscdata="rawSCData"
             :showmarknative="store.showMarkNative"
         />
         <v-snackbar v-model="snackbar"> {{ snackbarText }} </v-snackbar>

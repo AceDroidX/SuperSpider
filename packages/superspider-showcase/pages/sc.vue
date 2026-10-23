@@ -1,25 +1,8 @@
-<template>
-  <div>
-    <h1 />
-  </div>
-</template>
-
-<script lang="ts">
-export default {
-  head: {
-    title: 'BiliSC',
-  },
-  mounted() {
-    this.$router.push({
-      path: '/',
-      query: {
-        ...this.$route.query,
-        // roomid: this.$route.query.roomid || '',
-        // lang: this.$route.query.lang || 'ja'
-      },
-    })
-  },
-}
+<script setup lang="ts">
+const route = useRoute();
+await navigateTo({ path: '/', query: route.query }, { replace: true });
 </script>
 
-<style></style>
+<template>
+    <div />
+</template>

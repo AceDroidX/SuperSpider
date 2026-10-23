@@ -10,7 +10,7 @@
     </div>
     <v-list-item align-center style="text-align: center">
       <div>
-        <v-list-item-title class="text-h6"> BiliSC </v-list-item-title>
+        <v-list-item-title class="text-title-large"> BiliSC </v-list-item-title>
         <v-list-item-subtitle>
           v{{ version }}{{ GIT_HASH }}
         </v-list-item-subtitle>

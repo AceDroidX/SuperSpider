@@ -25,11 +25,11 @@ useHead({
 });
 
 let timer: NodeJS.Timeout | undefined = undefined;
-const rawSCData: any = ref([]);
+const rawSCData = ref<any[]>([]);
 const snackbar = ref(false);
 const snackbarText = ref("Error");
 onMounted(async () => {
-    theme.global.name.value = dark ? "dark" : "light";
+    theme.global.name.value = dark.value ? "dark" : "light";
     await startFetchData();
 });
 onBeforeUnmount(() => stopFetchData());
@@ -49,8 +49,8 @@ function setTimeoutLoop() {
 }
 async function fetchData() {
     try {
-        const scData = await useFetch(
-            runtimeConfig.public.BASE_API_URL + "/sc/getData",
+        const scData = await $fetch<any[]>(
+            runtimeConfig.public.BASE_API_URL.replace(/\/+$/, "") + "/sc/getData",
             {
                 method: "POST",
                 body: `roomid=${room.value}&limit=${pageLimit.value}`,
@@ -59,7 +59,7 @@ async function fetchData() {
                 },
             }
         );
-        rawSCData.value = scData.data;
+        rawSCData.value = scData;
     } catch (e: any) {
         snackbar.value = true;
         if (e.response !== undefined) {
@@ -81,7 +81,7 @@ function stopFetchData() {
 
 <template>
     <div>
-        <SCList :rawscdata="rawSCData.value" :showmarknative="showMarkNative" />
+        <SCList :rawscdata="rawSCData" :showmarknative="showMarkNative" />
         <v-snackbar v-model="snackbar"> {{ snackbarText }} </v-snackbar>
     </div>
 </template>

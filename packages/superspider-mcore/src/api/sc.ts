@@ -1,4 +1,4 @@
-import Router from 'koa-router'
+import Router from '@koa/router'
 import { logger } from 'superspider-shared'
 import type { IDBAppContext, IDBAppState, URLParaGetData, URLParaGetDataByTS } from '../model.ts'
 

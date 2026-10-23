@@ -14,6 +14,7 @@ const custom: IconSet = {
 
 export default defineNuxtPlugin(nuxtApp => {
     const vuetify = createVuetify({
+        theme: { defaultTheme: 'light' },
         // components,
         // directives,
         icons: {

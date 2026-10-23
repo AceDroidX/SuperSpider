@@ -10,7 +10,7 @@
             <BiliSCLogo class="pb-4" :version="version" />
             <v-divider></v-divider>
             <v-container>
-                <v-row no-gutters align="center">
+                <v-row no-gutters class="align-center">
                     <v-col cols="5"> 标记显示 </v-col>
                     <v-col>
                         <v-switch
@@ -21,7 +21,7 @@
                         ></v-switch>
                     </v-col>
                 </v-row>
-                <v-row no-gutters align="center">
+                <v-row no-gutters class="align-center">
                     <v-col cols="5"> 房间号 </v-col>
                     <v-col>
                         <v-select
@@ -34,7 +34,7 @@
                         ></v-select>
                     </v-col>
                 </v-row>
-                <v-row no-gutters align="center">
+                <v-row no-gutters class="align-center">
                     <v-col cols="5"> 开始时间 </v-col>
                     <v-col>
                         <Datepicker
@@ -43,12 +43,13 @@
                             text-input
                             auto-apply
                             :dark="$vuetify.theme.current.dark"
-                            :format="format"
-                            :clearable="false"
+                            :formats="{ input: format }"
+                            :week-start="WeekStart.Monday"
+                            :input-attrs="{ clearable: false }"
                         />
                     </v-col>
                 </v-row>
-                <v-row no-gutters align="center">
+                <v-row no-gutters class="align-center">
                     <v-col cols="5"> 截止时间 </v-col>
                     <v-col>
                         <Datepicker
@@ -57,8 +58,9 @@
                             text-input
                             auto-apply
                             :dark="$vuetify.theme.current.dark"
-                            :format="format"
-                            :clearable="false"
+                            :formats="{ input: format }"
+                            :week-start="WeekStart.Monday"
+                            :input-attrs="{ clearable: false }"
                         />
                     </v-col>
                 </v-row>
@@ -77,7 +79,7 @@
                         <v-divider></v-divider>
                     </v-col>
                 </v-row>
-                <v-row justify="space-around">
+                <v-row class="justify-space-around">
                     <v-col cols="4">
                         <v-btn
                             block
@@ -109,7 +111,7 @@
                 @click:outside="setVersion"
             >
                 <v-card>
-                    <v-card-title class="text-h5"> 更新日志 </v-card-title>
+                    <v-card-title class="text-headline-small"> 更新日志 </v-card-title>
                     <ChangelogText />
                     <v-divider></v-divider>
                     <v-card-actions>
@@ -134,7 +136,7 @@
 </template>
 
 <script setup lang="ts">
-import Datepicker from "@vuepic/vue-datepicker";
+import { VueDatePicker as Datepicker, WeekStart } from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 import { HistoryViewerConfig } from "@/stores/viewer-config";
 const store = HistoryViewerConfig();
@@ -144,7 +146,7 @@ const endTime = ref(new Date());
 watch([startTime, endTime], ([newStart, newEnd]) => {
     store.startTS = newStart.getTime() / 1000;
     store.endTS = newEnd.getTime() / 1000;
-});
+}, { immediate: true });
 </script>
 
 <script lang="ts">

@@ -6,7 +6,7 @@
                     <v-btn
                         rounded="pill"
                         variant="text"
-                        class="text-body-2"
+                        class="text-body-medium"
                         href="https://github.com/AceDroidX/SuperSpider"
                         target="_blank"
                     >
@@ -20,7 +20,7 @@
                     <v-btn
                         rounded="pill"
                         variant="text"
-                        class="text-body-2"
+                        class="text-body-medium"
                         href="https://github.com/AceDroidX"
                         target="_blank"
                     >
@@ -34,7 +34,7 @@
                     <v-btn
                         rounded="pill"
                         variant="text"
-                        class="text-body-2"
+                        class="text-body-medium"
                         href="https://github.com/Afanyiyu"
                         target="_blank"
                     >

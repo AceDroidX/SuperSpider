@@ -17,9 +17,20 @@
     "packages/*"
   ],
   "devDependencies": {
-    "@tsconfig/node24": "^24.0.1",
-    "@tsconfig/node-ts": "^23.6.1",
-    "dotenv": "^16.5.0",
-    "esbuild": "^0.25.5"
+    "@tsconfig/node24": "^24.0.5",
+    "@tsconfig/node-ts": "^23.6.4",
+    "dotenv": "^18.0.8",
+    "esbuild": "^0.28.2",
+    "@types/node": "^24.19.2"
+  },
+  "private": true,
+  "packageManager": "pnpm@12.15.0",
+  "engines": {
+    "node": ">=24.22.1 <25"
+  },
+  "scripts": {
+    "build": "pnpm -r run build",
+    "typecheck": "pnpm -r run typecheck",
+    "test": "pnpm --filter superspider-mcore test"
   }
 }

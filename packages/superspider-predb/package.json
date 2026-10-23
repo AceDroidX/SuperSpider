@@ -8,21 +8,23 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "clean": "tsc --build --clean",
         "dev": "tsc -w",
-        "build": "esbuild src/index.ts --bundle --minify --sourcemap --outdir=dist --platform=node"
+        "build": "esbuild src/index.ts --bundle --minify --sourcemap --outdir=dist --platform=node",
+        "typecheck": "tsc --noEmit"
     },
     "author": "AceDroidX",
     "license": "MIT",
     "dependencies": {
-        "axios": "^1.9.0",
+        "axios": "^1.20.0",
         "bilibili-live-ws": "^6.3.1",
         "md5": "^2.3.0",
-        "mongodb": "^6.17.0",
+        "mongodb": "^7.7.0",
         "superspider-shared": "workspace:^",
-        "winston": "^3.17.0",
-        "winston-transport": "^4.9.0"
+        "winston": "^3.19.0",
+        "winston-transport": "^4.9.0",
+        "dotenv": "^18.0.8"
     },
     "devDependencies": {
-        "typescript": "^5.8.3",
-        "@types/md5": "^2.3.5"
+        "typescript": "^7.0.2",
+        "@types/md5": "^2.3.6"
     }
 }

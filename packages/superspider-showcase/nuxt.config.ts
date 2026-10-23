@@ -1,6 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import vuetify from 'vite-plugin-vuetify'
 export default defineNuxtConfig({
+    // Keep the existing root-level pages, layouts, plugins and stores in Nuxt 4.
+    srcDir: '.',
     // https://codybontecou.com/how-to-use-vuetify-with-nuxt-3.html
     // css: ['vuetify/lib/styles/main.sass'],
     // build: {
@@ -12,7 +14,9 @@ export default defineNuxtConfig({
         // https://next.vuetifyjs.com/en/features/treeshaking/
         // https://nuxt.com/docs/api/advanced/hooks
         async (options, nuxt) => {
-            nuxt.hooks.hook('vite:extendConfig', (viteInlineConfig, env) => { viteInlineConfig.plugins ? viteInlineConfig.plugins.push(vuetify()) : viteInlineConfig.plugins = [vuetify()] })
+            nuxt.hooks.hook('vite:extendConfig', (viteInlineConfig) => {
+                viteInlineConfig.plugins?.push(vuetify())
+            })
         }
     ],
     runtimeConfig: {
@@ -34,7 +38,13 @@ export default defineNuxtConfig({
                 { name: 'format-detection', content: 'telephone=no' },
                 { name: 'referrer', content: 'never' },
             ],
-            link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+            link: [
+                // 在捆绑样式之前确定 Vuetify 的级联层顺序，避免 reset 覆盖组件字体。
+                // 保持为 public 静态文件并通过 link 加载，不要改成 JS/SCSS import：
+                // Vite 拆包后可能改变样式顺序。详细原因与上游链接见 public/layers.css。
+                { rel: 'stylesheet', href: '/layers.css' },
+                { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+            ],
         },
     },
     ssr: false,

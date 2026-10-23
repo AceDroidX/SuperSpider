@@ -1,0 +1,76 @@
+# 在项目根目录与数据库配置合并使用：
+# podman compose -f docker-compose.deps.yml -f docker-compose.local.yml up -d --build
+# 复用现有容器时，请沿用其 Compose 项目名（-p）。
+
+# 仅本地构建默认使用国内源；可通过主机的 NPM_REGISTRY 环境变量覆盖。
+x-local-build-args: &local-build-args
+    NPM_REGISTRY: ${NPM_REGISTRY:-https://registry.npmmirror.com/}
+
+x-backend-environment: &backend-environment
+    NODE_ENV: production
+    MONGODB_IP: superspider-mongo
+    # 与 docker-compose.deps.yml 的 MONGODB_ROOT_PASSWORD 保持一致。
+    MONGODB_PASS: admin
+
+services:
+    superspider-predb:
+        image: localhost/superspider-predb:local
+        build:
+            context: .
+            dockerfile: packages/superspider-predb/Dockerfile
+            args: *local-build-args
+        container_name: superspider-predb
+        restart: unless-stopped
+        depends_on:
+            - superspider-mongo
+        # 复用当前已验证的 Cookie、房间列表和 fullmsg_id。
+        env_file:
+            - ./packages/superspider-predb/.env
+        environment: *backend-environment
+
+    superspider-mdb:
+        image: localhost/superspider-mdb:local
+        build:
+            context: .
+            dockerfile: packages/superspider-mdb/Dockerfile
+            args: *local-build-args
+        container_name: superspider-mdb
+        restart: unless-stopped
+        depends_on:
+            - superspider-mongo
+        env_file:
+            - ./packages/superspider-mdb/.env
+        environment: *backend-environment
+
+    superspider-mcore:
+        image: localhost/superspider-mcore:local
+        build:
+            context: .
+            dockerfile: packages/superspider-mcore/Dockerfile
+            args: *local-build-args
+        container_name: superspider-mcore
+        restart: unless-stopped
+        depends_on:
+            - superspider-mongo
+        environment: *backend-environment
+        ports:
+            - "2162:2162"
+
+    superspider-showcase:
+        image: localhost/superspider-showcase:local
+        build:
+            context: .
+            dockerfile: packages/superspider-showcase/Dockerfile
+            args: *local-build-args
+        container_name: superspider-showcase
+        restart: unless-stopped
+        depends_on:
+            - superspider-mcore
+        # BASE_API_URL 必须是浏览器能访问的地址，本机访问可使用 127.0.0.1。
+        env_file:
+            - ./packages/superspider-showcase/.env
+            - ./packages/superspider-showcase/.env.local
+        environment:
+            NODE_ENV: production
+        ports:
+            - "2164:2164"

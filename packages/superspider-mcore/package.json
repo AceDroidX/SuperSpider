@@ -5,28 +5,29 @@
     "type": "module",
     "scripts": {
         "start": "node src/index.ts",
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "node --test test/*.test.ts",
         "clean": "tsc --build --clean",
         "dev": "tsc -w",
-        "build": "esbuild src/index.ts --bundle --minify --sourcemap --outdir=dist --platform=node"
+        "build": "esbuild src/index.ts --bundle --minify --sourcemap --outdir=dist --platform=node",
+        "typecheck": "tsc --noEmit"
     },
     "author": "AceDroidX",
     "license": "MIT",
     "dependencies": {
         "@koa/cors": "^5.0.0",
-        "koa": "^3.0.0",
+        "koa": "^3.2.1",
         "koa-bodyparser": "^4.4.1",
-        "koa-router": "^13.0.1",
-        "mongodb": "^6.17.0",
+        "mongodb": "^7.7.0",
         "superspider-shared": "workspace:^",
-        "winston": "^3.17.0",
-        "winston-transport": "^4.9.0"
+        "winston": "^3.19.0",
+        "winston-transport": "^4.9.0",
+        "@koa/router": "^15.7.0",
+        "dotenv": "^18.0.8"
     },
     "devDependencies": {
-        "@types/koa": "^2.15.0",
-        "@types/koa-bodyparser": "^4.3.12",
-        "@types/koa-router": "^7.4.8",
-        "@types/koa__cors": "^5.0.0",
-        "typescript": "^5.8.3"
+        "@types/koa": "^3.0.3",
+        "@types/koa-bodyparser": "^4.3.13",
+        "@types/koa__cors": "^5.0.1",
+        "typescript": "^7.0.2"
     }
 }

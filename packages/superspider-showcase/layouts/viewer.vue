@@ -10,7 +10,7 @@
             <BiliSCLogo class="pb-4" :version="version" />
             <v-divider></v-divider>
             <v-container>
-                <v-row no-gutters align="center">
+                <v-row no-gutters class="align-center">
                     <v-col> 标记显示 </v-col>
                     <v-col>
                         <v-switch
@@ -21,7 +21,7 @@
                         ></v-switch>
                     </v-col>
                 </v-row>
-                <v-row no-gutters align="center">
+                <v-row no-gutters class="align-center">
                     <v-col> 显示数量 </v-col>
                     <v-col>
                         <v-text-field
@@ -33,7 +33,7 @@
                         ></v-text-field>
                     </v-col>
                 </v-row>
-                <v-row no-gutters align="center">
+                <v-row no-gutters class="align-center">
                     <v-col> 房间号 </v-col>
                     <v-col>
                         <v-select
@@ -64,7 +64,7 @@
                         <v-divider></v-divider>
                     </v-col>
                 </v-row>
-                <v-row justify="space-around">
+                <v-row class="justify-space-around">
                     <v-col cols="4">
                         <v-btn
                             block
@@ -79,7 +79,7 @@
                         >
                     </v-col>
                 </v-row>
-                <v-row justify="space-around">
+                <v-row class="justify-space-around">
                     <v-col cols="4">
                         <v-btn
                             block
@@ -111,7 +111,7 @@
                 @click:outside="setVersion"
             >
                 <v-card>
-                    <v-card-title class="text-h5"> 更新日志 </v-card-title>
+                    <v-card-title class="text-headline-small"> 更新日志 </v-card-title>
                     <ChangelogText />
                     <v-divider></v-divider>
                     <v-card-actions>
